@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# encoding: utf-8
 import urllib2
 import shelve
 import time
@@ -112,9 +113,10 @@ class Processor(multiprocessing.Process):
         if not id_value:
             return
         for item in item_attributes:
-            value = [v.strip() for v in item_element.xpath(item['match']) if v.strip()]
-            # if item['name'] == 'link':
-                # import pdb; pdb.set_trace()
+            value = item_element.xpath(item['match'])
+            if not isinstance(value, list):
+                value = [value]
+            value = [v.strip() for v in value if v.strip()]
             value = [item.get('prefix', '') + v + item.get('suffix', '') for v in value]
             result.update({item['name']: value})
         return {id_value: result}
@@ -169,8 +171,6 @@ class Processor(multiprocessing.Process):
         max_pages = None
         try:
             max_pages_str = tree.xpath(unicode(max_pages_match))
-            if isinstance(max_pages_str, list):
-                max_pages_str = max_pages_str[0]
             max_pages = int(max_pages_str)
         except:
             log("Unable to determine max pages for %s" % url)
@@ -191,5 +191,4 @@ if __name__ == '__main__':
         if 'name' in i and i['name'] == 'Car monitor':
             config = i
 
-    # import pdb; pdb.set_trace()
     Processor(config=config, dry_run=False, show_html=False).run()
