@@ -103,7 +103,7 @@ class Processor(multiprocessing.Process):
 
             if not self.dry_run:
                 send_email(self.subject, html, self.recipient, self.smtp_config)
-            log("Email sent to %s for %s" % (self.recipient, self.config_name))
+                log("Email sent to %s for %s" % (self.recipient, self.config_name))
 
         db.close()
 
