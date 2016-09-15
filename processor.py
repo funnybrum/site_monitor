@@ -86,13 +86,13 @@ class Processor(multiprocessing.Process):
         removed, updated, new = self._filter_result(results, db)
         log("Processor %s - %s removed, %s updated, %s new" % (self.config_name, len(removed), len(updated), len(new)))
 
-        if len(removed) or len(new) or len(updated):
+        if len(new) or len(updated):
             html = self._render_html(
                 {
                     "config": self.template_config,
                     "site_config": site_config,
                     "data": {
-                        "removed": removed,
+                        "removed": {},
                         "updated": updated,
                         "new": new,
                     },
@@ -171,6 +171,8 @@ class Processor(multiprocessing.Process):
         max_pages = None
         try:
             max_pages_str = tree.xpath(unicode(max_pages_match))
+            if isinstance(max_pages_str, list):
+                max_pages_str = max_pages_str[0]
             max_pages = int(max_pages_str)
         except:
             log("Unable to determine max pages for %s" % url)
