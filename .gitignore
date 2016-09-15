@@ -1,0 +1,4 @@
+*.pyc
+.idea/
+*.db
+config/secrets.yaml

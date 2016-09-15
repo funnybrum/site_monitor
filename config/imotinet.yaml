@@ -1,0 +1,54 @@
+name: Imoti.net
+db: imotinet.db
+enabled: false
+recipients:
+  - tuvictim+realestate@gmail.com
+domain: http://www.imoti.net/
+search_url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=59&y=18&building_type_id%5B%5D=6&building_type_id%5B%5D=9&building_type_id%5B%5D=27&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=1&floor_to=&construction_id%5B%5D=2&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5851&a_id%5B%5D=5857&a_id%5B%5D=5874&a_id%5B%5D=5867&a_id%5B%5D=5861&a_id%5B%5D=5863&a_id%5B%5D=5866&a_id%5B%5D=1&a_id%5B%5D=5915&a_id%5B%5D=5882&a_id%5B%5D=5880&a_id%5B%5D=5881&extra_64=64&ads_type=all&order=1&show_all=on&page={0}
+# max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
+list_items_match: //form[@name="search"]/div[@class="tabc"]/div[contains(@class,"item")]
+item_attributes:
+    - name: id
+      match: div/a[@class="price"]/@href
+    - name: image
+      match: div/a/div/img[@class="thumb nop"]/@src
+      prepend_domain: true
+    - name: description
+      match: div/p[@class="left"]//text()
+    - name: price
+      match: div/a[@class="price"]//text()
+    - name: area
+      match: div/h2//text()
+    - name: link
+      match: div/a[@class="price"]/@href
+      prepend_domain: true
+description: |
+  Вид имот:
+  <strong>2-СТАЕН, 3-СТАЕН, 4-СТАЕН</strong>
+  <br>
+  Местоположение:
+  <strong>град София</strong>
+  <br>
+  Под райони:
+    <strong>СТУДЕНТСКИ ГРАД</strong>
+    <strong>Гео Милев</strong>
+    <strong>Витоша</strong>
+    <strong>СИМЕОНОВО</strong>
+    <strong>ПЗ ХЛАДИЛНИКА</strong>
+    <strong>ХЛАДИЛНИКА</strong>
+    <strong>Дианабад</strong>
+    <strong>Мусагеница</strong>
+    <strong>МЛАДОСТ 2</strong>
+    <strong>МЛАДОСТ 1</strong>
+    <strong>СТРЕЛБИЩЕ</strong>
+    <strong>Редута</strong>
+  <br>
+  Особености:
+    <strong>С паркинг</strong>
+    <strong>Тухла</strong>
+  <br>
+  Цена на кв.м площ:
+    от <strong>- EUR</strong>
+    до <strong>200000 EUR</strong>
+  <br>
+  Да не се показват обяви, докладвани за проблем,

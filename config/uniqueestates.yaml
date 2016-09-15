@@ -1,0 +1,51 @@
+name: Unique Estates
+db: uniqueestates.db
+enabled: false
+encoding: utf-8
+recipients:
+  - tuvictim+realestate@gmail.com
+domain: http://www.ues.bg
+# search_url: http://www.ues.bg/bg/offers/sales?map_quarter_id=61%2C26%2C20%2C15%2C52%2C54%2C93%2C56%2C102%2C59%2C113%2C140&rent=sales&category=apartment&category2=apartment&location_id=4090&quarter_id%5B%5D=&bedrooms=from_2_to_3&price_from=&price_to=200000&area_from=&area_to=&type=&completion_id=&offer_category_type_id=&heating_id=&parking_id=&closed-complex-header=&project-header=&advanced-search=
+# list_items_match: //div[@id="offersHolder"]/div
+search_url: http://www.ues.bg/bg/loadOffers?rent=sales&category=&skip=0&take=1000&queryString=%7B%22map_quarter_id%22%3A%2261%2C26%2C20%2C15%2C52%2C54%2C93%2C56%2C102%2C59%2C113%2C140%22%2C%22rent%22%3A%22sales%22%2C%22category%22%3A%22apartment%22%2C%22category2%22%3A%22apartment%22%2C%22location_id%22%3A%224090%22%2C%22quarter_id%22%3A%5B%22%22%5D%2C%22bedrooms%22%3A%22from_2_to_3%22%2C%22price_from%22%3A%22%22%2C%22price_to%22%3A%22200000%22%2C%22area_from%22%3A%22%22%2C%22area_to%22%3A%22%22%2C%22type%22%3A%22%22%2C%22completion_id%22%3A%22%22%2C%22offer_category_type_id%22%3A%22%22%2C%22heating_id%22%3A%22%22%2C%22parking_id%22%3A%22%22%2C%22closed-complex-header%22%3A%22%22%2C%22project-header%22%3A%22%22%2C%22advanced-search%22%3A%22%22%7D&ajax=1&setPage={0}
+list_items_match: //div
+max_pages_count: 1
+item_attributes:
+    - name: id
+      match: div[@class="offer-holder"]/@data-id
+    - name: image
+      match: div[@class="offer-holder"]/div[@class="offer-image-holder"]/a/img/@src
+    - name: description
+      match: div[@class="offer-holder"]/div[@class="offer-description"]/ul[@class="offer-details"]/li//text()
+    - name: price
+      match: div[@class="offer-holder"]/div[@class="offer-image-holder"]/a/div[@class="offer-price-holder"]/span[@class="offer-price"]//text()
+    - name: area
+      match: div[@class="offer-holder"]/div[@class="offer-description"]/a/h1//text()
+    - name: link
+      match: div[@class="offer-holder"]/div[@class="offer-image-holder"]/a/@href
+      prepend_domain: true
+description: |
+  Цена:
+    до <strong>200000 EUR</strong>
+  <br>
+  Типове:
+    <strong>Двустаен</strong>
+    <strong>Тристаен</strong>
+  <br>
+  Населено място:
+    <strong>София</strong>
+  <br>
+  Квартали:
+    <strong>Студентски Град</strong>
+    <strong>Витоша</strong>
+    <strong>Симеоново</strong>
+    <strong>Младост 1</strong>
+    <strong>Младост 2</strong>
+    <strong>Хладилника</strong>
+    <strong>Южен парк</strong>
+    <strong>Стрелбище</strong>
+    <strong>Дървеница</strong>
+    <strong>Дианабад</strong>
+    <strong>Гео Милев</strong>
+    <strong>Редута</strong>
+  <br>

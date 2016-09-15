@@ -1,0 +1,59 @@
+name: Homesbg
+db: homes.db
+enabled: false
+# template_name: homesbg.html
+recipients:
+  - tuvictim+realestate@gmail.com
+domain: http://www.homes.bg/
+search_url: http://www.homes.bg/?go=apartmentssell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=2&showPrice=1&Neighbourhoods=516%2C385%2C510%2C466%2C468%2C527%2C515%2C412%2C474%2C403%2C396%2C503&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&apartmenttype%5B2%5D=1&apartmenttype%5B3%5D=1&apartmenttype%5B4%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=&heatingId=0&e%5B3%5D=1&finished=&year_builtId=&constructionstageId=&floorFrom=0&floorTo=0&built_typeId=1&page={0}
+list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
+item_attributes:
+    - name: id
+      match: td/a[@class="ver15black"]/@href
+    - name: image
+      match: (td/a/img/@src)[1]
+    - name: description
+      match: (td)[2]//text()
+    - name: price
+      match: td/span[@class="ver20black"][1]//text()
+    - name: area
+      match: td/span[@class="ver15black"][1]//text()
+    - name: link
+      match: td/a[@class="ver15black"][1]/@href
+      prepend_domain: true
+description: |
+  Цена:
+    до <strong>200000 EUR</strong>
+  <br>
+  Типове:
+    <strong>Двустаен</strong>
+    <strong>Тристаен</strong>
+    <strong>Четиристаен</strong>
+  <br>
+  Населено място:
+    <strong>София</strong>
+  <br>
+  Квартали:
+    <strong>Студентски Град</strong>
+    <strong>Витоша</strong>
+    <strong>Симеоново</strong>
+    <strong>Младост 1</strong>
+    <strong>Младост 2</strong>
+    <strong>Хладилника</strong>
+    <strong>Стрелбище</strong>
+    <strong>Дървеница</strong>
+    <strong>Мусагеница</strong>
+    <strong>Дианабад</strong>
+    <strong>Гео Милев</strong>
+    <strong>Редута</strong>
+  <br>
+  Обяви от:
+    <strong>Частни лица</strong>
+    <strong>Агенции</strong>
+    <strong>Строители</strong>
+  <br>
+  Особености:
+    <strong>Паркомясто</strong>
+  Вид строителство:
+    <strong>Тухла</strong>
+  <br>
