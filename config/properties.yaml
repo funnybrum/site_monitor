@@ -122,8 +122,8 @@ sites:
 template_config:
   description: |
     Обяви за:
-      <strong>Горни Лозен</strong>
-      <strong>Долни Лозен</strong>
-      <strong>Малинова долина</strong>
-      <strong>Железница</strong>
-      <strong>Бистрица</strong>
+      <strong>Горни Лозен</strong><br>
+      <strong>Долни Лозен</strong><br>
+      <strong>Малинова долина</strong><br>
+      <strong>Железница</strong><br>
+      <strong>Бистрица</strong><br>
