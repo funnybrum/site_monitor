@@ -87,7 +87,6 @@ class Processor(multiprocessing.Process):
         log("Processor %s - %s removed, %s updated, %s new" % (self.config_name, len(removed), len(updated), len(new)))
 
         if len(new) or len(updated):
-            import pdb; pdb.set_trace()
             html = self._render_html(
                 {
                     "config": self.template_config,
@@ -108,8 +107,6 @@ class Processor(multiprocessing.Process):
 
         db.close()
 
-    count = 0
-
     def _parse_item_attributes(self, item_element, item_attributes):
         result = {}
         id_value = self._get_id(item_element, item_attributes)
@@ -123,9 +120,6 @@ class Processor(multiprocessing.Process):
             value = [item.get('prefix', '') + v + item.get('suffix', '') for v in value]
             result.update({item['name']: value})
 
-        self.count += 1
-        if self.count < 3:
-            import pdb; pdb.set_trace()
         return {id_value: result}
 
     def _filter_result(self, current_data, db):
@@ -137,7 +131,6 @@ class Processor(multiprocessing.Process):
             if key in db and key in current_data:
                 diffs = self._get_diffs(old=db[key], new=current_data[key])
                 if diffs:
-                    import pdb; pdb.set_trace()
                     history = db[key]['history']
                     history = history + diffs
                     current_data[key]['history'] = history
@@ -170,8 +163,6 @@ class Processor(multiprocessing.Process):
                     'new': new[key],
                     'date': datetime.datetime.now()
                 })
-        if len(diffs) > 0:
-            import pdb; pdb.set_trace()
         return diffs
 
     def _get_id(self, item_element, item_attributes):
