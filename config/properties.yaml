@@ -1,10 +1,10 @@
 extend: secrets.yaml
 
-enabled: True
-name: Car monitor
-database: car_monitor.db
+enabled: False
+name: Properties monitor
+database: prop_monitor.db
 recipient: funnybrum@gmail.com
-subject: Grand Cherokee 2.7 CRDI/Hyundai Terracan
+subject: Имоти в Лозен/Малинова долина/
 sites:
     Grand Cherokee @ mobile.bg:
         enabled: True

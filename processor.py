@@ -87,6 +87,7 @@ class Processor(multiprocessing.Process):
         log("Processor %s - %s removed, %s updated, %s new" % (self.config_name, len(removed), len(updated), len(new)))
 
         if len(new) or len(updated):
+            import pdb; pdb.set_trace()
             html = self._render_html(
                 {
                     "config": self.template_config,
@@ -107,6 +108,8 @@ class Processor(multiprocessing.Process):
 
         db.close()
 
+    count = 0
+
     def _parse_item_attributes(self, item_element, item_attributes):
         result = {}
         id_value = self._get_id(item_element, item_attributes)
@@ -119,6 +122,10 @@ class Processor(multiprocessing.Process):
             value = [v.strip() for v in value if v.strip()]
             value = [item.get('prefix', '') + v + item.get('suffix', '') for v in value]
             result.update({item['name']: value})
+
+        self.count += 1
+        if self.count < 3:
+            import pdb; pdb.set_trace()
         return {id_value: result}
 
     def _filter_result(self, current_data, db):
@@ -128,22 +135,44 @@ class Processor(multiprocessing.Process):
 
         for key in set(db.keys() + current_data.keys()):
             if key in db and key in current_data:
-                if db[key]['price'] != current_data[key]['price']:
-                    updated[key] = current_data[key]
-                    if 'old_prices' not in updated[key]:
-                        updated[key]['old_prices'] = []
-                    updated[key]['old_prices'].append({"date": datetime.datetime.now(),
-                                                       "price": db[key]['price']})
+                diffs = self._get_diffs(old=db[key], new=current_data[key])
+                if diffs:
+                    import pdb; pdb.set_trace()
+                    history = db[key]['history']
+                    history = history + diffs
+                    current_data[key]['history'] = history
                     db[key] = current_data[key]
+                    updated[key] = db[key]
             elif key in db and 'deleted_at' not in db[key]:
+                db[key]['deleted_at'] = time.time()
                 removed[key] = db[key]
-                removed[key]['deleted_at'] = time.time()
-                db[key] = removed[key]
             elif key in current_data:
-                new[key] = current_data[key]
+                current_data[key]['history'] = []
                 db[key] = current_data[key]
+                new[key] = current_data[key]
 
         return removed, updated, new
+
+    def _get_diffs(self, old, new):
+        """
+        Get list of diffs, list contains dicts with the following attributes:
+          * key - key of attribute
+          * old - old value
+          * new - new value
+          * date - modification date
+        """
+        diffs = []
+        for key in set(new.keys()) - set(['link']):
+            if old[key] != new[key]:
+                diffs.append({
+                    'key': key,
+                    'old': old[key],
+                    'new': new[key],
+                    'date': datetime.datetime.now()
+                })
+        if len(diffs) > 0:
+            import pdb; pdb.set_trace()
+        return diffs
 
     def _get_id(self, item_element, item_attributes):
         id_match = None
@@ -193,4 +222,4 @@ if __name__ == '__main__':
         if 'name' in i and i['name'] == 'Car monitor':
             config = i
 
-    Processor(config=config, dry_run=False, show_html=False).run()
+    Processor(config=config, dry_run=True, show_html=True).run()

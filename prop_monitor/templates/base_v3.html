@@ -114,13 +114,15 @@
                             <p class="" style="font-size:14px; font-weight:400; line-height:1.6; margin:0 0 10px 0; padding: 0px;">
                                 {{ data[id]['description']|join(', ') }}
                             </p>
-                            {% if 'old_prices' in data[id] %}
-                                <h6 style="padding: 0px; margin: 0px; color: red;">Промяна в цена</h6>
-                                {% for item in data[id]['old_prices'] %}
-                                    <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['price'] }}</h6>
+                            {% if data[id]['history']|length > 0 %}
+                                <h6 style="padding: 0px; margin: 0px; color: red;">Промяна в данните</h6>
+                                {% for item in data[id]['history'] %}
+                                    {% if item['old'] is string %}
+                                        <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['key'] }}: {{ item['old'] }} -> {{ item['new'] }}</h6>
+                                    {% else %}
+                                        <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['key'] }}: {{ item['old']|join(', ') }} -> {{ item['new']|join(', ') }}</h6>
+                                    {% endif %}
                                 {% endfor %}
-                            {% elif 'old_price' in data[id] %}
-                                <h6 style="padding: 0px; margin: 0px; color: red;">Стара цена {{ data[id]['old_price'] }}</h6>
                             {% endif %}
                         </td>
                     </tr>
