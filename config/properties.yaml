@@ -1,126 +1,129 @@
 extend: secrets.yaml
 
-enabled: False
+enabled: True
 name: Properties monitor
 database: prop_monitor.db
 recipient: funnybrum@gmail.com
-subject: Имоти в Лозен/Малинова долина/
+subject: Имоти около София
 sites:
-    Grand Cherokee @ mobile.bg:
+    Къщи в Малинова долина @ imot.bg:
         enabled: True
-        search_url: http://www.mobile.bg/pcgi/mobile.cgi?topmenu=2&act=3&rub_pub_save=1&f0=77.70.77.231&f1={0}&f2=2&f3=1&f4=1&rub=1&f5=Jeep&f6=Grand+cherokee&f21=01&f27=&f28=&f29=&f30=&f10=2002&f11=2004&f20=1&f7=&f8=&f9=%EB%E2.&f25=160&f26=&f14=&f12=%C4%E8%E7%E5%EB%EE%E2&f13=&f15=0&f16=&f17=&f18=&f19=0&f31=0%7EGPS+%F1%E8%F1%F2%E5%EC%E0+%E7%E0+%EF%F0%EE%F1%EB%E5%E4%FF%E2%E0%ED%E5&f32=0%7E%C0%E2%F2%EE%EC%E0%F2%E8%F7%E5%ED+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%F2%E0%E1%E8%EB%ED%EE%F1%F2%F2%E0&f33=0%7E%C0%E4%E0%EF%F2%E8%E2%ED%E8+%EF%F0%E5%E4%ED%E8+%F1%E2%E5%F2%EB%E8%ED%E8&f34=0%7E%C0%ED%F2%E8%E1%EB%EE%EA%E8%F0%E0%F9%E0+%F1%E8%F1%F2%E5%EC%E0&f35=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%C7%E0%E4%ED%E8&f36=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%CF%F0%E5%E4%ED%E8&f37=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%D1%F2%F0%E0%ED%E8%F7%ED%E8&f38=0%7E%C5%EB.+%F0%E0%E7%EF%F0%E5%E4%E5%EB%FF%ED%E5+%ED%E0+%F1%EF%E8%F0%E0%F7%ED%EE%F2%EE+%F3%F1%E8%EB%E8%E5&f39=0%7E%C5%EB%E5%EA%F2%F0%EE%ED%ED%E0+%EF%F0%EE%E3%F0%E0%EC%E0+%E7%E0+%F1%F2%E0%E1%E8%EB%E8%E7%E8%F0%E0%ED%E5&f40=0%7E%CA%EE%ED%F2%F0%EE%EB+%ED%E0+%ED%E0%EB%FF%E3%E0%ED%E5%F2%EE+%ED%E0+%E3%F3%EC%E8%F2%E5&f41=0%7E%CF%E0%F0%EA%F2%F0%EE%ED%E8%EA&f42=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E4%E8%ED%E0%EC%E8%F7%ED%E0+%F3%F1%F2%EE%E9%F7%E8%E2%EE%F1%F2&f43=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E7%E0%F9%E8%F2%E0+%EE%F2+%EF%F0%EE%E1%F3%EA%F1%F3%E2%E0%ED%E5&f44=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E8%E7%F1%F3%F8%E0%E2%E0%ED%E5+%ED%E0+%ED%E0%EA%EB%E0%E4%EA%E8%F2%E5&f45=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%E4%E8%F1%F2%E0%ED%F6%E8%FF%F2%E0&f46=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%EF%F3%F1%EA%E0%ED%E5%F2%EE&f47=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EF%EE%E4%EF%EE%EC%E0%E3%E0%ED%E5+%ED%E0+%F1%EF%E8%F0%E0%ED%E5%F2%EE&f48=0%7EAuto+Start+Stop+function&f49=0%7EBluetooth+%5C+handsfree+%F1%E8%F1%F2%E5%EC%E0&f50=0%7EDVD%2C+TV&f51=0%7ESteptronic%2C+Tiptronic&f52=0%7EUSB%2C+audio%5Cvideo%2C+IN%5CAUX+%E8%E7%E2%EE%E4%E8&f53=0%7E%C0%E4%E0%EF%F2%E8%E2%ED%EE+%E2%FA%E7%E4%F3%F8%ED%EE+%EE%EA%E0%F7%E2%E0%ED%E5&f54=0%7E%C1%E5%E7%EA%EB%FE%F7%EE%E2%EE+%EF%E0%EB%E5%ED%E5+&f55=0%7E%C1%EB%EE%EA%E0%E6+%ED%E0+%E4%E8%F4%E5%F0%E5%ED%F6%E8%E0%EB%E0&f56=0%7E%C1%EE%F0%E4%EA%EE%EC%EF%FE%F2%FA%F0&f57=0%7E%C1%FA%F0%E7%E8+%5C+%E1%E0%E2%ED%E8+%F1%EA%EE%F0%EE%F1%F2%E8&f58=0%7E%C4%E0%F2%F7%E8%EA+%E7%E0+%F1%E2%E5%F2%EB%E8%ED%E0&f59=0%7E%C5%EB.+%CE%E3%EB%E5%E4%E0%EB%E0&f60=0%7E%C5%EB.+%D1%F2%FA%EA%EB%E0&f61=0%7E%C5%EB.+%F0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%EE%EA%E0%F7%E2%E0%ED%E5%F2%EE&f62=0%7E%C5%EB.+%F0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%F1%E5%E4%E0%EB%EA%E8%F2%E5&f63=0%7E%C5%EB.+%F3%F1%E8%EB%E2%E0%F2%E5%EB+%ED%E0+%E2%EE%EB%E0%ED%E0&f64=0%7E%CA%EB%E8%EC%E0%F2%E8%EA&f65=0%7E%CA%EB%E8%EC%E0%F2%F0%EE%ED%E8%EA&f66=0%7E%CC%F3%EB%F2%E8%F4%F3%ED%EA%F6%E8%EE%ED%E0%EB%E5%ED+%E2%EE%EB%E0%ED&f67=0%7E%CD%E0%E2%E8%E3%E0%F6%E8%FF&f68=0%7E%CE%F2%EE%EF%EB%E5%ED%E8%E5+%ED%E0+%E2%EE%EB%E0%ED%E0&f69=0%7E%CF%E5%F7%EA%E0&f70=0%7E%CF%EE%E4%E3%F0%FF%E2%E0%ED%E5+%ED%E0+%EF%F0%E5%E4%ED%EE%F2%EE+%F1%F2%FA%EA%EB%EE&f71=0%7E%CF%EE%E4%E3%F0%FF%E2%E0%ED%E5+%ED%E0+%F1%E5%E4%E0%EB%EA%E8%F2%E5&f72=0%7E%D0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%E2%EE%EB%E0%ED%E0&f73=0%7E%D1%E5%ED%E7%EE%F0+%E7%E0+%E4%FA%E6%E4&f74=0%7E%D1%E5%F0%E2%EE+%F3%F1%E8%EB%E2%E0%F2%E5%EB+%ED%E0+%E2%EE%EB%E0%ED%E0&f75=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E8%E7%EC%E8%E2%E0%ED%E5+%ED%E0+%F4%E0%F0%EE%E2%E5%F2%E5&f76=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%EA%EE%F0%EE%F1%F2%F2%E0+%28%E0%E2%F2%EE%EF%E8%EB%EE%F2%29&f77=0%7E%D1%F2%E5%F0%E5%EE+%F3%F0%E5%E4%E1%E0&f78=0%7E%D4%E8%EB%F2%FA%F0+%E7%E0+%F2%E2%FA%F0%E4%E8+%F7%E0%F1%F2%E8%F6%E8&f79=0%7E%D5%EB%E0%E4%E8%EB%ED%E0+%E6%E0%E1%EA%E0&f80=0%7E4x4&f81=0%7E7+%EC%E5%F1%F2%E0&f82=0%7EBuy+back&f83=0%7E%C1%E0%F0%F2%E5%F0&f84=0%7E%C3%E0%E7%EE%E2%E0+%F3%F0%E5%E4%E1%E0&f85=0%7E%CA%E0%EF%E0%F0%E8%F0%E0%ED%5C%CF%F0%EE%E4%E0%E4%E5%ED&f86=0%7E%CA%E0%F2%E0%F1%F2%F0%EE%F4%E8%F0%E0%EB&f87=0%7E%CB%E8%E7%E8%ED%E3&f88=0%7E%CC%E5%F2%E0%ED%EE%E2%E0+%F3%F0%E5%E4%E1%E0&f89=0%7E%CD%E0+%F7%E0%F1%F2%E8&f90=0%7E%CD%E0%EF%FA%EB%ED%EE+%EE%E1%F1%EB%F3%E6%E5%ED&f91=0%7E%CD%EE%E2+%E2%ED%EE%F1&f92=0%7E%D1+%EF%F0%E0%E2%EE+%ED%E0+%E4%E0%ED.%EA-%F2&f93=0%7E%D1+%F0%E5%E3%E8%F1%F2%F0%E0%F6%E8%FF&f94=0%7E%D1%E5%F0%E2%E8%E7%ED%E0+%EA%ED%E8%E6%EA%E0&f95=0%7E%D2%F3%ED%E8%ED%E3&f96=0%7E2%283%29+%C2%F0%E0%F2%E8&f97=0%7E4%285%29+%C2%F0%E0%F2%E8&f98=0%7ELED+%F4%E0%F0%EE%E2%E5&f99=0%7E%CA%F1%E5%ED%EE%ED%EE%E2%E8+%F4%E0%F0%EE%E2%E5&f100=0%7E%CB%E5%F2%E8+%E4%E6%E0%ED%F2%E8&f101=0%7E%CC%E5%F2%E0%EB%E8%EA&f102=0%7E%CE%F2%EE%EF%EB%FF%E5%EC%E8+%F7%E8%F1%F2%E0%F7%EA%E8&f103=0%7E%CF%E0%ED%EE%F0%E0%EC%E5%ED+%EB%FE%EA&f104=0%7E%D0%E5%E9%EB%E8%ED%E3+%ED%E0+%EF%EE%EA%F0%E8%E2%E0&f105=0%7E%D0%EE%EB%E1%E0%F0%E8&f106=0%7E%D1%EF%EE%E9%EB%E5%F0%E8&f107=0%7E%D2%E5%E3%EB%E8%F7&f108=0%7E%D5%E0%EB%EE%E3%E5%ED%ED%E8+%F4%E0%F0%EE%E2%E5&f109=0%7E%D8%E8%E1%E5%E4%E0%F5&f110=0%7EOFFROAD+%EF%E0%EA%E5%F2&f111=0%7E%C0%EB%E0%F0%EC%E0&f112=0%7E%C1%F0%EE%ED%E8%F0%E0%ED&f113=0%7E%C8%EC%EE%E1%E8%EB%E0%E9%E7%E5%F0&f114=0%7E%CA%E0%F1%EA%EE&f115=0%7E%CB%E5%E1%E5%E4%EA%E0&f116=0%7E%CF%EE%E4%F1%E8%EB%E5%ED%E8+%F1%F2%FA%EA%EB%E0&f117=0%7E%D6%E5%ED%F2%F0%E0%EB%ED%EE+%E7%E0%EA%EB%FE%F7%E2%E0%ED%E5&f118=0%7E%C2%E5%EB%F3%F0%E5%ED+%F1%E0%EB%EE%ED&f119=2%7E%C4%E5%F1%E5%ED+%E2%EE%EB%E0%ED&f120=0%7E%CA%EE%E6%E5%ED+%F1%E0%EB%EE%ED&f121=0%7ETAXI&f122=0%7E%C7%E0+%F5%EE%F0%E0+%F1+%F3%E2%F0%E5%E6%E4%E0%ED%E8%FF&f123=0%7E%D3%F7%E5%E1%E5%ED&f24=0
-        max_pages_match: substring-after((//div[@id='mainholder']//span[@class='pageNumbersInfo'])[1]//text(), "от ")
-        list_items_match: //table[@class="tablereset" and starts-with(@style, 'width:660px;')][tr/td/span[@class='price']]
+        search_url: http://www.imot.bg/pcgi/imot.cgi?act=3&rub=1&rub_pub_save=1&topmenu=2&actions=1&f0=77.70.77.231&f1={0}&f2=&f3=&f4=1&f7=10%7E&f28=&f29=200000&f43=&f44=&f30=EUR&f26=&f27=&f41=1&f31=&f32=&f38=%E3%F0%E0%E4+%D1%EE%F4%E8%FF&f42=&f39=&f40=%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0%2B%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0+-+%C3%E5%F0%E5%ED%E0%2B%E2.%E7.%C1%F3%ED%EA%E5%F0%E0%2B&fe3=&fe4=&f45=&f46=&f51=&f52=&f33=&f34=&f35=&f36=&f37=&fe2=1
+        max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
+        list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
         item_attributes:
-            - name: price
-              match: tr/td/span[@class='price']//text()
-            - name: area
-              match: tr[3]/td[1]/text()[3]
-            - name: description
-              match: tr[3]/td[1]/text()[2]
-            - name: link
-              match: tr/td[@colspan='2']/a[1]/@href
-            - name: image
-              match: tr/td/table/tr/td/a/img/@src
             - name: id
-              match: tr/td/a/@id
-    Hyundai Terracan @ mobile.bg:
+              match: tr/td/div[@class="price"]/a/@id
+            - name: image
+              match: (tr/td/table/tr/td/a[@class="photoLink"]/img/@src)[1]
+            - name: description
+              match: (tr/td[@width="520"])//text()
+            - name: price
+              match: tr/td/div[@class="price"]//text()[1]
+            - name: area
+              match: tr/td/a[@class="lnk2"]//text()
+            - name: link
+              match: tr/td/a[@class="lnk2"]/@href
+    Къщи в Лозен, Бистрица, Железница @ imot.bg:
         enabled: True
-        search_url: http://www.mobile.bg/pcgi/mobile.cgi?topmenu=2&act=3&rub_pub_save=1&f0=77.70.77.231&f1={0}&f2=2&f3=1&f4=1&rub=1&f5=Hyundai&f6=Terracan&f21=01&f27=&f28=&f29=&f30=&f10=&f11=&f20=1&f7=&f8=&f9=%EB%E2.&f25=&f26=&f14=&f12=&f13=&f15=0&f16=&f17=&f18=&f19=0&f31=0%7EGPS+%F1%E8%F1%F2%E5%EC%E0+%E7%E0+%EF%F0%EE%F1%EB%E5%E4%FF%E2%E0%ED%E5&f32=0%7E%C0%E2%F2%EE%EC%E0%F2%E8%F7%E5%ED+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%F2%E0%E1%E8%EB%ED%EE%F1%F2%F2%E0&f33=0%7E%C0%E4%E0%EF%F2%E8%E2%ED%E8+%EF%F0%E5%E4%ED%E8+%F1%E2%E5%F2%EB%E8%ED%E8&f34=0%7E%C0%ED%F2%E8%E1%EB%EE%EA%E8%F0%E0%F9%E0+%F1%E8%F1%F2%E5%EC%E0&f35=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%C7%E0%E4%ED%E8&f36=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%CF%F0%E5%E4%ED%E8&f37=0%7E%C2%FA%E7%E4%F3%F8%ED%E8+%E2%FA%E7%E3%EB%E0%E2%ED%E8%F6%E8+-+%D1%F2%F0%E0%ED%E8%F7%ED%E8&f38=0%7E%C5%EB.+%F0%E0%E7%EF%F0%E5%E4%E5%EB%FF%ED%E5+%ED%E0+%F1%EF%E8%F0%E0%F7%ED%EE%F2%EE+%F3%F1%E8%EB%E8%E5&f39=0%7E%C5%EB%E5%EA%F2%F0%EE%ED%ED%E0+%EF%F0%EE%E3%F0%E0%EC%E0+%E7%E0+%F1%F2%E0%E1%E8%EB%E8%E7%E8%F0%E0%ED%E5&f40=0%7E%CA%EE%ED%F2%F0%EE%EB+%ED%E0+%ED%E0%EB%FF%E3%E0%ED%E5%F2%EE+%ED%E0+%E3%F3%EC%E8%F2%E5&f41=0%7E%CF%E0%F0%EA%F2%F0%EE%ED%E8%EA&f42=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E4%E8%ED%E0%EC%E8%F7%ED%E0+%F3%F1%F2%EE%E9%F7%E8%E2%EE%F1%F2&f43=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E7%E0%F9%E8%F2%E0+%EE%F2+%EF%F0%EE%E1%F3%EA%F1%F3%E2%E0%ED%E5&f44=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E8%E7%F1%F3%F8%E0%E2%E0%ED%E5+%ED%E0+%ED%E0%EA%EB%E0%E4%EA%E8%F2%E5&f45=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%E4%E8%F1%F2%E0%ED%F6%E8%FF%F2%E0&f46=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%EF%F3%F1%EA%E0%ED%E5%F2%EE&f47=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EF%EE%E4%EF%EE%EC%E0%E3%E0%ED%E5+%ED%E0+%F1%EF%E8%F0%E0%ED%E5%F2%EE&f48=0%7EAuto+Start+Stop+function&f49=0%7EBluetooth+%5C+handsfree+%F1%E8%F1%F2%E5%EC%E0&f50=0%7EDVD%2C+TV&f51=0%7ESteptronic%2C+Tiptronic&f52=0%7EUSB%2C+audio%5Cvideo%2C+IN%5CAUX+%E8%E7%E2%EE%E4%E8&f53=0%7E%C0%E4%E0%EF%F2%E8%E2%ED%EE+%E2%FA%E7%E4%F3%F8%ED%EE+%EE%EA%E0%F7%E2%E0%ED%E5&f54=0%7E%C1%E5%E7%EA%EB%FE%F7%EE%E2%EE+%EF%E0%EB%E5%ED%E5+&f55=0%7E%C1%EB%EE%EA%E0%E6+%ED%E0+%E4%E8%F4%E5%F0%E5%ED%F6%E8%E0%EB%E0&f56=0%7E%C1%EE%F0%E4%EA%EE%EC%EF%FE%F2%FA%F0&f57=0%7E%C1%FA%F0%E7%E8+%5C+%E1%E0%E2%ED%E8+%F1%EA%EE%F0%EE%F1%F2%E8&f58=0%7E%C4%E0%F2%F7%E8%EA+%E7%E0+%F1%E2%E5%F2%EB%E8%ED%E0&f59=0%7E%C5%EB.+%CE%E3%EB%E5%E4%E0%EB%E0&f60=0%7E%C5%EB.+%D1%F2%FA%EA%EB%E0&f61=0%7E%C5%EB.+%F0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%EE%EA%E0%F7%E2%E0%ED%E5%F2%EE&f62=0%7E%C5%EB.+%F0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%F1%E5%E4%E0%EB%EA%E8%F2%E5&f63=0%7E%C5%EB.+%F3%F1%E8%EB%E2%E0%F2%E5%EB+%ED%E0+%E2%EE%EB%E0%ED%E0&f64=0%7E%CA%EB%E8%EC%E0%F2%E8%EA&f65=0%7E%CA%EB%E8%EC%E0%F2%F0%EE%ED%E8%EA&f66=0%7E%CC%F3%EB%F2%E8%F4%F3%ED%EA%F6%E8%EE%ED%E0%EB%E5%ED+%E2%EE%EB%E0%ED&f67=0%7E%CD%E0%E2%E8%E3%E0%F6%E8%FF&f68=0%7E%CE%F2%EE%EF%EB%E5%ED%E8%E5+%ED%E0+%E2%EE%EB%E0%ED%E0&f69=0%7E%CF%E5%F7%EA%E0&f70=0%7E%CF%EE%E4%E3%F0%FF%E2%E0%ED%E5+%ED%E0+%EF%F0%E5%E4%ED%EE%F2%EE+%F1%F2%FA%EA%EB%EE&f71=0%7E%CF%EE%E4%E3%F0%FF%E2%E0%ED%E5+%ED%E0+%F1%E5%E4%E0%EB%EA%E8%F2%E5&f72=0%7E%D0%E5%E3%F3%EB%E8%F0%E0%ED%E5+%ED%E0+%E2%EE%EB%E0%ED%E0&f73=0%7E%D1%E5%ED%E7%EE%F0+%E7%E0+%E4%FA%E6%E4&f74=0%7E%D1%E5%F0%E2%EE+%F3%F1%E8%EB%E2%E0%F2%E5%EB+%ED%E0+%E2%EE%EB%E0%ED%E0&f75=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%E8%E7%EC%E8%E2%E0%ED%E5+%ED%E0+%F4%E0%F0%EE%E2%E5%F2%E5&f76=0%7E%D1%E8%F1%F2%E5%EC%E0+%E7%E0+%EA%EE%ED%F2%F0%EE%EB+%ED%E0+%F1%EA%EE%F0%EE%F1%F2%F2%E0+%28%E0%E2%F2%EE%EF%E8%EB%EE%F2%29&f77=0%7E%D1%F2%E5%F0%E5%EE+%F3%F0%E5%E4%E1%E0&f78=0%7E%D4%E8%EB%F2%FA%F0+%E7%E0+%F2%E2%FA%F0%E4%E8+%F7%E0%F1%F2%E8%F6%E8&f79=0%7E%D5%EB%E0%E4%E8%EB%ED%E0+%E6%E0%E1%EA%E0&f80=0%7E4x4&f81=0%7E7+%EC%E5%F1%F2%E0&f82=0%7EBuy+back&f83=0%7E%C1%E0%F0%F2%E5%F0&f84=0%7E%C3%E0%E7%EE%E2%E0+%F3%F0%E5%E4%E1%E0&f85=0%7E%CA%E0%EF%E0%F0%E8%F0%E0%ED%5C%CF%F0%EE%E4%E0%E4%E5%ED&f86=0%7E%CA%E0%F2%E0%F1%F2%F0%EE%F4%E8%F0%E0%EB&f87=0%7E%CB%E8%E7%E8%ED%E3&f88=0%7E%CC%E5%F2%E0%ED%EE%E2%E0+%F3%F0%E5%E4%E1%E0&f89=0%7E%CD%E0+%F7%E0%F1%F2%E8&f90=0%7E%CD%E0%EF%FA%EB%ED%EE+%EE%E1%F1%EB%F3%E6%E5%ED&f91=0%7E%CD%EE%E2+%E2%ED%EE%F1&f92=0%7E%D1+%EF%F0%E0%E2%EE+%ED%E0+%E4%E0%ED.%EA-%F2&f93=0%7E%D1+%F0%E5%E3%E8%F1%F2%F0%E0%F6%E8%FF&f94=0%7E%D1%E5%F0%E2%E8%E7%ED%E0+%EA%ED%E8%E6%EA%E0&f95=0%7E%D2%F3%ED%E8%ED%E3&f96=0%7E2%283%29+%C2%F0%E0%F2%E8&f97=0%7E4%285%29+%C2%F0%E0%F2%E8&f98=0%7ELED+%F4%E0%F0%EE%E2%E5&f99=0%7E%CA%F1%E5%ED%EE%ED%EE%E2%E8+%F4%E0%F0%EE%E2%E5&f100=0%7E%CB%E5%F2%E8+%E4%E6%E0%ED%F2%E8&f101=0%7E%CC%E5%F2%E0%EB%E8%EA&f102=0%7E%CE%F2%EE%EF%EB%FF%E5%EC%E8+%F7%E8%F1%F2%E0%F7%EA%E8&f103=0%7E%CF%E0%ED%EE%F0%E0%EC%E5%ED+%EB%FE%EA&f104=0%7E%D0%E5%E9%EB%E8%ED%E3+%ED%E0+%EF%EE%EA%F0%E8%E2%E0&f105=0%7E%D0%EE%EB%E1%E0%F0%E8&f106=0%7E%D1%EF%EE%E9%EB%E5%F0%E8&f107=0%7E%D2%E5%E3%EB%E8%F7&f108=0%7E%D5%E0%EB%EE%E3%E5%ED%ED%E8+%F4%E0%F0%EE%E2%E5&f109=0%7E%D8%E8%E1%E5%E4%E0%F5&f110=0%7EOFFROAD+%EF%E0%EA%E5%F2&f111=0%7E%C0%EB%E0%F0%EC%E0&f112=0%7E%C1%F0%EE%ED%E8%F0%E0%ED&f113=0%7E%C8%EC%EE%E1%E8%EB%E0%E9%E7%E5%F0&f114=0%7E%CA%E0%F1%EA%EE&f115=0%7E%CB%E5%E1%E5%E4%EA%E0&f116=0%7E%CF%EE%E4%F1%E8%EB%E5%ED%E8+%F1%F2%FA%EA%EB%E0&f117=0%7E%D6%E5%ED%F2%F0%E0%EB%ED%EE+%E7%E0%EA%EB%FE%F7%E2%E0%ED%E5&f118=0%7E%C2%E5%EB%F3%F0%E5%ED+%F1%E0%EB%EE%ED&f119=0%7E%C4%E5%F1%E5%ED+%E2%EE%EB%E0%ED&f120=0%7E%CA%EE%E6%E5%ED+%F1%E0%EB%EE%ED&f121=0%7ETAXI&f122=0%7E%C7%E0+%F5%EE%F0%E0+%F1+%F3%E2%F0%E5%E6%E4%E0%ED%E8%FF&f123=0%7E%D3%F7%E5%E1%E5%ED&f24=0
-        max_pages_match: substring-after((//div[@id='mainholder']//span[@class='pageNumbersInfo'])[1]//text(), "от ")
-        list_items_match: //table[@class="tablereset" and starts-with(@style, 'width:660px;')][tr/td/span[@class='price']]
+        search_url: http://www.imot.bg/pcgi/imot.cgi?act=3&rub=1&rub_pub_save=1&topmenu=2&actions=1&f0=77.70.77.231&f1={0}&f2=&f3=&f4=1&f7=10%7E&f28=&f29=200000&f43=&f44=&f30=EUR&f26=&f27=&f41=1&f31=&f32=&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0&f42=&f39=&f40=%F1.+%C3%EE%F0%ED%E8+%CB%EE%E7%E5%ED%2B%F1.+%C4%EE%EB%ED%E8+%CB%EE%E7%E5%ED%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B&fe3=&fe4=&f45=&f46=&f51=&f52=&f33=&f34=&f35=&f36=&f37=&fe2=1
+        max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
+        list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
         item_attributes:
-            - name: price
-              match: tr/td/span[@class='price']//text()
-            - name: area
-              match: tr[3]/td[1]/text()[3]
-            - name: description
-              match: tr[3]/td[1]/text()[2]
-            - name: link
-              match: tr/td[@colspan='2']/a[1]/@href
-            - name: image
-              match: tr/td/table/tr/td/a/img/@src
             - name: id
-              match: tr/td/a/@id
-    Grand Cherokee @ cars.bg:
+              match: tr/td/div[@class="price"]/a/@id
+            - name: image
+              match: (tr/td/table/tr/td/a[@class="photoLink"]/img/@src)[1]
+            - name: description
+              match: (tr/td[@width="520"])//text()
+            - name: price
+              match: tr/td/div[@class="price"]//text()[1]
+            - name: area
+              match: tr/td/a[@class="lnk2"]//text()
+            - name: link
+              match: tr/td/a[@class="lnk2"]/@href
+    Къщи в Лозен, Бистрица, Железница, Малинова долина @ imoti.net:
         enabled: True
-        search_url: http://www.cars.bg/?go=cars&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=1&stateId=1&categoryId=0&doorId=0&brandId=37&modelId=581&fuelId=0&gearId=0&yearFrom=2002&yearTo=2004&priceFrom=&priceTo=&currencyId=1&man_priceFrom=&man_priceTo=&man_currencyId=1&powerFrom=&powerTo=&steering_weel=0&colorId=0&is_carinbg=0&regionId=0&offersFor4=1&offersFor1=1&cref=45&page={0}&cref=45
+        search_url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=53&y=12&building_type_id%5B%5D=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5527&a_id%5B%5D=5898&a_id%5B%5D=5537&a_id%5B%5D=5847&a_id%5B%5D=5943&a_id%5B%5D=5848&ads_type=all&order=1&show_all=on&page={0}
+        max_pages_match: normalize-space((//div[@class="pg"]/ul/li/a)[position()=last()]/strong/text())
+        list_items_match: //form[@name="search"]/div[@class="tabc"]/div[contains(@class,"item")]
+        item_attributes:
+            - name: id
+              match: div/a[@class="price"]/@href
+            - name: image
+              match: div/a/div/img[@class="thumb nop"]/@src
+              prefix: http://www.imoti.net/
+            - name: description
+              match: div/p[@class="left"]//text()
+            - name: price
+              match: div/a[@class="price"]//text()
+            - name: area
+              match: div/h2//text()
+            - name: link
+              match: div/a[@class="price"]/@href
+              prefix: http://www.imoti.net/
+    Къщи в Лозен, Бистрица, Железница, Малинова долина @ holmes.bg:
+        enabled: True
+        search_url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=446%2C381%2C462%2C375%2C413&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
         max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
-        list_items_match: //table[@class="tableListResults"]/tr[@class="odd " or @class="even " or @class="even last" or @class="odd last"]
+        list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
         item_attributes:
-            - name: price
-              match: td[@align="right"]/span[@class="ver20black"]/strong/text()[normalize-space()]
-            - name: area
-              match: td[5]/text()[preceding-sibling::br]
-            - name: description
-              match: td[2]/text()[preceding-sibling::br]
-            - name: link
-              prefix: http://www.cars.bg/
-              match: td[1]/a/@href
-            - name: image
-              match: td[1]/a/img/@src
             - name: id
-              match: td[1]/a/@href
-    Hyundai Terracan @ cars.bg:
+              match: td/a[@class="ver15black"]/@href
+            - name: image
+              match: (td/a/img/@src)[1]
+            - name: description
+              match: (td)[2]//text()
+            - name: price
+              match: td/span[@class="ver20black"][1]//text()
+            - name: area
+              match: td/span[@class="ver15black"][1]//text()
+            - name: link
+              match: td/a[@class="ver15black"][1]/@href
+              prefix: http://www.homes.bg/
+    Къщи в Лозен @ ues.bg:
         enabled: True
-        search_url: http://www.cars.bg/?go=cars&search=1&advanced=&fromhomeu=1&CityId=0&currencyId=1&yearTo=&autotype=1&stateId=1&categoryId=0&doorId=0&brandId=33&modelId=543&fuelId=0&gearId=0&yearFrom=&priceFrom=&priceTo=&man_priceFrom=&man_priceTo=&regionId=0&offersFor4=1&offersFor1=1&filterOrderBy=1&page={0}
-        max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
-        list_items_match: //table[@class="tableListResults"]/tr[@class="odd " or @class="even " or @class="even last" or @class="odd last"]
+        search_url: http://www.ues.bg/bg/offers/sales?map_quarter_id=&rent=sales&category=house&category2=&location_id=4114&bedrooms=&price_from=&price_to=200000&area_from=&area_to=&type=&project_id=&completion_id=&offer_category_type_id=&heating_id=&parking_id=&closed-complex-header=&project-header=&advanced-search=1&setPage={0}
+        max_pages_count: 1
+        list_items_match: //div[@class="offer-holder"]
         item_attributes:
-            - name: price
-              match: td[@align="right"]/span[@class="ver20black"]/strong/text()[normalize-space()]
-            - name: area
-              match: td[5]/text()[preceding-sibling::br]
-            - name: description
-              match: td[2]/text()[preceding-sibling::br]
-            - name: link
-              prefix: http://www.cars.bg/
-              match: td[1]/a/@href
-            - name: image
-              match: td[1]/a/img/@src
             - name: id
-              match: td[1]/a/@href
-    Grand Cherokee @ auto.bg:
+              match: "@data-id"
+            - name: image
+              match: div[@class="offer-image-holder"]/a/img/@src
+            - name: description
+              match: div[@class="offer-description"]/ul[@class="offer-details"]/li//text()
+            - name: price
+              match: div[@class="offer-image-holder"]/a/div[@class="offer-price-holder"]/span[@class="offer-price"]//text()
+            - name: area
+              match: div[@class="offer-description"]/a/h1//text()
+            - name: link
+              match: div[@class="offer-image-holder"]/a/@href
+              prefix: http://www.ues.bg
+    Къщи в Камбаните, Бункера, Малинова Долина, Бистрица @ ues.bg:
         enabled: True
-        search_url: http://auto.bg/pcgi/results.cgi?page={0}&cat=1&sort=1&marka=Jeep&model=Grand+cherokee&engine_type=%C4%E8%E7%E5%EB%EE%E2&engine_power=160&engine_power1=170&year=2002&year1=2004&km=0&extri=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        max_pages_match: normalize-space(//li[@class="pages"]/strong[2])
-        list_items_match: //div[@class="resultItem"]
+        search_url: http://www.ues.bg/bg/offers/sales?map_quarter_id=35%2C32%2C5%2C60&rent=sales&category=house&category2=house&location_id=4090&quarter_id%5B%5D=35&bedrooms=&price_from=&price_to=200000&area_from=&area_to=&type=&completion_id=&offer_category_type_id=&heating_id=&parking_id=&closed-complex-header=&project-header=&advanced-search=1&setPage={0}
+        max_pages_count: 1
+        list_items_match: //div[@class="offer-holder"]
         item_attributes:
-            - name: price
-              match: ul/li[@class="text"]/div[1]/div[2]/text()[normalize-space()]
-            - name: area
-              match: substring-after(ul/li[@class="text"]/div[@class="info"]/span, " регион ")
-            - name: description
-              match: ul/li[@class="text"]/div[@class="info"]/span/text()[normalize-space()]
-            - name: link
-              prefix: http://auto.bg/pcgi/
-              match: ul/li[@class="photo"]/a/@href
-            - name: image
-              match: ul/li[@class="photo"]/a/img/@data-src
             - name: id
-              match: ul/li[@class="links"]/a[@class="save"]/@id
-    Hyundai Terracan @ auto.bg:
-        enabled: True
-        search_url: http://auto.bg/pcgi/results.cgi?page={0}&cat=1&sort=1&marka=Hyundai&model=Terracan&engine_power=160&km=0&extri=000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000
-        max_pages_match: normalize-space(//li[@class="pages"]/strong[2])
-        list_items_match: //div[@class="resultItem"]
-        item_attributes:
-            - name: price
-              match: ul/li[@class="text"]/div[1]/div[2]/text()[normalize-space()]
-            - name: area
-              match: substring-after(ul/li[@class="text"]/div[@class="info"]/span, " регион ")
-            - name: description
-              match: ul/li[@class="text"]/div[@class="info"]/span/text()[normalize-space()]
-            - name: link
-              prefix: http://auto.bg/pcgi/
-              match: ul/li[@class="photo"]/a/@href
+              match: "@data-id"
             - name: image
-              match: ul/li[@class="photo"]/a/img/@data-src
-            - name: id
-              match: ul/li[@class="links"]/a[@class="save"]/@id
-
+              match: div[@class="offer-image-holder"]/a/img/@src
+            - name: description
+              match: div[@class="offer-description"]/ul[@class="offer-details"]/li//text()
+            - name: price
+              match: div[@class="offer-image-holder"]/a/div[@class="offer-price-holder"]/span[@class="offer-price"]//text()
+            - name: area
+              match: div[@class="offer-description"]/a/h1//text()
+            - name: link
+              match: div[@class="offer-image-holder"]/a/@href
+              prefix: http://www.ues.bg
 template_config:
   description: |
     Обяви за:
-      <strong>Grand Cherokee WJ 2.7 CRDI</strong>
-      <strong>Hyundai Terracan 163hp with automatic transmission</strong>
+      <strong>Горни Лозен</strong>
+      <strong>Долни Лозен</strong>
+      <strong>Малинова долина</strong>
+      <strong>Железница</strong>
+      <strong>Бистрица</strong>
