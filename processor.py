@@ -3,7 +3,6 @@
 import urllib2
 import shelve
 import time
-import multiprocessing
 import datetime
 
 from lib.common import log
@@ -20,7 +19,7 @@ DEFAULT_PAGE = 1
 PAGE_SIZE = 20
 
 
-class Processor(multiprocessing.Process):
+class Processor(object):
 
     def __init__(self, config, dry_run, show_html):
         self.config_name = config.get('name')
@@ -34,7 +33,6 @@ class Processor(multiprocessing.Process):
         self.template_config = config.get('template_config', {})
         self.subject = config.get('subject', DEFAULT_SUBJECT)
         self.smtp_config = config.get('smtp')
-        return super(Processor, self).__init__()
 
     def _process_site(self, site_name, site_config):
         log("Running for %s" % site_name)
