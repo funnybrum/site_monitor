@@ -37,7 +37,7 @@ class Processor(multiprocessing.Process):
         return super(Processor, self).__init__()
 
     def _process_site(self, site_name, site_config):
-        log("Running for %s" % site_name)
+        log(u'Running for %s' % site_name)
 
         result = {}
         if not site_config.get('enabled', True):
@@ -65,12 +65,12 @@ class Processor(multiprocessing.Process):
                 if parsed:
                     result.update(parsed)
                 else:
-                    log('Failed to parse item in %s' % site_name)
+                    log(u'Failed to parse item in %s' % site_name)
 
         return result
 
     def run(self):
-        log("Create a processor %s" % self.config_name)
+        log(u'Create a processor %s' % self.config_name)
 
         if not self.enabled:
             return
@@ -79,12 +79,12 @@ class Processor(multiprocessing.Process):
 
         for site_name, site_config in self.sites.iteritems():
             site_results = self._process_site(site_name, site_config)
-            log('Got %s items for %s' % (len(site_results), site_name))
+            log(u'Got %s items for %s' % (len(site_results), site_name))
             results.update(site_results)
 
         db = shelve.open(self.db_file)
         removed, updated, new = self._filter_result(results, db)
-        log("Processor %s - %s removed, %s updated, %s new" % (self.config_name, len(removed), len(updated), len(new)))
+        log(u'Processor %s - %s removed, %s updated, %s new' % (self.config_name, len(removed), len(updated), len(new)))
 
         if len(new) or len(updated):
             html = self._render_html(
@@ -103,7 +103,7 @@ class Processor(multiprocessing.Process):
 
             if not self.dry_run:
                 send_email(self.subject, html, self.recipient, self.smtp_config)
-                log("Email sent to %s for %s" % (self.recipient, self.config_name))
+                log(u'Email sent to %s for %s' % (self.recipient, self.config_name))
 
         db.close()
 
@@ -194,8 +194,8 @@ class Processor(multiprocessing.Process):
             if isinstance(max_pages_str, list):
                 max_pages_str = max_pages_str[0]
             max_pages = int(max_pages_str)
-        except:
-            log("Unable to determine max pages for %s" % url)
+        except:g
+            log(u'Unable to determine max pages for %s' % url)
         return max_pages
 
     def _get_html_tree(self, url, encoding=None):
