@@ -160,7 +160,7 @@ class Processor(multiprocessing.Process):
         diffs = []
         for key in set(new.keys()) - set(['link', 'image']):
             if ('description' == key and old[key][0:100] != new[key][0:100]) or \
-               old[key] != new[key]:
+               ('description' != key and old[key] != new[key]):
                 diffs.append({
                     'key': key,
                     'old': old[key],
