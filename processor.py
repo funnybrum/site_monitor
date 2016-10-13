@@ -158,9 +158,8 @@ class Processor(multiprocessing.Process):
           * date - modification date
         """
         diffs = []
-        for key in set(new.keys()) - set(['link', 'image']):
-            if ('description' == key and old[key][0:100] != new[key][0:100]) or \
-               ('description' != key and old[key] != new[key]):
+        for key in set(new.keys()) - set(['link', 'image', 'description']):
+            if old[key] != new[key]:
                 diffs.append({
                     'key': key,
                     'old': old[key],
