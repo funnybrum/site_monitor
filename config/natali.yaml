@@ -3,17 +3,17 @@ extend: secrets.yaml
 enabled: True
 name: Properties monitor
 database: natali.db
-recipient: funnybrum@gmail.com
+recipient:  nataly_nasteva@abv.bg
 subject: Квартири в София
 sites:
     Едностайни @ holmes.bg:
-        enabled: True
+        enabled: False
         search_url: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=2&f1=1&f38=%E3%F0%E0%E4+%D1%EE%F4%E8%FF&f42=&f39=&f40=%D1%F2%F3%E4%E5%ED%F2%F1%EA%E8+%E3%F0%E0%E4%2B%C4%FA%F0%E2%E5%ED%E8%F6%E0%2B%CC%F3%F1%E0%E3%E5%ED%E8%F6%E0%2B%CC%EB%E0%E4%EE%F1%F2+1%2B%CC%EB%E0%E4%EE%F1%F2+2%2B%CC%EB%E0%E4%EE%F1%F2+3%2B%CC%EB%E0%E4%EE%F1%F2+1%C0%2B%CC%EB%E0%E4%EE%F1%F2+4%2B%CB%EE%E7%E5%ED%E5%F6%2B%D6%E5%ED%F2%FA%F0%2B&f8=1&f28=&f29=350&f30=%EB%E2.&f26=&f27=&f31=&f32=&f33=&f34=&f43=%CE%E1%E7%E0%E2%E5%E4%E5%ED&f35=&f36=&f37=&f41=1&page={0}
-        max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
-        list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
+        max_pages_match: //table/tr/td[@width=700]/a[position()=last()]/text()[normalize-space()]
+        list_items_match: (//table[@width=956])[position()>1]
         item_attributes:
             - name: id
-              match: td/a[@class="ver15black"]/@href
+              match: tr/td/a/@href
             - name: image
               match: (td/a/img/@src)[1]
             - name: description
@@ -26,9 +26,9 @@ sites:
               match: td/a[@class="ver15black"][1]/@href
               prefix: http://www.homes.bg/
     Тристайни @ holmes.bg:
-        enabled: True
+        enabled: False
         search_url: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=2&f1=1&f38=%E3%F0%E0%E4+%D1%EE%F4%E8%FF&f42=&f39=&f40=%D1%F2%F3%E4%E5%ED%F2%F1%EA%E8+%E3%F0%E0%E4%2B%C4%FA%F0%E2%E5%ED%E8%F6%E0%2B%CC%F3%F1%E0%E3%E5%ED%E8%F6%E0%2B%CC%EB%E0%E4%EE%F1%F2+1%2B%CC%EB%E0%E4%EE%F1%F2+2%2B%CC%EB%E0%E4%EE%F1%F2+3%2B%CC%EB%E0%E4%EE%F1%F2+1%C0%2B%CC%EB%E0%E4%EE%F1%F2+4%2B%CB%EE%E7%E5%ED%E5%F6%2B%D6%E5%ED%F2%FA%F0%2B&f10=1&f28=&f29=600&f30=%EB%E2.&f26=&f27=&f31=&f32=&f33=&f34=&f43=%CE%E1%E7%E0%E2%E5%E4%E5%ED&f35=&f36=&f37=&f41=1&page={0}
-        max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
+        max_pages_match: //table/tr/td[@width=700]/a[position()=last()]/text()[normalize-space()]
         list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
         item_attributes:
             - name: id

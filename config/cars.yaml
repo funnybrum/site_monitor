@@ -1,10 +1,10 @@
 extend: secrets.yaml
 
-enabled: False
+enabled: True
 name: Car monitor
 database: car_monitor.db
 recipient: funnybrum@gmail.com
-subject: Grand Cherokee 2.7 CRDI/Hyundai Terracan
+subject: Hyundai Terracan
 sites:
     Grand Cherokee @ mobile.bg:
         enabled: False
@@ -122,5 +122,4 @@ sites:
 template_config:
   description: |
     Обяви за:<br>
-      <strong>Grand Cherokee WJ 2.7 CRDI</strong><br>
       <strong>Hyundai Terracan 163hp with automatic transmission</strong><br>

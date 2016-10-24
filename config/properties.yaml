@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-enabled: False
+enabled: True
 name: Properties monitor
 database: prop_monitor.db
 recipient: funnybrum@gmail.com
