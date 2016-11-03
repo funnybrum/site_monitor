@@ -5,6 +5,9 @@ name: Properties monitor
 database: natali.db
 recipient:  nataly_nasteva@abv.bg
 subject: Квартири в София
+send_new: True
+send_updates: False
+send_deletes: False
 sites:
     Едностайни @ holmes.bg:
         enabled: False

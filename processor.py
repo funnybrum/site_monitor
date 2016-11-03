@@ -34,6 +34,9 @@ class Processor(multiprocessing.Process):
         self.template_config = config.get('template_config', {})
         self.subject = config.get('subject', DEFAULT_SUBJECT)
         self.smtp_config = config.get('smtp')
+        self.send_new = config.get('send_new', True)
+        self.send_updates = config.get('send_updates', True)
+        self.send_deletes = config.get('send_deletes', True)
         return super(Processor, self).__init__()
 
     def _process_site(self, site_name, site_config):
@@ -87,15 +90,17 @@ class Processor(multiprocessing.Process):
             removed, updated, new = self._filter_result(results, db)
             log(u'Processor %s - %s removed, %s updated, %s new' % (self.config_name, len(removed), len(updated), len(new)))
 
-            if len(new) or len(updated):
+            if (len(new) and self.send_new) or \
+               (len(updated) and self.send_updates) or \
+               (len(removed) and self.send_deletes):
                 html = self._render_html(
                     {
                         "config": self.template_config,
                         "site_config": site_config,
                         "data": {
-                            "removed": {},
-                            "updated": updated,
-                            "new": new,
+                            "new": new if self.send_new else {},
+                            "updated": updated if self.send_updates else {},
+                            "removed": removed if self.send_deletes else {},
                         },
                         "as_of": datetime.datetime.now()
                     })

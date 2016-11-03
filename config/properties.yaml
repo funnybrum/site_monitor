@@ -5,6 +5,9 @@ name: Properties monitor
 database: prop_monitor.db
 recipient: funnybrum@gmail.com
 subject: Имоти около София
+send_new: True
+send_updates: True
+send_deletes: False
 sites:
     Къщи в Малинова долина @ imot.bg:
         enabled: True

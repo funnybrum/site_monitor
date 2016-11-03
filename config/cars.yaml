@@ -5,6 +5,9 @@ name: Car monitor
 database: car_monitor.db
 recipient: funnybrum@gmail.com
 subject: Hyundai Terracan
+send_new: True
+send_updates: False
+send_deletes: False
 sites:
     Grand Cherokee @ mobile.bg:
         enabled: False
