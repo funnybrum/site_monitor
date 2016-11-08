@@ -1,7 +1,7 @@
 extend: secrets.yaml
 
 enabled: True
-name: Properties monitor
+name: Apartment monitor
 database: natali.db
 recipient:  nataly_nasteva@abv.bg
 subject: Квартири в София
