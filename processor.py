@@ -218,7 +218,7 @@ if __name__ == '__main__':
     from lib.yaml_config import load_configs
     configs = load_configs('./config/')
     for i in configs:
-        if 'name' in i and i['name'] == 'Properties monitor':
+        if 'name' in i and i['name'] == 'Car monitor':
             config = i
 
     Processor(config=config, dry_run=True, show_html=False).run()

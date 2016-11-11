@@ -141,7 +141,7 @@ sites:
               match: ul/li[@class="links"]/a[@class="save"]/@id
     Grand Cherokee for parts @ auto.bg:
         enabled: True
-        search_url: http://auto.bg/pcgi/results.cgi?page={0}&cat=1&sort=1&marka=Jeep&model=Grand+cherokee&year=1999&year1=2004&km=0&extri=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        search_url: http://auto.bg/pcgi/results.cgi?page={0}&nup=23&cat=1&sort=1&marka=Jeep&model=Grand+cherokee&price1=500&year=1999&year1=2004&km=0&extri=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         max_pages_match: normalize-space(//li[@class="pages"]/strong[2])
         list_items_match: //div[@class="resultItem"]
         item_attributes:
