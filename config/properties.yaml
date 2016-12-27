@@ -45,6 +45,44 @@ sites:
               match: tr/td/a[@class="lnk2"]//text()
             - name: link
               match: tr/td/a[@class="lnk2"]/@href
+    Къщи в Кривна, Казичене, Малина, Григорево, Нови Хан@ imot.bg:
+        enabled: True
+        search_url: http://www.imot.bg/pcgi/imot.cgi?act=3&rub=1&rub_pub_save=1&topmenu=2&actions=1&f0=77.70.77.231&f1={0}&f2=&f3=&f4=1&f7=10%7E11%7E&f28=&f29=200000&f43=&f44=&f30=EUR&f26=&f27=&f41=1&f31=&f32=&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&f42=&f39=&f40=%F1.+%CA%F0%E8%E2%E8%ED%E0%2B%F1.+%CA%E0%E7%E8%F7%E5%ED%E5%2B%F1.+%C3%EE%F0%ED%E0+%CC%E0%EB%E8%ED%E0%2B%F1.+%C4%EE%EB%ED%E0+%CC%E0%EB%E8%ED%E0%2B%F1.+%C3%F0%E8%E3%EE%F0%E5%E2%EE%2B%F1.+%CD%EE%E2%E8+%F5%E0%ED%2B&fe3=&fe4=&f45=&f46=&f51=&f52=&f33=&f34=&f35=&f36=&f37=&fe2=1
+        max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
+        list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
+        item_attributes:
+            - name: id
+              match: tr/td/div[@class="price"]/a/@id
+            - name: image
+              match: (tr/td/table/tr/td/a[@class="photoLink"]/img/@src)[1]
+            - name: description
+              match: (tr/td[@width="520"])//text()
+            - name: price
+              match: tr/td/div[@class="price"]//text()[1]
+            - name: area
+              match: tr/td/a[@class="lnk2"]//text()
+            - name: link
+              match: tr/td/a[@class="lnk2"]/@href
+    Къщи в Нови Хан, Горна Малина, Григорево @ imoti.net:
+        enabled: True
+        search_url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=84&y=7&building_type_id[]=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=60&search_city=&a_id[]=5727&a_id[]=5757&a_id[]=5764&ads_type=all&order=1&show_all=on&page={0}
+        max_pages_match: normalize-space((//div[@class="pg"]/ul/li/a)[position()=last()]/strong/text())
+        list_items_match: //form[@name="search"]/div[@class="tabc"]/div[contains(@class,"item")]
+        item_attributes:
+            - name: id
+              match: div/a[@class="price"]/@href
+            - name: image
+              match: div/a/div/img[@class="thumb nop"]/@src
+              prefix: http://www.imoti.net/
+            - name: description
+              match: div/p[@class="left"]//text()
+            - name: price
+              match: div/a[@class="price"]//text()
+            - name: area
+              match: div/h2//text()
+            - name: link
+              match: div/a[@class="price"]/@href
+              prefix: http://www.imoti.net/
     Къщи в Лозен, Бистрица, Железница, Малинова долина @ imoti.net:
         enabled: True
         search_url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=53&y=12&building_type_id%5B%5D=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5527&a_id%5B%5D=5898&a_id%5B%5D=5537&a_id%5B%5D=5847&a_id%5B%5D=5943&a_id%5B%5D=5848&ads_type=all&order=1&show_all=on&page={0}
@@ -68,6 +106,25 @@ sites:
     Къщи в Лозен, Бистрица, Железница, Малинова долина @ holmes.bg:
         enabled: True
         search_url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=446%2C381%2C462%2C375%2C413&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
+        max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
+        list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
+        item_attributes:
+            - name: id
+              match: td/a[@class="ver15black"]/@href
+            - name: image
+              match: (td/a/img/@src)[1]
+            - name: description
+              match: (td)[2]//text()
+            - name: price
+              match: td/span[@class="ver20black"][1]//text()
+            - name: area
+              match: td/span[@class="ver15black"][1]//text()
+            - name: link
+              match: td/a[@class="ver15black"][1]/@href
+              prefix: http://www.homes.bg/
+    Къщи в Кривна, Казичене, Бусманци @ holmes.bg:
+        enabled: True
+        search_url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=427%2C809%2C438%2C382&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
         max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
         list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
         item_attributes:
@@ -130,3 +187,6 @@ template_config:
       <strong>Малинова долина</strong><br>
       <strong>Железница</strong><br>
       <strong>Бистрица</strong><br>
+      <strong>Горна Малина</strong><br>
+      <strong>Нови Хан</strong><br>
+      <strong>Григорево</strong><br>
