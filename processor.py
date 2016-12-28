@@ -21,7 +21,6 @@ PAGE_SIZE = 20
 
 
 class Processor(multiprocessing.Process):
-
     def __init__(self, config, dry_run, show_html):
         self.config_name = config.get('name')
         self.db_file = DB_PATH + config.get('database')
@@ -49,26 +48,30 @@ class Processor(multiprocessing.Process):
         encoding = site_config.get('encoding')
         list_items_xpath = site_config.get('list_items_match', [])
         item_attributes = site_config.get('item_attributes', [])
-        search_url = site_config.get('search_url', None)
+        if site_config.get('search_urls', None):
+            search_urls = [item['url'] for item in site_config.get('search_urls')]
+        else:
+            search_urls = [site_config.get('search_url')]
         max_pages_match = site_config.get('max_pages_match')
         max_pages_count = site_config.get('max_pages_count')
 
-        max_pages = (max_pages_count or
-                     self._get_max_pages(search_url, max_pages_match, encoding) or
-                     PAGE_SIZE)
+        for search_url in search_urls:
+            max_pages = (max_pages_count or
+                         self._get_max_pages(search_url, max_pages_match, encoding) or
+                         PAGE_SIZE)
 
-        for page_num in xrange(0, max_pages):
-            url = search_url.format(page_num + 1)
-            tree = self._get_html_tree(url, encoding)
-            list_items = tree.xpath(list_items_xpath)
-            if len(list_items) == 0:
-                break
-            for item in list_items:
-                parsed = self._parse_item_attributes(item, item_attributes)
-                if parsed:
-                    result.update(parsed)
-                else:
-                    log(u'Failed to parse item in %s' % site_name)
+            for page_num in xrange(0, max_pages):
+                url = search_url.format(page_num + 1)
+                tree = self._get_html_tree(url, encoding)
+                list_items = tree.xpath(list_items_xpath)
+                if len(list_items) == 0:
+                    break
+                for item in list_items:
+                    parsed = self._parse_item_attributes(item, item_attributes)
+                    if parsed:
+                        result.update(parsed)
+                    else:
+                        log(u'Failed to parse item in %s' % site_name)
 
         return result
 
@@ -88,11 +91,12 @@ class Processor(multiprocessing.Process):
 
             db = shelve.open(self.db_file)
             removed, updated, new = self._filter_result(results, db)
-            log(u'Processor %s - %s removed, %s updated, %s new' % (self.config_name, len(removed), len(updated), len(new)))
+            log(u'Processor %s - %s removed, %s updated, %s new' % (
+                self.config_name, len(removed), len(updated), len(new)))
 
             if (len(new) and self.send_new) or \
-               (len(updated) and self.send_updates) or \
-               (len(removed) and self.send_deletes):
+                    (len(updated) and self.send_updates) or \
+                    (len(removed) and self.send_deletes):
                 html = self._render_html(
                     {
                         "config": self.template_config,
@@ -108,7 +112,7 @@ class Processor(multiprocessing.Process):
                     log(html)
 
                 if not self.dry_run:
-                    send_email(self.subject, html, self.recipient, self.smtp_config)
+                    # send_email(self.subject, html, self.recipient, self.smtp_config)
                     log(u'Email sent to %s for %s' % (self.recipient, self.config_name))
 
             db.close()
@@ -216,6 +220,7 @@ class Processor(multiprocessing.Process):
 
 if __name__ == '__main__':
     from lib.yaml_config import load_configs
+
     configs = load_configs('./config/')
     for i in configs:
         if 'name' in i and i['name'] == 'Car monitor':
