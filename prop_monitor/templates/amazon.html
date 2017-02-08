@@ -1,0 +1,16 @@
+<html>
+    <body>
+        {% for id in data['new'] %}
+            <div>new:</div>
+            <div>
+                {{ id }} -> {{ data['new'][id]['price'][0] }}
+            </div>
+        {% endfor %}
+        {% for id in data['updated'] %}
+            <div>updated:</div>
+            <div>
+                {{ id }} -> {{ data['updated'][id]['price'][0] }}
+            </div>
+        {% endfor %}
+    </body>
+</html>

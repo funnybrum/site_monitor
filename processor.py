@@ -25,7 +25,9 @@ class Processor(multiprocessing.Process):
         self.config_name = config.get('name')
         self.db_file = DB_PATH + config.get('database')
         self.template_name = config.get('template_name', DEFAULT_TEMPLATE)
-        self.recipient = config.get('recipient')
+        self.recipients = config.get('recipient')
+        if type(self.recipients) is not list:
+            self.recipients = [self.recipients]
         self.dry_run = dry_run
         self.show_html = show_html
         self.enabled = config.get('enabled', True)
@@ -36,6 +38,7 @@ class Processor(multiprocessing.Process):
         self.send_new = config.get('send_new', True)
         self.send_updates = config.get('send_updates', True)
         self.send_deletes = config.get('send_deletes', True)
+        self.headers = config.get('headers', {})
         return super(Processor, self).__init__()
 
     def _process_site(self, site_name, site_config):
@@ -112,8 +115,8 @@ class Processor(multiprocessing.Process):
                     log(html)
 
                 if not self.dry_run:
-                    send_email(self.subject, html, self.recipient, self.smtp_config)
-                    log(u'Email sent to %s for %s' % (self.recipient, self.config_name))
+                    send_email(self.subject, html, self.recipients, self.smtp_config)
+                    log(u'Email sent to %s for %s' % (self.recipients, self.config_name))
 
             db.close()
         except Exception as e:
@@ -187,7 +190,9 @@ class Processor(multiprocessing.Process):
             raise KeyError('Missing required "id" item attribute!')
 
         id_value = item_element.xpath(id_match)
-        return id_value[0] if id_value else None
+        if type(id_value) is list:
+            id_value = id_value[0]
+        return id_value
 
     def _render_html(self, properties):
         env = Environment(loader=PackageLoader('prop_monitor', 'templates'))
@@ -211,7 +216,12 @@ class Processor(multiprocessing.Process):
         return max_pages
 
     def _get_html_tree(self, url, encoding=None):
-        html = urllib2.urlopen(url).read()
+        # handler = urllib2.HTTPSHandler(debuglevel=1)
+        # opener = urllib2.build_opener(handler)
+        # urllib2.install_opener(opener)
+
+        req = urllib2.Request(url, headers=self.headers)
+        html = urllib2.urlopen(req).read()
         parser = None
         if encoding:
             parser = etree.HTMLParser(encoding=encoding)

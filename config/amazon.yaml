@@ -1,0 +1,26 @@
+extend: secrets.yaml
+
+enabled: True
+name: Amazon monitor
+database: amazon_monitor.db
+recipient: funnybrum@gmail.com
+subject: Обяви от Amazon
+send_new: True
+send_updates: True
+send_deletes: False
+template_name: amazon.html
+headers:
+    User-Agent: Mozilla/5.0
+sites:
+    Graco Milestone:
+        enabled: True
+        search_urls:
+            - site: Graco Milestone
+              url: https://www.amazon.co.uk/Graco-Milestone-All-One-Seat/dp/B00XHWL7UK
+        max_pages_count: 1
+        list_items_match: id('dp-container')
+        item_attributes:
+            - name: id
+              match: normalize-space(id('titleSection')/h1/span/text())
+            - name: price
+              match: id('priceblock_ourprice')/text()
