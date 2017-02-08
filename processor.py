@@ -115,8 +115,9 @@ class Processor(multiprocessing.Process):
                     log(html)
 
                 if not self.dry_run:
-                    send_email(self.subject, html, self.recipients, self.smtp_config)
-                    log(u'Email sent to %s for %s' % (self.recipients, self.config_name))
+                    for recipient in self.recipients:
+                        send_email(self.subject, html, recipient, self.smtp_config)
+                        log(u'Email sent to %s for %s' % (recipient, self.config_name))
 
             db.close()
         except Exception as e:
