@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
     configs = load_configs('./config/')
     for i in configs:
-        if 'name' in i and i['name'] == 'Car monitor':
+        if 'name' in i and i['name'] == 'Properties monitor':
             config = i
 
-    Processor(config=config, dry_run=True, show_html=False).run()
+    Processor(config=config, dry_run=False, show_html=False).run()
