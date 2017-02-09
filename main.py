@@ -19,7 +19,7 @@ if __name__ == '__main__':
             APP_CONFIG=./config/ python main.py
     """)
 
-    args_parser.add_argument('--dry_run', action='store_true', default=False,
+    args_parser.add_argument('--dry_run', action='store_true', default=True,
                              help='Do not send emails')
 
     args_parser.add_argument('--show_html', action='store_true', default=False,

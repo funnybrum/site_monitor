@@ -8,6 +8,8 @@ subject: Имоти около София
 send_new: True
 send_updates: True
 send_deletes: False
+headers:
+    User-Agent: Mozilla/5.0
 sites:
     Къщи @ imot.bg:
         enabled: True
@@ -37,11 +39,11 @@ sites:
         enabled: True
         search_urls:
             - site: Казичене, Герман, Бусманци
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=30&y=30&building_type_id%5B%5D=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5528&a_id%5B%5D=5532&a_id%5B%5D=5541&ads_type=all&order=1&show_all=on&page={0}
+              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=52&y=21&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5528&a_id%5B%5D=5532&a_id%5B%5D=5541&ads_type=all&order=1&show_all=on&page={0}
             - site: Къщи в Нови Хан, Горна Малина, Григорево, Гара Елин Пелин
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=67&y=14&building_type_id%5B%5D=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=60&search_city=&a_id%5B%5D=5755&a_id%5B%5D=5727&a_id%5B%5D=5757&a_id%5B%5D=5764&ads_type=all&order=1&show_all=on&page={0}
+              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=98&y=18&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=60&search_city=&a_id%5B%5D=5755&a_id%5B%5D=5727&a_id%5B%5D=5757&a_id%5B%5D=5764&ads_type=all&order=1&show_all=on&page={0}
             - site: Къщи в Лозен, Бистрица, Железница, Малинова долина
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=53&y=12&building_type_id%5B%5D=14&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5527&a_id%5B%5D=5898&a_id%5B%5D=5537&a_id%5B%5D=5847&a_id%5B%5D=5943&a_id%5B%5D=5848&ads_type=all&order=1&show_all=on&page={0}
+              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=58&y=8&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5527&a_id%5B%5D=5898&a_id%5B%5D=5537&a_id%5B%5D=5847&a_id%5B%5D=5943&a_id%5B%5D=5848&ads_type=all&order=1&show_all=on&page={0}
         max_pages_match: normalize-space((//div[@class="pg"]/ul/li/a)[position()=last()]/strong/text())
         list_items_match: //form[@name="search"]/div[@class="tabc"]/div[contains(@class,"item")]
         item_attributes:

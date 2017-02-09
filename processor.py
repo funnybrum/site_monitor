@@ -52,16 +52,19 @@ class Processor(multiprocessing.Process):
         list_items_xpath = site_config.get('list_items_match', [])
         item_attributes = site_config.get('item_attributes', [])
         if site_config.get('search_urls', None):
-            search_urls = [item['url'] for item in site_config.get('search_urls')]
+            search_urls = {item['site'] : item['url'] for item in site_config.get('search_urls')}
         else:
-            search_urls = [site_config.get('search_url')]
+            search_urls = {site_name: site_config.get('search_url')}
         max_pages_match = site_config.get('max_pages_match')
         max_pages_count = site_config.get('max_pages_count')
 
-        for search_url in search_urls:
+        for subsite_id, search_url in search_urls.iteritems():
+            subsite_name = '%s - %s' % (site_name, subsite_id)
             max_pages = (max_pages_count or
-                         self._get_max_pages(search_url, max_pages_match, encoding) or
+                         self._get_max_pages(search_url, max_pages_match, encoding, subsite_name) or
                          PAGE_SIZE)
+
+            subsite_result = {}
 
             for page_num in xrange(0, max_pages):
                 url = search_url.format(page_num + 1)
@@ -72,9 +75,12 @@ class Processor(multiprocessing.Process):
                 for item in list_items:
                     parsed = self._parse_item_attributes(item, item_attributes)
                     if parsed:
-                        result.update(parsed)
+                        subsite_result.update(parsed)
                     else:
                         log(u'Failed to parse item in %s' % site_name)
+
+            log('Processed %s pages for %s, got %s items' % (page_num, subsite_name, len(subsite_result)))
+            result.update(subsite_result)
 
         return result
 
@@ -200,7 +206,7 @@ class Processor(multiprocessing.Process):
         template = env.get_template(self.template_name)
         return template.render(properties)
 
-    def _get_max_pages(self, search_url, max_pages_match, encoding=None):
+    def _get_max_pages(self, search_url, max_pages_match, encoding=None, site_name=None):
         if not search_url or not max_pages_match:
             return
 
@@ -213,7 +219,7 @@ class Processor(multiprocessing.Process):
                 max_pages_str = max_pages_str[0]
             max_pages = int(max_pages_str)
         except:
-            log(u'Unable to determine max pages for %s' % url)
+            log(u'Unable to determine max pages for %s' % site_name)
         return max_pages
 
     def _get_html_tree(self, url, encoding=None):
