@@ -35,8 +35,8 @@ sites:
               match: tr/td/a[@class="lnk2"]//text()
             - name: link
               match: tr/td/a[@class="lnk2"]/@href
-    Къщи @ imoti.net:
-        enabled: True
+    Къщи @ imoti.net - old:
+        enabled: False
         search_urls:
             - site: Казичене, Герман, Бусманци
               url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=52&y=21&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5528&a_id%5B%5D=5532&a_id%5B%5D=5541&ads_type=all&order=1&show_all=on&page={0}
@@ -61,6 +61,28 @@ sites:
             - name: link
               match: div/a[@class="price"]/@href
               prefix: http://www.imoti.net/
+    Къщи @ imoti.net - new:
+        enabled: True
+        search_urls:
+            - site: Лозен, Симеоново, Бистрица, Камбаните, Киноцентър
+              url: http://www.imoti.net/bg/obiavi/rezultati/hGGTbE?page={0}
+        max_pages_match: normalize-space(/html/body/div/main/div/div/nav/a[position()=last()-1]/text())
+        list_items_match: //ul[@class="list-view real-estates"]/li
+        item_attributes:
+            - name: id
+              match: a/@href
+            - name: image
+              match: figure/div/div/a/img/@src
+              prefix: http://www.imoti.net
+            - name: description
+              match: div[@class="real-estate-text"]/p/text()
+            - name: price
+              match: div/header/strong/text()[normalize-space()]
+            - name: area
+              match: div/header/div/span[@class="location"]/text()
+            - name: link
+              match: a/@href
+              prefix: http://www.imoti.net
     Къщи @ imoti.info:
         enabled: True
         search_urls:
@@ -77,7 +99,6 @@ sites:
               match: tr/td/div[@class="price"]/text()
             - name: link
               match: tr/td/table/tr/td/a[@class="photoLink"]/@href
-              prefix: http://www.imoti.info
             - name: image
               match: tr/td/table/tr/td/a[@class="photoLink"]/img/@src
             - name: description
