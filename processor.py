@@ -134,13 +134,30 @@ class Processor(multiprocessing.Process):
         id_value = self._get_id(item_element, item_attributes)
         if not id_value:
             return
+        url_issue_detected = False
         for item in item_attributes:
             value = item_element.xpath(item['match'])
             if not isinstance(value, list):
                 value = [value]
-            value = [v.strip() for v in value if v.strip()]
-            value = [item.get('prefix', '') + v + item.get('suffix', '') for v in value]
+            prefix = item.get('prefix', '')
+            suffix = item.get('suffix', '')
+            value = [
+                (prefix if not v.startswith(prefix[:4]) else '') +
+                v.strip() +
+                suffix for v in value
+            ]
+
+            if item['name'] in ['link', 'image'] and len(value) > 0:
+                ref = value[0]
+                if 'images/s.jpg' in ref or 'photo_small.gif' in ref or 'photo_med.gif' in ref:
+                    break
+                if ref.count('http') != 1 or ref.count('//') != 1:
+                    url_issue_detected = True
+
             result.update({item['name']: value})
+
+        if url_issue_detected:
+            log('Detected a URL issue for %s -> %s' % (id_value, result))
 
         return {id_value: result}
 
