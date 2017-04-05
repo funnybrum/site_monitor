@@ -157,7 +157,7 @@ sites:
             - name: area
               match: normalize-space(tr/td/table/tr/td/span[1]/text())
     Къщи @ ues.bg:
-        enabled: True
+        enabled: False
         search_urls:
             - site: Лозен
               url: http://www.ues.bg/bg/offers/sales?map_quarter_id=&rent=sales&category=house&category2=&location_id=4114&bedrooms=&price_from=&price_to=200000&area_from=&area_to=&type=&project_id=&completion_id=&offer_category_type_id=&heating_id=&parking_id=&closed-complex-header=&project-header=&advanced-search=1&setPage={0}
