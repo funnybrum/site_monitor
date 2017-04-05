@@ -150,8 +150,8 @@ class Processor(multiprocessing.Process):
             if item['name'] in ['link', 'image'] and len(value) > 0:
                 ref = value[0]
                 if 'images/s.jpg' in ref or 'photo_small.gif' in ref or 'photo_med.gif' in ref:
-                    break
-                if ref.count('http') != 1 or ref.count('//') != 1:
+                    pass
+                elif ref.count('http') != 1 or ref.count('//') != 1:
                     url_issue_detected = True
 
             result.update({item['name']: value})
@@ -260,4 +260,4 @@ if __name__ == '__main__':
         if 'name' in i and i['name'] == 'Properties monitor':
             config = i
 
-    Processor(config=config, dry_run=False, show_html=False).run()
+    Processor(config=config, dry_run=True, show_html=False).run()
