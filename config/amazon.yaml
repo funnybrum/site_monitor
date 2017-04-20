@@ -36,3 +36,15 @@ sites:
               match: div/h1/span[2]/text()[normalize-space()]
             - name: price
               match: div/div[@class="price"]/text()[normalize-space()]
+    Samsung Galaxy A3 2017:
+        enabled: True
+        search_urls:
+            - site: pazaruvaj.com
+              url: https://www.pazaruvaj.com/mobilni-telefoni-gsm-c3277/samsung/galaxy-a3-2017-single-a320f-p356592477/
+        max_pages_count: 1
+        list_items_match: //div[@class="row product-page-top"]
+        item_attributes:
+            - name: id
+              match: div/h1/span[2]/text()[normalize-space()]
+            - name: price
+              match: div/div[@class="price"]/text()[normalize-space()]
