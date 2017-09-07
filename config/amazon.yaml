@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-enabled: True
+enabled: False
 name: Amazon monitor
 database: amazon_monitor.db
 recipient: funnybrum@gmail.com
