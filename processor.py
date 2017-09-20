@@ -14,7 +14,6 @@ from jinja2 import Environment, PackageLoader
 DB_PATH = './database/'
 TEMPLATE_PATH = './templates/'
 DEFAULT_TEMPLATE = 'base_v3.html'
-DEFAULT_SUBJECT = 'Properties monitor update'
 
 DEFAULT_PAGE = 1
 PAGE_SIZE = 20
@@ -33,7 +32,7 @@ class Processor(multiprocessing.Process):
         self.enabled = config.get('enabled', True)
         self.sites = config.get('sites', {})
         self.template_config = config.get('template_config', {})
-        self.subject = config.get('subject', DEFAULT_SUBJECT)
+        self.subject = config.get('subject')
         self.smtp_config = config.get('smtp')
         self.send_new = config.get('send_new', True)
         self.send_updates = config.get('send_updates', True)
@@ -42,8 +41,6 @@ class Processor(multiprocessing.Process):
         return super(Processor, self).__init__()
 
     def _process_site(self, site_name, site_config):
-        log(u'Running for %s' % site_name)
-
         result = {}
         if not site_config.get('enabled', True):
             return result
@@ -70,7 +67,7 @@ class Processor(multiprocessing.Process):
                 url = search_url.format(page_num + 1)
                 tree = self._get_html_tree(url, encoding)
                 list_items = tree.xpath(list_items_xpath)
-                if len(list_items) == 0:
+                if len(list_items) == 0 and page_num > 1:
                     break
                 for item in list_items:
                     parsed = self._parse_item_attributes(item, item_attributes)
@@ -95,7 +92,6 @@ class Processor(multiprocessing.Process):
 
             for site_name, site_config in self.sites.iteritems():
                 site_results = self._process_site(site_name, site_config)
-                log(u'Got %s items for %s' % (len(site_results), site_name))
                 results.update(site_results)
 
             db = shelve.open(self.db_file)
@@ -180,6 +176,7 @@ class Processor(multiprocessing.Process):
                 removed[key] = db[key]
             elif key in current_data:
                 current_data[key]['history'] = []
+                current_data[key]['created_at'] = datetime.datetime.now()
                 db[key] = current_data[key]
                 new[key] = current_data[key]
 

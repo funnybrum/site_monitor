@@ -11,7 +11,7 @@ send_deletes: False
 headers:
     User-Agent: Mozilla/5.0
 sites:
-    Къщи @ imot.bg:
+    Къщи@imot.bg:
         enabled: True
         search_urls:
             - site: Къщи в Малинова долина
@@ -37,33 +37,7 @@ sites:
             - name: link
               match: tr/td/a[@class="lnk2"]/@href
               prefix: "http:"
-    Къщи @ imoti.net - old:
-        enabled: False
-        search_urls:
-            - site: Казичене, Герман, Бусманци
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=52&y=21&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5528&a_id%5B%5D=5532&a_id%5B%5D=5541&ads_type=all&order=1&show_all=on&page={0}
-            - site: Къщи в Нови Хан, Горна Малина, Григорево, Гара Елин Пелин
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=98&y=18&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=60&search_city=&a_id%5B%5D=5755&a_id%5B%5D=5727&a_id%5B%5D=5757&a_id%5B%5D=5764&ads_type=all&order=1&show_all=on&page={0}
-            - site: Къщи в Лозен, Бистрица, Железница, Малинова долина
-              url: http://www.imoti.net/search/results/?personal=&ad_type_id=2&save_search=1&search_form=prodajbi&lang=bg&new_search=n&x=58&y=8&building_type_id%5B%5D=14&building_type_id%5B%5D=25&price_from=&price_to=200000&currency_id=4&price_kv_from=&price_kv_to=&currency_kv_id=4&surface_from=&surface_to=&floor_from=&floor_to=&nomer=&keyword=&new_building_yes=on&city_id=1&search_city=&a_id%5B%5D=5527&a_id%5B%5D=5898&a_id%5B%5D=5537&a_id%5B%5D=5847&a_id%5B%5D=5943&a_id%5B%5D=5848&ads_type=all&order=1&show_all=on&page={0}
-        max_pages_match: normalize-space((//div[@class="pg"]/ul/li/a)[position()=last()]/strong/text())
-        list_items_match: //form[@name="search"]/div[@class="tabc"]/div[contains(@class,"item")]
-        item_attributes:
-            - name: id
-              match: div/a[@class="price"]/@href
-            - name: image
-              match: div/a/div/img[@class="thumb nop"]/@src
-              prefix: http://www.imoti.net/
-            - name: description
-              match: div/p[@class="left"]//text()
-            - name: price
-              match: div/a[@class="price"]//text()
-            - name: area
-              match: div/h2//text()
-            - name: link
-              match: div/a[@class="price"]/@href
-              prefix: http://www.imoti.net/
-    Къщи @ imoti.net - new:
+    Къщи@imoti.net:
         enabled: True
         search_urls:
             - site: Лозен, Симеоново, Бистрица, Камбаните, Киноцентър
@@ -85,7 +59,7 @@ sites:
             - name: link
               match: a/@href
               prefix: http://www.imoti.net
-    Къщи @ imoti.info:
+    Къщи@imoti.info:
         enabled: True
         search_urls:
             - site: Къщи в Герман, Лозен, Казичене, Нови Хан
@@ -108,37 +82,33 @@ sites:
               match: tr[3]/td/text()[normalize-space()]
             - name: area
               match: tr[3]/td/b/text()
-    Къщи @ holmes.bg:
+    Къщи@holmes.bg:
         enabled: True
         search_urls:
-            - site: Къщи в Лозен, Бистрица, Железница, Малинова долина
-              url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=446%2C381%2C462%2C375%2C413&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
-            - site: Кривна, Казичене, Бусманци, Герман
-              url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=427%2C809%2C438%2C382%2C397&morgagesells=&regiontype=1&locationId=1&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
-            - site: Нови Хан
-              url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=&morgagesells=&regiontype=2&regionId=22&municipalityId=0&locationId=3804&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
-            - site: Гара Елин Пелин
-              url: http://houses.homes.bg/?go=housessell&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=&Neighbourhoods=&morgagesells=&regiontype=2&regionId=22&municipalityId=0&locationId=3795&offersfrom%5B1%5D=1&offersfrom%5B2%5D=1&offersfrom%5B3%5D=1&priceFrom=0&priceTo=200000&currencyId=1&areaFrom=&areaTo=&furnitureId=0&heatingId=0&finished=&year_builtId=0&built_typeId=0&page={0}
+            - site: Къщи в Лозен, Бистрица, Железница, Герман
+              url: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C3%E5%F0%EC%E0%ED&f42=&f39=&f40=%F1.+%CB%EE%E7%E5%ED%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C3%E5%F0%EC%E0%ED%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1={0}
+            - site: Квартали южно от София
+              url: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%E3%F0%E0%E4+%D1%EE%F4%E8%FF&f42=&f39=&f40=%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0%2B%E2.%E7.%C1%F3%ED%EA%E5%F0%E0%2B%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0+-+%C3%E5%F0%E5%ED%E0%2B%D1%E8%EC%E5%EE%ED%EE%E2%EE%2B%E2.%E7.%D1%E8%EC%E5%EE%ED%EE%E2%EE+-+%C4%F0%E0%E3%E0%EB%E5%E2%F6%E8%2B%C4%F0%E0%E3%E0%EB%E5%E2%F6%E8%2B%E2.%E7.%CC%E8%EB%EA%EE%E2%E0+%EA%EE%F0%E8%FF%2B%E2.%E7.%CC%EE%E3%E8%EB%E0%F2%E0%2B%EC-%F2+%CE%F0%E5%F5%E8%F2%E5%2B%E2.%E7.%C4%F0%E0%E3%E0%EB%E5%E2%F6%E8+%EB%E8%F4%F2%E0%2B%E2.%E7.%CA%E8%ED%EE%F6%E5%ED%F2%FA%F0%E0%2B%EC-%F2+%C4%E5%F2%F1%EA%E8+%E3%F0%E0%E4%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1={0}
         max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
-        list_items_match: (//table[@class="tableListResults"]/tr)[position()>1]
+        list_items_match: //table[@width=956 and not(@style)][position()>1]
         item_attributes:
             - name: id
-              match: td/a[@class="ver15black"]/@href
+              match: tr[1]/td[1]/table/tr/td/a/@href
             - name: image
-              match: (td/a/img/@src)[1]
+              match: tr[1]/td[1]/table/tr/td/a/img/@src
             - name: description
-              match: (td)[2]//text()
+              match: tr[2]/td[1]/table/tr[1]/td[1]//text()
             - name: price
-              match: td/span[@class="ver20black"][1]//text()
+              match: tr[1]/td[3]//text()
             - name: area
-              match: td/span[@class="ver15black"][1]//text()
+              match: tr[1]/td[2]//text()
             - name: link
-              match: td/a[@class="ver15black"][1]/@href
-              prefix: http://www.homes.bg/
-    Къщи @ lozen.bg:
+              match: tr[1]/td[1]/table/tr/td/a/@href
+              prefix: http://www.homes.bg
+    Къщи@lozen.bg:
         enabled: True
         search_urls:
-            - site: Къщи @ lozen.bg
+            - site: Къщи@lozen.bg
               url: http://lozen.bg/oferti/results?option=com_ezrealty&controller=properties&task=results&Itemid=53&type=0&cnid=0&stid=0&maxbed=&sold=0&featured=0&custom4=&custom5=&custom6=&custom7=&custom8=&pets=0&lug=&direction=DESCPRICE&keyword=&minbed=&bathrooms=&parking=&postcode=&radius=&cid=2&locid=0&minprice=&maxprice=200000.00&min_squarefeet=&max_squarefeet=&submit=%D0%A2%D1%8A%D1%80%D1%81%D0%B8&limit=1000
         max_pages_count: 1
         list_items_match: //table[@class="listtableborder"]
@@ -156,7 +126,7 @@ sites:
               match: tr/td/table/tr/td[@valign="top" and @align="left"][3]/text()[normalize-space()]
             - name: area
               match: normalize-space(tr/td/table/tr/td/span[1]/text())
-    Къщи @ ues.bg:
+    Къщи@ues.bg:
         enabled: True
         search_urls:
             - site: Лозен
@@ -180,13 +150,4 @@ sites:
               match: div[@class="offer-image-holder"]/a/@href
               prefix: http://www.ues.bg
 template_config:
-  description: |
-    Обяви за:
-      <strong>Горни Лозен</strong><br>
-      <strong>Долни Лозен</strong><br>
-      <strong>Малинова долина</strong><br>
-      <strong>Железница</strong><br>
-      <strong>Бистрица</strong><br>
-      <strong>Горна Малина</strong><br>
-      <strong>Нови Хан</strong><br>
-      <strong>Григорево</strong><br>
+  description:

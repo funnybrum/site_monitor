@@ -116,6 +116,7 @@
                             </p>
                             {% if data[id]['history']|length > 0 %}
                                 <h6 style="padding: 0px; margin: 0px; color: red;">Промяна в данните</h6>
+                                <h6> Дата на обявата: {{ data[id]['created_at'].strftime("%d-%m-%Y %H:%M") }} </h6>
                                 {% for item in data[id]['history'] %}
                                     {% if item['old'] is string %}
                                         <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['key'] }}: {{ item['old'] }} -> {{ item['new'] }}</h6>
