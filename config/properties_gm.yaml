@@ -96,7 +96,7 @@ sites:
               match: tr[1]/td[2]//text()
             - name: link
               match: tr[1]/td[1]/table/tr/td/a/@href
-              prefix: http://www.homes.bg
+              prefix: http://www.holmes.bg
 template_config:
   description: |
     Обяви:
