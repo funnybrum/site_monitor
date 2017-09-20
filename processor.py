@@ -32,7 +32,7 @@ class Processor(multiprocessing.Process):
         self.enabled = config.get('enabled', True)
         self.sites = config.get('sites', {})
         self.template_config = config.get('template_config', {})
-        self.subject = config.get('subject')
+        self.subject = '%s %s' % (config.get('subject'), datetime.datetime.now().strftime("%d/%m/%Y"))
         self.smtp_config = config.get('smtp')
         self.send_new = config.get('send_new', True)
         self.send_updates = config.get('send_updates', True)
