@@ -16,7 +16,7 @@ TEMPLATE_PATH = './templates/'
 DEFAULT_TEMPLATE = 'base_v3.html'
 
 DEFAULT_PAGE = 1
-PAGE_SIZE = 20
+MAX_PAGES = 50
 
 
 class Processor(multiprocessing.Process):
@@ -52,18 +52,12 @@ class Processor(multiprocessing.Process):
             search_urls = {item['site'] : item['url'] for item in site_config.get('search_urls')}
         else:
             search_urls = {site_name: site_config.get('search_url')}
-        max_pages_match = site_config.get('max_pages_match')
-        max_pages_count = site_config.get('max_pages_count')
 
         for subsite_id, search_url in search_urls.iteritems():
             subsite_name = '%s - %s' % (site_name, subsite_id)
-            max_pages = (max_pages_count or
-                         self._get_max_pages(search_url, max_pages_match, encoding, subsite_name) or
-                         PAGE_SIZE)
-
             subsite_result = {}
 
-            for page_num in xrange(0, max_pages):
+            for page_num in xrange(0, MAX_PAGES):
                 url = search_url.format(page_num + 1)
                 tree = self._get_html_tree(url, encoding)
                 list_items = tree.xpath(list_items_xpath)
@@ -220,22 +214,6 @@ class Processor(multiprocessing.Process):
         template = env.get_template(self.template_name)
         return template.render(properties)
 
-    def _get_max_pages(self, search_url, max_pages_match, encoding=None, site_name=None):
-        if not search_url or not max_pages_match:
-            return
-
-        url = search_url.format(DEFAULT_PAGE)
-        tree = self._get_html_tree(url, encoding)
-        max_pages = None
-        try:
-            max_pages_str = tree.xpath(unicode(max_pages_match))
-            if isinstance(max_pages_str, list):
-                max_pages_str = max_pages_str[0]
-            max_pages = int(max_pages_str)
-        except:
-            log(u'Unable to determine max pages for %s' % site_name)
-        return max_pages
-
     def _get_html_tree(self, url, encoding=None):
         # handler = urllib2.HTTPSHandler(debuglevel=1)
         # opener = urllib2.build_opener(handler)
@@ -254,7 +232,7 @@ if __name__ == '__main__':
 
     configs = load_configs('./config/')
     for i in configs:
-        if 'name' in i and i['name'] == 'Properties monitor':
+        if 'name' in i and i['name'] == 'Car monitor':
             config = i
 
     Processor(config=config, dry_run=True, show_html=False).run()
