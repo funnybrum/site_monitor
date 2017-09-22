@@ -38,7 +38,7 @@ sites:
             - name: area
               match: td[5]/text()[preceding-sibling::br]
             - name: link
-              prefix: http://www.cars.bg
+              prefix: http://www.cars.bg/
               match: td[1]/a/@href
             - name: image
               match: td[1]/a/img/@src
