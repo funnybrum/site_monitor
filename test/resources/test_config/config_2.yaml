@@ -1,0 +1,24 @@
+extend: secrets.yaml
+
+enabled: False
+name: test config 2
+database: db2.db
+recipient: na@na.na
+subject: test subject 2
+send_new: True
+send_updates: True
+send_deletes: False
+template_name: template1.html
+sites:
+    the_site:
+        enabled: True
+        search_urls:
+            - site: site A
+              url: https://url/1
+        max_pages_count: 1
+        list_items_match: id('dp-container')
+        item_attributes:
+            - name: id
+              match: normalize-space(id('titleSection')/h1/span/text())
+            - name: price
+              match: id('priceblock_ourprice')/text()

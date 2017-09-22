@@ -4,7 +4,8 @@ import os
 from config import (
     Site,
     ItemProperty,
-    Config
+    Config,
+    SMTPConfig
 )
 
 
@@ -17,8 +18,6 @@ class ConfigLoader(object):
         config.enabled = config_dict.get('enabled', config.enabled)
         config.name = config_dict['name']
         config.database = config_dict['database']
-        config.recipient = config_dict['recipient']
-        config.subject = config_dict['subject']
         config.send_new = config_dict.get('send_new', config.send_new)
         config.send_updates = config_dict.get('send_updates', config.send_updates)
         config.send_deletes = config_dict.get('send_deletes', config.send_deletes)
@@ -26,6 +25,14 @@ class ConfigLoader(object):
         for site_name, site_config in config_dict.get('sites', {}).items():
             site = cls._parse_site_config(site_name, site_config)
             config.sites.append(site)
+
+        smtp_config = SMTPConfig()
+        smtp_config.recipient = config_dict['recipient']
+        smtp_config.subject = config_dict['subject']
+        smtp_config.username = config_dict['smtp']['user']
+        smtp_config.password = config_dict['smtp']['password']
+
+        config.smtp = smtp_config
 
         return config
 
@@ -37,6 +44,11 @@ class ConfigLoader(object):
         site.enabled = config['enabled']
         site.encoding = config.get('encoding', site.encoding)
         site.items_x_path = config['list_items_match']
+        site.max_pages = config.get('max_pages_count', site.max_pages)
+        if 'search_url' in config:
+            site.urls = [config['search_url']]
+        else:
+            site.urls = [i['url'] for i in config['search_urls']]
         for property_config in config['item_attributes']:
             property = cls._parse_item_property(property_config)
             site.item_properties.append(property)

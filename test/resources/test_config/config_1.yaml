@@ -1,0 +1,50 @@
+extend: secrets.yaml
+
+enabled: True
+name: test config 1
+database: db1.db
+recipient: na@na.na
+subject: test subject
+send_new: True
+send_updates: True
+send_deletes: False
+template_name: template1.html
+headers:
+    User-Agent: Mozilla/5.0
+sites:
+    site 1:
+        enabled: True
+        search_urls:
+            - site: site A
+              url: https://url/1
+        max_pages_count: 1
+        list_items_match: id('dp-container')
+        item_attributes:
+            - name: id
+              match: normalize-space(id('titleSection')/h1/span/text())
+            - name: price
+              match: id('priceblock_ourprice')/text()
+    site 2:
+        enabled: True
+        search_urls:
+            - site: site B
+              url: http://url/2
+        max_pages_count: 1
+        list_items_match: //div[@class="row product-page-top"]
+        item_attributes:
+            - name: id
+              match: div/h1/span[2]/text()[normalize-space()]
+            - name: price
+              match: div/div[@class="price"]/text()[normalize-space()]
+    site 3:
+        enabled: True
+        search_urls:
+            - site: site C
+              url: https://www.test.na/3
+        max_pages_count: 1
+        list_items_match: //div[@class="row product-page-top"]
+        item_attributes:
+            - name: id
+              match: div/h1/span[2]/text()[normalize-space()]
+            - name: price
+              match: div/div[@class="price"]/text()[normalize-space()]

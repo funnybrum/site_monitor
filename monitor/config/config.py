@@ -12,12 +12,6 @@ class Config(object):
     # database file name
     database = None
 
-    # recipient of emails for that config
-    recipient = None
-
-    # subject of the emails
-    subject = None
-
     # True if new items should be send
     send_new = True
 
@@ -32,6 +26,9 @@ class Config(object):
 
     # Site list
     sites = None
+
+    # SMTP config
+    smtp = None
 
 
 class Site(object):
@@ -57,6 +54,9 @@ class Site(object):
     # item properties, instances of ItemProperties
     item_properties = None
 
+    # maximum number of pages to be processed
+    max_pages = 0
+
 
 class ItemProperty(object):
     # property name
@@ -73,3 +73,9 @@ class ItemProperty(object):
 
     # indicate if the property is URL, used for data validation
     is_url = False
+
+class SMTPConfig(object):
+    username = None
+    password = None
+    recipient = None
+    subject = None
