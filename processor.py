@@ -11,6 +11,9 @@ from lxml import etree
 from lib.email import send_email
 from jinja2 import Environment, PackageLoader
 
+import traceback
+import sys
+
 DB_PATH = './database/'
 TEMPLATE_PATH = './templates/'
 DEFAULT_TEMPLATE = 'base_v3.html'
@@ -93,7 +96,7 @@ class Processor(multiprocessing.Process):
                 site_results = self._process_site(site_name, site_config)
                 results.update(site_results)
 
-            db = shelve.open(self.db_file)
+            db = shelve.open(self.db_file, writeback=False)
             removed, updated, new = self._filter_result(results, db)
             log(u'Processor %s - %s removed, %s updated, %s new' % (
                 self.config_name, len(removed), len(updated), len(new)))
@@ -122,6 +125,7 @@ class Processor(multiprocessing.Process):
 
             db.close()
         except Exception as e:
+            traceback.print_exc(file=sys.stdout)
             log(u'Got exception while processing %s: %s' % (site_name, repr(e)))
 
     def _parse_item_attributes(self, item_element, item_attributes):
@@ -165,6 +169,7 @@ class Processor(multiprocessing.Process):
             if key in db and key in current_data:
                 diffs = self._get_diffs(old=db[key], new=current_data[key])
                 if diffs:
+                    current_data['key']['created_at'] = db[key]['created_at']
                     history = db[key]['history']
                     history = history + diffs
                     current_data[key]['history'] = history
@@ -237,7 +242,7 @@ if __name__ == '__main__':
 
     configs = load_configs('./config/')
     for i in configs:
-        if 'name' in i and i['name'] == 'Car monitor':
+        if 'name' in i and i['name'] == 'Properties monitor':
             config = i
 
     Processor(config=config, dry_run=True, show_html=False).run()
