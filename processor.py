@@ -63,12 +63,17 @@ class Processor(multiprocessing.Process):
                 list_items = tree.xpath(list_items_xpath)
                 if len(list_items) == 0 and page_num > 1:
                     break
+                found_new_items = False
                 for item in list_items:
                     parsed = self._parse_item_attributes(item, item_attributes)
                     if parsed:
+                        if parsed.keys()[0] not in subsite_result:
+                            found_new_items = True
                         subsite_result.update(parsed)
                     else:
                         log(u'Failed to parse item in %s' % site_name)
+                if not found_new_items and page_num > 1:
+                    break
 
             log('Processed %s pages for %s, got %s items' % (page_num, subsite_name, len(subsite_result)))
             result.update(subsite_result)
