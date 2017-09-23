@@ -169,7 +169,7 @@ class Processor(multiprocessing.Process):
             if key in db and key in current_data:
                 diffs = self._get_diffs(old=db[key], new=current_data[key])
                 if diffs:
-                    current_data['key']['created_at'] = db[key]['created_at']
+                    current_data[key]['created_at'] = db[key]['created_at']
                     history = db[key]['history']
                     history = history + diffs
                     current_data[key]['history'] = history
