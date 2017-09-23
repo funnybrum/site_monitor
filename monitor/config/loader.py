@@ -1,7 +1,7 @@
 import yaml
 import os
 
-from config import (
+from monitor.models.config import (
     Site,
     ItemProperty,
     Config,
@@ -21,7 +21,8 @@ class ConfigLoader(object):
         config.send_new = config_dict.get('send_new', config.send_new)
         config.send_updates = config_dict.get('send_updates', config.send_updates)
         config.send_deletes = config_dict.get('send_deletes', config.send_deletes)
-        config.headers = config_dict.get('headers', config.headers)
+        config.headers = config_dict.get('headers', {})
+        config.sites = []
         for site_name, site_config in config_dict.get('sites', {}).items():
             site = cls._parse_site_config(site_name, site_config)
             config.sites.append(site)
@@ -31,6 +32,9 @@ class ConfigLoader(object):
         smtp_config.subject = config_dict['subject']
         smtp_config.username = config_dict['smtp']['user']
         smtp_config.password = config_dict['smtp']['password']
+        smtp_config.server = config_dict['smtp']['server']
+        smtp_config.port = config_dict['smtp']['port']
+        smtp_config.sender = config_dict['smtp']['sender']
 
         config.smtp = smtp_config
 
@@ -49,6 +53,7 @@ class ConfigLoader(object):
             site.urls = [config['search_url']]
         else:
             site.urls = [i['url'] for i in config['search_urls']]
+        site.item_properties = []
         for property_config in config['item_attributes']:
             property = cls._parse_item_property(property_config)
             site.item_properties.append(property)

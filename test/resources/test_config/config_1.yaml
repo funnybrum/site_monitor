@@ -16,7 +16,7 @@ sites:
         enabled: True
         search_urls:
             - site: site A
-              url: https://url/1
+              url: https://foo.bar/path
         max_pages_count: 1
         list_items_match: id('dp-container')
         item_attributes:
@@ -28,7 +28,7 @@ sites:
         enabled: True
         search_urls:
             - site: site B
-              url: http://url/2
+              url: https://foo.bar/path2
         max_pages_count: 1
         list_items_match: //div[@class="row product-page-top"]
         item_attributes:
