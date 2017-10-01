@@ -1,0 +1,37 @@
+extend: secrets.yaml
+
+enabled: True
+name: test_holmes_bg
+database: test.db
+recipient: funnybrum@gmail.com
+subject: Няма subject
+send_new: True
+sen_d_updates: True
+send_deletes: False
+template_name: na.html
+headers:
+    User-Agent: Mozilla/5.0
+sites:
+    Къщи@holmes.bg:
+        enabled: True
+        search_urls:
+            - site: Къщи в Лозен, Бистрица, Железница, Герман
+              url: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C3%E5%F0%EC%E0%ED&f42=&f39=&f40=%F1.+%CB%EE%E7%E5%ED%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C3%E5%F0%EC%E0%ED%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1={0}
+        max_pages_match: ((//table[@cellspacing=3]/tr/td/a)[position()=last()-1])/text()[normalize-space()]
+        list_items_match: //table[@width=956 and not(@style)][position()>1]
+        item_attributes:
+            - name: id
+              match: tr[1]/td[1]/table/tr/td/a/@href
+            - name: image
+              match: tr[1]/td[1]/table/tr/td/a/img/@src
+            - name: description
+              match: tr[2]/td[1]/table/tr[1]/td[1]//text()
+            - name: price
+              match: tr[1]/td[3]//text()
+            - name: area
+              match: tr[1]/td[2]//text()
+            - name: link
+              match: tr[1]/td[1]/table/tr/td/a/@href
+              prefix: http://www.holmes.bg
+template_config:
+  description:

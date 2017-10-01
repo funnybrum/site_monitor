@@ -23,6 +23,8 @@ class ConfigLoader(object):
         config.send_deletes = config_dict.get('send_deletes', config.send_deletes)
         config.headers = config_dict.get('headers', {})
         config.sites = []
+        config.template = config_dict.get('template_name', None)
+        config.template_config = config_dict.get('template_config', {})
         for site_name, site_config in config_dict.get('sites', {}).items():
             site = cls._parse_site_config(site_name, site_config)
             config.sites.append(site)
@@ -46,7 +48,6 @@ class ConfigLoader(object):
 
         site.name = name
         site.enabled = config['enabled']
-        site.encoding = config.get('encoding', site.encoding)
         site.items_x_path = config['list_items_match']
         site.max_pages = config.get('max_pages_count', site.max_pages)
         if 'search_url' in config:

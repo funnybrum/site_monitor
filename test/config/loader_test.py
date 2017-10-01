@@ -1,17 +1,14 @@
-import os
-
 from unittest import TestCase
 
+from test import TEST_CONFIG_FOLDER
+
 from monitor.config.loader import ConfigLoader
-
-
-TEST_CONFIG_FOLDER = os.path.dirname(__file__) + '/../resources/test_config'
 
 
 class LoaderTest(TestCase):
     def test_config_discovery(self):
         configs = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)
-        self.assertEqual(2, len(configs))
+        self.assertEqual(3, len(configs))
         self.assertTrue('test config 1' in [c.name for c in configs])
         self.assertTrue('test config 2' in [c.name for c in configs])
 
@@ -38,7 +35,6 @@ class LoaderTest(TestCase):
                 site = s
 
         self.assertEquals(True, site.enabled)
-        self.assertEquals('utf-8', site.encoding)
         self.assertEquals(1, len(site.urls))
         self.assertEquals('https://foo.bar/path', site.urls[0])
         self.assertEqual(1, site.max_pages)

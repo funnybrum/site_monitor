@@ -31,11 +31,8 @@ class Site(Model):
     # name of the site
     name = StringType(required=True)
 
-    # encoding of the site pages, default is utf-8
-    encoding = StringType(required=False, default='utf-8')
-
     # search URLs
-    urls = ListType(URLType, required=True)
+    urls = ListType(StringType, required=True)
 
     # True or False - indicates if the config is enabled, default is True
     enabled = BooleanType(required=False, default=True)
@@ -87,3 +84,6 @@ class Config(Model):
 
     # SMTP config
     smtp = ModelType(SMTPConfig, required=True)
+
+    template = StringType(required=True)
+    template_config = DictType(StringType, required=False, default={})
