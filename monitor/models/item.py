@@ -2,6 +2,7 @@ from schematics.models import Model
 from schematics.types import (
     StringType,
     DictType,
+    ListType,
     URLType,
     ModelType,
     DateTimeType
@@ -33,4 +34,4 @@ class Item(Model):
     # all other item attributes like price and description
     attributes = DictType(StringType, required=False)
 
-    events = DictType(ModelType(Event), required=True)
+    events = ListType(ModelType(Event), required=True)
