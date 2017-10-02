@@ -25,6 +25,9 @@ class MonitorTest(TestCase):
 
         self.assertEqual(1, len(item.events))
         self.assertEqual('created', item.events[0].text)
+        self.assertTrue(item.is_new)
+        self.assertFalse(item.is_deleted)
+        self.assertFalse(item.is_updated)
 
     def test_update_prcess_deleted_item(self):
         monitor = self._create_monitor()
@@ -48,6 +51,9 @@ class MonitorTest(TestCase):
         self.assertEqual(2, len(item.events))
         self.assertEqual('created', item.events[0].text)
         self.assertEqual('deleted', item.events[1].text)
+        self.assertTrue(item.is_deleted)
+        self.assertFalse(item.is_new)
+        self.assertFalse(item.is_updated)
 
     def test_update_prcess_updated_item(self):
         monitor = self._create_monitor()
@@ -85,6 +91,9 @@ class MonitorTest(TestCase):
         self.assertEqual('created', item.events[0].text)
         self.assertTrue(item.events[1].text.endswith('v2'))
         self.assertTrue(item.events[2].text.endswith('v2'))
+        self.assertTrue(item.is_updated)
+        self.assertFalse(item.is_new)
+        self.assertFalse(item.is_deleted)
 
     def test_update_prcess_updated_deleted_item(self):
         monitor = self._create_monitor()
@@ -120,6 +129,43 @@ class MonitorTest(TestCase):
         item = new_items['1']
         self.assertEqual(5, len(item.events))
         self.assertEqual('re-created', item.events[2].text)
+
+    def test_update_prcess_no_updates(self):
+        monitor = self._create_monitor()
+        old_item = Item({
+            'key': '1',
+            'link': 'http://fake.url',
+            'attributes': {
+                'at1': 'val1',
+                'at2': 'val2',
+                'at3': 'val3'
+            },
+            'events': [monitor._create_event('created')]
+        })
+
+        new_item = Item({
+            'key': '1',
+            'link': 'http://fake.url',
+            'attributes': {
+                'at1': 'val1',
+                'at2': 'val2',
+                'at3': 'val3'
+            }
+        })
+
+        new_items = {'1': new_item}
+        old_items = {'1': old_item}
+
+        monitor.update(new_items, old_items)
+
+        self.assertEqual(1, len(new_items))
+        self.assertTrue('1' in new_items)
+        item = new_items['1']
+        self.assertEqual(1, len(item.events))
+        self.assertEqual('created', item.events[0].text)
+        self.assertFalse(item.is_new)
+        self.assertFalse(item.is_deleted)
+        self.assertFalse(item.is_updated)
 
     def _create_monitor(self):
         config = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)[0]

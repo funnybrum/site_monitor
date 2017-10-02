@@ -13,13 +13,9 @@ class HTMLGenerator(object):
         self.send_updates = config.send_updates
         self.send_deletes = config.send_deletes
 
-    def generate(self, new, removed, updated):
+    def generate(self, items, messages):
         """
-        Format the given new/deleted and old items into proper HTML message body.
-
-        :param new:
-        :param updated:
-        :param removed:
+        Render the given items and messages into proper HTML message body.
         :return:
         """
         env = Environment(loader=PackageLoader('prop_monitor', 'templates'))
@@ -28,10 +24,11 @@ class HTMLGenerator(object):
             {
                 'config': self.template_config,
                 'data': {
-                    'new': new if self.send_new else {},
-                    'updated': updated if self.send_updates else {},
-                    'removed': removed if self.send_deletes else {},
+                    'new': [item for item in items if item.is_new and self.send_new],
+                    'updated': [item for item in items if item.is_updated and self.send_updates],
+                    'removed': [item for item in items if item.is_deleted and self.send_deletes],
                 },
+                'messages': messages,
                 'as_of': datetime.datetime.now()
             }
         )

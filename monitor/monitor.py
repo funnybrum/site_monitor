@@ -12,6 +12,7 @@ class Monitor(object):
     def __init__(self, config):
         self.config = config
         self.storage = ShelveStorage(config.database)
+        self.messages = []
 
     def execute(self):
         if not self.config.enabled:
@@ -22,7 +23,7 @@ class Monitor(object):
 
         self.update(current_items, saved_items)
 
-        notification_body = HTMLGenerator(self.config).generate(current_items.values())
+        notification_body = HTMLGenerator(self.config).generate(current_items.values(), self.messages)
         EMail(self.config.smtp).send(notification_body)
         self.storage.save(current_items)
 
@@ -36,7 +37,9 @@ class Monitor(object):
             parser = Parser(site, self.config.headers)
             items = parser.process()
             current_items.update(items)
-            log('Processed %s, got %s items' % (site.name, len(items)))
+            msg = 'Processed %s, got %s items' % (site.name, len(items))
+            self.messages.append(msg)
+            log(msg)
 
         return current_items
 
