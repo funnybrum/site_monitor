@@ -49,10 +49,13 @@ class Monitor(object):
         annotating the current items as new/updated/deleted and keeping the deleted items.
         :return: nothing is returned. The updates are applied over the current items dict.
         """
-        for key, item in current_items.items():
+
+        for item in current_items.values() + saved_items.values():
             item.is_deleted = False
             item.is_new = False
             item.is_updated = False
+
+        for key, item in current_items.items():
 
             if key not in saved_items:
                 # New item detected, fill in the 'created' event.
@@ -81,9 +84,6 @@ class Monitor(object):
 
         for key in set(saved_items.keys()) - set(current_items.keys()):
             current_items[key] = saved_items[key]
-            current_items[key].is_new = False
-            current_items[key].is_updated = False
-            current_items[key].is_deleted = False
 
             if current_items[key].events[-1].text != 'deleted':
                 current_items[key].events.append(self._create_event('deleted'))
