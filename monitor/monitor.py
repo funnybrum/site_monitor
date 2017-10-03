@@ -81,10 +81,13 @@ class Monitor(object):
 
         for key in set(saved_items.keys()) - set(current_items.keys()):
             current_items[key] = saved_items[key]
-            current_items[key].events.append(self._create_event('deleted'))
-            current_items[key].is_deleted = True
             current_items[key].is_new = False
             current_items[key].is_updated = False
+            current_items[key].is_deleted = False
+
+            if current_items[key].events[-1].text != 'deleted':
+                current_items[key].events.append(self._create_event('deleted'))
+                current_items[key].is_deleted = True
 
     def _create_event(self, text):
         return Event({

@@ -167,6 +167,35 @@ class MonitorTest(TestCase):
         self.assertFalse(item.is_deleted)
         self.assertFalse(item.is_updated)
 
+    def test_update_prcess_deleted_item_no_redeletion(self):
+        monitor = self._create_monitor()
+        item = Item({
+            'key': '1',
+            'link': 'http://fake.url',
+            'attributes': {},
+            'events': [
+                monitor._create_event('created'),
+                monitor._create_event('deleted')
+            ]
+        })
+
+        items = {}
+        monitor.update(
+            items,
+            {
+                '1': item
+            })
+
+        self.assertEqual(1, len(items))
+        self.assertTrue('1' in items)
+        item = items['1']
+        self.assertEqual(2, len(item.events))
+        self.assertEqual('created', item.events[0].text)
+        self.assertEqual('deleted', item.events[1].text)
+        self.assertFalse(item.is_deleted)
+        self.assertFalse(item.is_new)
+        self.assertFalse(item.is_updated)
+
     def _create_monitor(self):
         config = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)[0]
         return Monitor(config)
