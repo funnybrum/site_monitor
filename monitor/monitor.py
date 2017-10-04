@@ -34,6 +34,9 @@ class Monitor(object):
         current_items = {}
 
         for site in self.config.sites:
+            if not site.enabled:
+                continue
+
             parser = Parser(site, self.config.headers)
             items = parser.process()
             current_items.update(items)

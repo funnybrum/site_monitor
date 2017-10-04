@@ -6,4 +6,6 @@ my_vcr = vcr.VCR(
     record_mode='once'
 )
 
-TEST_CONFIG_FOLDER = join(dirname(__file__), 'resources/test_config')
+TEST_CONFIG_FOLDER = join(dirname(__file__), 'resources/config')
+
+TEST_TEMPLATES_FOLDER = join(dirname(__file__), 'resources/templates')
