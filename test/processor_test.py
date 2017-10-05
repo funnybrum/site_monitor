@@ -3,11 +3,11 @@ from unittest import TestCase
 from test import TEST_CONFIG_FOLDER
 
 from monitor.models.item import Item
-from monitor.monitor import Monitor
+from monitor.processor import Processor
 from monitor.config.loader import ConfigLoader
 
 
-class MonitorTest(TestCase):
+class ProcessorTest(TestCase):
     def test_update_prcess_new_item(self):
         monitor = self._create_monitor()
         item = Item({
@@ -198,4 +198,4 @@ class MonitorTest(TestCase):
 
     def _create_monitor(self):
         config = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)[0]
-        return Monitor(config)
+        return Processor(config)

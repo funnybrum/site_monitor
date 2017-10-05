@@ -63,10 +63,13 @@ class Parser(object):
             if isinstance(value, list):
                 if len(value) == 1:
                     value = value[0]
+                elif len(value) > 1:
+                    value = ', '.join(value)
                 else:
                     import pdb
                     pdb.set_trace()
                     raise RuntimeError('Failed to parse %s, got %s' % (item_property.to_primitive(), value))
+
             if value is None:
                 import pdb
                 pdb.set_trace()

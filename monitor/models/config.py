@@ -5,7 +5,6 @@ from schematics.types import (
     IntType,
     DictType,
     ListType,
-    URLType,
     ModelType
 )
 

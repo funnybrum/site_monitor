@@ -8,9 +8,10 @@ from storage.shelve import ShelveStorage
 from common.log import log
 
 
-class Monitor(object):
-    def __init__(self, config):
+class Processor(object):
+    def __init__(self, config, params={}):
         self.config = config
+        self.params = params
         self.storage = ShelveStorage(config.database)
         self.messages = []
 
@@ -24,6 +25,13 @@ class Monitor(object):
         self.update(current_items, saved_items)
 
         notification_body = HTMLGenerator(self.config).generate(current_items.values(), self.messages)
+
+        if self.params.get('show_html', False):
+            print notification_body
+
+        if self.params.get('dry_run', False):
+            return
+
         EMail(self.config.smtp).send(notification_body)
         self.storage.save(current_items)
 

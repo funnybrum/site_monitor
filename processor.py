@@ -118,7 +118,7 @@ class Processor(multiprocessing.Process):
                 if self.show_html:
                     log(html)
 
-                if not self.dry_run:
+                if not self.parser:
                     for recipient in self.recipients:
                         send_email(self.subject, html, recipient, self.smtp_config)
                         log(u'Email sent to %s for %s' % (recipient, self.config_name))

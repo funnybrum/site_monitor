@@ -1,6 +1,8 @@
 import yaml
 import os
 
+from monitor import CONFIG_FOLDER
+
 from monitor.models.config import (
     Site,
     ItemProperty,
@@ -107,7 +109,7 @@ class ConfigLoader(object):
         return dict1
 
     @classmethod
-    def load_all_configs(cls, configs_path=os.getenv('APP_CONFIG')):
+    def load_all_configs(cls, configs_path=CONFIG_FOLDER):
         configs = []
         files = [os.path.join(configs_path, f)
                  for f in os.listdir(configs_path)
