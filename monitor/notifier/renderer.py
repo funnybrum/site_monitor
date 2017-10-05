@@ -1,13 +1,15 @@
+import os
+import datetime
+
 from jinja2 import (
     Environment,
-    PackageLoader
+    FileSystemLoader
 )
-import datetime
 
 
 class HTMLGenerator(object):
     def __init__(self, config):
-        self.template = config.template
+        self.template_folder, self.template_file = os.path.split(config.template)
         self.template_config = config.template_config
         self.send_new = config.send_new
         self.send_updates = config.send_updates
@@ -18,8 +20,8 @@ class HTMLGenerator(object):
         Render the given items and messages into proper HTML message body.
         :return:
         """
-        env = Environment(loader=PackageLoader('prop_monitor', 'templates'))
-        template = env.get_template(self.template)
+        env = Environment(loader=FileSystemLoader(self.template_folder))
+        template = env.get_template(self.template_file)
         return template.render(
             {
                 'config': self.template_config,

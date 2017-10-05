@@ -97,34 +97,27 @@
           </table>
         </div>
         <!-- content -->
-        {% for id in data %}
+        {% for item in data %}
             <div class="content" style="padding:10px; display:block; margin:0 auto; max-width:600px">
                 <table style="width:100%; padding: 0px; margin: 0px;" width="100%">
                     <tr style="padding: 0px; margin: 0px;">
                         <td class="small" width="25%" style="vertical-align: top; padding-right:10px;">
-                            <a href="{{ data[id]['link'][0] }}" style="color:#2BA6CB"><img src="{{ data[id]['image'][0] }}" width="120" height="90" style="max-width:100%; margin: 0px;"/></a>
+                            <a href="{{ item.link }}" style="color:#2BA6CB"><img src="{{ item.attributes['image'] }}" width="120" height="90" style="max-width:100%; margin: 0px;"/></a>
                         </td>
                         <td style="padding: 0px; margin: 0px;">
                             <h4 style='color:#000; font-family:HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; line-height:1.1; margin:0 0 10px 0; padding: 0px; font-weight:500; font-size:20px'>
 
-                                <a href="{{ data[id]['link'][0] }}" style="color:#2BA6CB">{{ data[id]['price'][0] }}</a>
-                                <small>{{ data[id]['area']|join(', ') }}</small>
+                                <a href="{{ item.link }}" style="color:#2BA6CB">{{ item.attributes['price'] }}</a>
+                                <small>{{ item.attributes['area'] }}</small>
 
                             </h4>
                             <p class="" style="font-size:14px; font-weight:400; line-height:1.6; margin:0 0 10px 0; padding: 0px;">
-                                {{ data[id]['description']|join(', ') }}
+                                {{ item.attributes['description'] }}
                             </p>
-                            {% if data[id]['history']|length > 0 %}
-                                <h6 style="padding: 0px; margin: 0px; color: red;">Промяна в данните</h6>
-                                <h6> Дата на обявата: {{ data[id]['created_at'].strftime("%d-%m-%Y %H:%M") }} </h6>
-                                {% for item in data[id]['history'] %}
-                                    {% if item['old'] is string %}
-                                        <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['key'] }}: {{ item['old'] }} -> {{ item['new'] }}</h6>
-                                    {% else %}
-                                        <h6>{{ item['date'].strftime("%d-%m-%Y %H:%M") }} - {{ item['key'] }}: {{ item['old']|join(', ') }} -> {{ item['new']|join(', ') }}</h6>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
+                            <h6 style="padding: 0px; margin: 0px; color: red;">История:</h6>
+                            {% for event in item.events %}
+                                <h6>{{ event.datetime.strftime("%d-%m-%Y %H:%M") }} - {{ event.text }}</h6>
+                            {% endfor %}
                         </td>
                     </tr>
                 </table>
@@ -156,6 +149,19 @@
         <td></td>
     </tr>
 </table>
+
+{% if messages %}
+<div class="content" style="padding:0 10px; display:block; margin:0 auto; max-width:600px">
+    <h6 style="padding: 20px; margin: 0px">Съобщения:
+        <ul>
+            {% for msg in messages %}
+                <li>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    </h6>
+</div>
+{% endif %}
+
 <!-- /BODY -->
 
 <!-- FOOTER -->

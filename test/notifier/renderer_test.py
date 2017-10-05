@@ -15,7 +15,10 @@ class RendererTest(TestCase):
 
         config = Config({
             'template': join(TEST_TEMPLATES_FOLDER, 'base_v4.html'),
-            'template_config': {},
+            'template_config': {
+                'name': 'template name',
+                'description': 'template description'
+            },
             'send_new': True,
             'send_updates': True,
             'send_deletes': True
@@ -49,7 +52,19 @@ class RendererTest(TestCase):
         ]
 
         rendered_html = generator.generate([item1], messages)
-        print rendered_html
+
+        for text in [
+            '100.5 BGN',
+            'event 1',
+            'event 2',
+            'http://some/image.gif',
+            'This is a test item',
+            '@somewhere',
+            'message 1',
+            'message 2',
+            'message 3'
+        ]:
+            self.assertTrue(text in rendered_html, msg='Failed to find "%s" in the generated HTML' % text)
 
     @staticmethod
     def _create_event(day, text):
