@@ -8,7 +8,7 @@ subject: test subject
 send_new: True
 send_updates: True
 send_deletes: False
-template_name: template1.html
+template: template1.html
 headers:
     User-Agent: Mozilla/5.0
 sites:
