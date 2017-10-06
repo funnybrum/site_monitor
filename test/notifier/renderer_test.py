@@ -24,6 +24,8 @@ class RendererTest(TestCase):
             'send_deletes': True
         })
 
+        print config.template
+
         generator = HTMLGenerator(config)
 
         item1 = Item({
