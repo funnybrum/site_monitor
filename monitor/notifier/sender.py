@@ -27,8 +27,8 @@ class EMail(object):
         subject = u'%s %s' % (self.config.subject, datetime.now().strftime("%d/%m/%Y"))
         message = message_body
 
-        if type(self.config.subject) == unicode:
-            subject = self.config.subject.encode('UTF-8')
+        if type(subject) == unicode:
+            subject = subject.encode('UTF-8')
         if type(message_body) == unicode:
             message = message_body.encode('UTF-8')
 
