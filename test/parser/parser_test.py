@@ -44,4 +44,19 @@ class ParserTest(TestCase):
         self.assertEquals('http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722', item.link)
         self.assertEquals('/pcgi/home.cgi?act=3&adv=1j150408486382722', item.key)
 
-    # TODO - add test case for prefix that is not needed and not added
+    @my_vcr.use_cassette('test_parser_holmes_bg_with_redundant_prefix.yaml')
+    def test_parser_holmes_bg_with_redundant_prefix(self):
+        """
+        Uses manually patched cassette.
+        Verifies:
+            1) Prefix is skipped if the value that should be prefixed already contains it.
+        """
+        configs = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)
+        holmes_cfg = [cfg for cfg in configs if cfg.name == 'test_holmes_bg'][0]
+        parser = Parser(holmes_cfg.sites[0], holmes_cfg.headers)
+
+        items = parser.process()
+        self.assertEqual(1, len(items))
+
+        item = items.values()[0]
+        self.assertEquals('http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722', item.link)

@@ -1,0 +1,159 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Connection: [close]
+      Host: [www.holmes.bg]
+      User-Agent: [Mozilla/5.0]
+    method: GET
+    uri: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C3%E5%F0%EC%E0%ED&f42=&f39=&f40=%F1.+%CB%EE%E7%E5%ED%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C3%E5%F0%EC%E0%ED%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1=0
+  response:
+    body: {string: !!python/unicode "
+      <html>
+
+        <body>
+
+          <center id=\"main\">
+
+                  <table width=980 cellspacing=0 cellpadding=0 border=0 style=\"margin-top:10px;\">
+                      <tr>
+                          <td height=12><img src=\"../images/search_top.gif\" width=980 height=12 border=0></td>
+                      </tr>
+                      <tr>
+                          <td align=\"center\" style=\"border-left:#bfbfbf 2px solid; border-right:#bfbfbf 2px solid;\">
+                              <table width=956 cellspacing=0 cellpadding=5 border=0>
+                                  <tr>
+                                      <td width=427 align=\"left\" style=\"font-size:14px;\"><strong>  </strong></td>
+                                      <td width=141 align=\"center\" style=\"font-size:14px;\"><strong></strong></td>
+                                      <td width=282 align=\"center\" style=\"font-size:14px;\"><strong>  </strong></td>
+                                      <td width=107 align=\"right\" style=\"font-size:14px;\"><strong></strong></td>
+                                  </tr>
+                                  <tr>
+                                      <td height=15 colspan=5><img src=\"../images/grayline956x3.gif\" width=956 height=3 border=0></td>
+                                  </tr>
+                              </table>
+
+                              <table width=956 cellspacing=0 cellpadding=0 border=0>
+                                  <tr>
+                                      <td width=140 height=90 align=\"center\" valign=\"top\" rowspan=2>
+
+                                          <table width=132 cellspacing=0 cellpadding=0 border=0>
+                                              <tr>
+                                                  <td align=\"center\" valign=\"top\">&nbsp;
+                                                      <a href=\"http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722\" class=linkLocatList onclick=\"javascript:href='javascript:document.search.act.value=3;document.search.adv.value='1j150408486382722';document.search.submit()'\"></a>
+                                                  </td>
+                                              </tr>
+                                          </table>
+
+                                      </td>
+                                      <td width=286 height=20 align=\"left\" valign=\"top\" style=\"padding-top:5px;\"><a href=\"http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722\" class=linkLocatList onclick=\"javascript:href='javascript:document.search.act.value=3;document.search.adv.value='1j150408486382722';document.search.submit()'\">. ,  </a></td>
+                                      <td width=141 height=20 align=\"center\" bgcolor=\"#F3F3F3\" style=\"padding:3px; padding-top:6px;\"><strong><span style=\"font-size:16px;\">72 000 EUR</strong></span>
+                                          </strong>
+                                      </td>
+                                      <td width=282 height=20 align=\"center\" bgcolor=\"#F3F3F3\" style=\"padding:3px; border-left:#FFF 1px solid;\"><strong></strong></td>
+                                      <td width=107 height=20 align=\"right\" bgcolor=\"#F3F3F3\" style=\"padding:3px; color:#000; border-left:#FFF 1px solid;\"><strong>120 .</strong></td>
+                                  </tr>
+                                  <tr>
+                                      <td width=816 height=50 colspan=4 align=\"left\" style=\"padding-top:3px;\">
+                                          <table width=816 cellspacing=0 cellpadding=0 border=0>
+                                              <tr>
+                                                  <td width=676> 2- ., , . ., .: 0878426911</td>
+                                                  <td width=140 align=\"right\" rowspan=2>
+                                                      <a href=\"http://landbg.imot.bg\" class=\"logoLinks\" target=\"_blank\"><img src=\"http://www.imot.bg/images/logos/small/landbg.pic\" border=0></a>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td width=676>
+                                                      <table width=676 cellspacing=0 cellpadding=0 border=0 style=\"margin-top:5px;margin-bottom:10px;\">
+                                                          <tr>
+                                                              <td width=338>
+                                                                  <a href=\"javascript:document.search.adv.value='1j150408486382722';document.search.act.value='9';document.search.submit();\" class=linkNext><img src=\"../images/ico_note_small.png\" width=22 height=22 border=0 align=\"absmiddle\"></a>
+                                                                  <a href=\"javascript:document.search.adv.value='1j150408486382722';document.search.act.value='9';document.search.submit();\" class=linkNext> </a>
+                                                              </td>
+                                                              <td width=338 align=\"right\">
+                                                                  <input type=\"checkbox\" name=\"p1j150408486382722\" value=1> <span style=\"color:#666\">  </span></td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td height=15 colspan=5><img src=\"../images/grayline956x3.gif\" width=956 height=3 border=0></td>
+                                  </tr>
+                              </table>
+
+                              <table width=956 border=0 cellspacing=0 cellpadding=0 bgcolor=\"#F1F1EF\" style=\"margin-top:10px; margin-bottom:10px;\">
+                                  <tr>
+                                      <td align=left colspan=2 style=\"padding:5px;\"><a href=\"http://www.imoti.com/pcgi/results.cgi?pn=1&pubtype=10~11&nraion=44&sraion=5457~3966~3872~3913\" class=\"linkSearch\" target=\"_blank\">    ,   , . , . , . , . </a></td>
+                                  </tr>
+                                  <tr>
+                                      <td width=478 height=35>
+                                          <input type=\"checkbox\" name=\"mall\" value=1 onclick=\"javascript:markall()\"> <span style=\"color:#666\">   </span>
+                                      </td>
+                                      <td width=478 height=35 align=\"right\">
+                                          <a href=\"javascript:printhomeselob()\" class=\"linkSearch\"> </a>
+                                          <a href=\"javascript:printhomeselob()\"><img src=\"../images/print_icon.gif\" width=14 height=12 border=0 alt=\"     \"></a>
+                                          <img src=\"../images/no.gif\" width=5 height=1 border=0>
+                                      </td>
+                                  </tr>
+                              </table>
+
+                      </tr>
+                      </tr>
+                      <tr>
+                          <td height=12><img src=\"../images/search_bottom.gif\" width=980 height=12 border=0></td>
+                      </tr>
+                  </table>
+              </form>
+          </center>
+
+        </body>
+
+      </html>
+    "}
+    headers:
+      connection: [close]
+      content-type: [text/html]
+      date: ['Sun, 01 Oct 2017 20:10:40 GMT']
+      server: [nginx]
+      vary: [Accept-Encoding]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Connection: [close]
+      Host: [www.holmes.bg]
+      User-Agent: [Mozilla/5.0]
+    method: GET
+    uri: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C3%E5%F0%EC%E0%ED&f42=&f39=&f40=%F1.+%CB%EE%E7%E5%ED%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C3%E5%F0%EC%E0%ED%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1=1
+  response:
+    body:
+      string: <html></html>
+    headers:
+      connection: [close]
+      content-type: [text/html]
+      date: ['Sun, 01 Oct 2017 20:10:41 GMT']
+      server: [nginx]
+      vary: [Accept-Encoding]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Connection: [close]
+      Host: [www.holmes.bg]
+      User-Agent: [Mozilla/5.0]
+    method: GET
+    uri: http://www.holmes.bg/pcgi/home.cgi?act=2&pn=1&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C3%E5%F0%EC%E0%ED&f42=&f39=&f40=%F1.+%CB%EE%E7%E5%ED%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C3%E5%F0%EC%E0%ED%2B&f16=1&f17=1&f28=&f29=200000&f30=EUR&f26=&f27=&f31=&f32=&f33=&f34=&f35=&f36=&f37=&f41=1&f1=2
+  response:
+    body:
+      string: <html></html>
+    headers:
+      connection: [close]
+      content-type: [text/html]
+      date: ['Sun, 01 Oct 2017 20:10:41 GMT']
+      server: [nginx]
+      vary: [Accept-Encoding]
+    status: {code: 200, message: OK}
+version: 1
