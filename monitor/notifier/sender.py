@@ -24,7 +24,7 @@ class EMail(object):
         :return:
         """
         # Prepare actual message
-        subject = '%s %s' % (self.config.subject.get('subject'), datetime.datetime.now().strftime("%d/%m/%Y"))
+        subject = u'%s %s' % (self.config.subject, datetime.datetime.now().strftime("%d/%m/%Y"))
         message = message_body
 
         if type(self.config.subject) == unicode:
