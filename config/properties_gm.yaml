@@ -1,13 +1,9 @@
 extend: secrets.yaml
 
-enabled: True
 name: Properties monitor GM
-database: prop_monitor_gm.db
+database: prop_gm.db
 recipient: funnybrum@gmail.com
-subject: Имоти в Горна Малина
-send_new: True
-send_updates: True
-send_deletes: True
+subject: Имоти в Горна Малина v2
 headers:
     User-Agent: Mozilla/5.0
 sites:
@@ -15,7 +11,7 @@ sites:
         enabled: True
         search_urls:
             - site: Горна Малина
-              url: https://www.imot.bg/pcgi/imot.cgi?act=3&slink=32z727&f1={0}
+              url: https://www.imot.bg/pcgi/imot.cgi?act=3&slink=34knyh&f1={0}
         max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
         list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
         item_attributes:
@@ -97,6 +93,7 @@ sites:
             - name: link
               match: tr[1]/td[1]/table/tr/td/a/@href
               prefix: http://www.holmes.bg
+template: config/templates/properties.html
 template_config:
-  description: |
-    Обяви:
+  name: ""
+  description: Обяви за къщи в Горна Малина

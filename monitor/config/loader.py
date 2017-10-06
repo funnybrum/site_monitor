@@ -25,7 +25,7 @@ class ConfigLoader(object):
         config.send_deletes = config_dict.get('send_deletes', config.send_deletes)
         config.headers = config_dict.get('headers', {})
         config.sites = []
-        config.template = config_dict.get('template_name', None)
+        config.template = config_dict.get('template', None)
         config.template_config = config_dict.get('template_config', {})
         for site_name, site_config in config_dict.get('sites', {}).items():
             site = cls._parse_site_config(site_name, site_config)
@@ -118,8 +118,3 @@ class ConfigLoader(object):
         for file_name in files:
             configs.append(cls.load_config(file_name))
         return configs
-
-
-if __name__ == '__main__':
-    configs = ConfigLoader.load_all_configs('../../config/')
-    print len(configs)

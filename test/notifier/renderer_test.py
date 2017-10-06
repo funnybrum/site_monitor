@@ -14,7 +14,7 @@ class RendererTest(TestCase):
     def test_renderer_base_v4(self):
 
         config = Config({
-            'template': join(TEST_TEMPLATES_FOLDER, 'base_v4.html'),
+            'template': join(TEST_TEMPLATES_FOLDER, 'test.html'),
             'template_config': {
                 'name': 'template name',
                 'description': 'template description'

@@ -1,11 +1,9 @@
 extend: secrets.yaml
 
-enabled: True
 name: Car monitor
 database: car_monitor.db
 recipient: funnybrum@gmail.com
-subject: Hyundai Terracan
-send_new: True
+subject: Обяви за Suzuki Vitara v2
 send_updates: False
 send_deletes: False
 sites:
@@ -65,6 +63,7 @@ sites:
               prefix: "http:"
             - name: id
               match: ul/li[@class="links"]/a[@class="save"]/@id
-
+template: config/templates/properties.html
 template_config:
+  name: ""
   description: Обяви за Suzuki Vitara 2002-2005

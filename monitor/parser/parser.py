@@ -70,7 +70,9 @@ class Parser(object):
                     value = None
 
             if value is not None:
-                if item_property.prefix:
+                # Sanity check. In some cases the prefix is already applied. I.e. in case of URLs. Some sites have links
+                # to external sites for subset of the items and in that case no prefix should be added.
+                if item_property.prefix and not value.startswith(item_property.prefix[:4]):
                     value = item_property.prefix + value
 
                 if item_property.suffix:

@@ -1,12 +1,9 @@
 extend: secrets.yaml
 
-enabled: True
 name: Properties monitor
-database: prop_monitor.db
+database: properties.db
 recipient: funnybrum@gmail.com
-subject: Имоти около София
-send_new: True
-send_updates: True
+subject: Имоти около София v2
 send_deletes: False
 headers:
     User-Agent: Mozilla/5.0
@@ -149,5 +146,7 @@ sites:
             - name: link
               match: div[@class="offer-image-holder"]/a/@href
               prefix: http://www.ues.bg
+template: config/templates/properties.html
 template_config:
-  description:
+  name: ""
+  description: Обяви за къщи около София

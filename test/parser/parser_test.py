@@ -20,7 +20,7 @@ class ParserTest(TestCase):
         parser = Parser(holmes_cfg.sites[0], holmes_cfg.headers)
 
         items = parser.process()
-        self.assertEqual(1, len(items))
+        self.assertEqual(72, len(items))
 
     @my_vcr.use_cassette('test_parser_holmes_bg_with_missing_elements.yaml')
     def test_parser_holmes_bg_with_missing_elements(self):
@@ -43,3 +43,5 @@ class ParserTest(TestCase):
         self.assertTrue('0878426911' in item.attributes['description'])
         self.assertEquals('http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722', item.link)
         self.assertEquals('/pcgi/home.cgi?act=3&adv=1j150408486382722', item.key)
+
+    # TODO - add test case for prefix that is not needed and not added

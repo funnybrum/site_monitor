@@ -1,14 +1,12 @@
 extend: secrets.yaml
 
 enabled: False
-name: Amazon monitor
-database: amazon_monitor.db
+name: Mixed
+database: mixed.db
 recipient: funnybrum@gmail.com
-subject: Обяви от Amazon
+subject: Amazon.com & Pazaruvaj.com
 send_new: True
 send_updates: True
-send_deletes: False
-template_name: amazon.html
 headers:
     User-Agent: Mozilla/5.0
 sites:
@@ -48,3 +46,4 @@ sites:
               match: div/h1/span[2]/text()[normalize-space()]
             - name: price
               match: div/div[@class="price"]/text()[normalize-space()]
+template_name: amazon.html

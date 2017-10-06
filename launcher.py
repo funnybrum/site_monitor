@@ -1,10 +1,10 @@
-#!/usr/bin/env python
-
 import argparse
+import traceback
 
-from processor import Processor
-from common.log import log
-from config.loader import ConfigLoader
+from monitor.processor import Processor
+from monitor.common.log import log
+from monitor.config.loader import ConfigLoader
+from monitor.notifier.sender import EMail
 
 if __name__ == '__main__':
     args_parser = argparse.ArgumentParser(description="""
@@ -15,9 +15,6 @@ if __name__ == '__main__':
 
     args_parser.add_argument('--dry_run', action='store_true', default=False,
                              help='Do not send emails')
-
-    args_parser.add_argument('--show_html', action='store_true', default=False,
-                             help='Print generated html')
 
     args_parser.add_argument('--config', type=str,
                              help='Process only specified config')
@@ -40,13 +37,14 @@ if __name__ == '__main__':
         configs = one_config
 
     params = {
-        "dry_run": args.dry_run,
-        "show_html": args.show_html
+        "dry_run": args.dry_run
     }
 
     for config in configs:
         log("Running %s" % config.name)
-        # try:
-        Processor(config, params).execute()
-        # except Exception as e:
-        #     log('Failed for config %s: %s' % (config.name, e))
+        try:
+            Processor(config, params).execute()
+        except:
+            message = 'Failed for config %s:\n%s' % (config.name, traceback.format_exc())
+            EMail(config.smtp).send(message.replace("\n", "<br>"))
+            log(message)

@@ -47,10 +47,10 @@ class Site(Model):
 
 
 class SMTPConfig(Model):
-    username = StringType(required=True)
-    password = StringType(required=True)
     recipient = StringType(required=True)
     sender = StringType(required=True)
+    username = StringType(required=True)
+    password = StringType(required=True)
     subject = StringType(required=True)
     server = StringType(required=True)
     port = IntType(required=True)

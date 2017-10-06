@@ -24,15 +24,28 @@ class Processor(object):
 
         self.update(current_items, saved_items)
 
+        new_count = len([i for i in current_items.values() if i.is_new])
+        updated_count = len([i for i in current_items.values() if i.is_updated])
+        deleted_count = len([i for i in current_items.values() if i.is_deleted])
+
+        should_send_notification =\
+            (self.config.send_new and new_count > 0) \
+            or (self.config.send_updates and updated_count > 0) \
+            or (self.config.send_deletes and deleted_count > 0)
+
+        log('Finished with %s, got %s new, %s updated, %s removed.' %
+            (self.config.name, new_count, updated_count, deleted_count))
+
         notification_body = HTMLGenerator(self.config).generate(current_items.values(), self.messages)
 
-        if self.params.get('show_html', False):
-            print notification_body
+        # a few lines of debug code ...
+        # with open('/tmp/monitor.html', 'w') as out_file:
+        #     out_file.write(notification_body.encode('UTF-8'))
 
-        if self.params.get('dry_run', False):
-            return
+        if should_send_notification and not self.params.get('dry_run', False):
+            log('Sending email for %s to %s' % (self.config.name, self.config.smtp.recipient))
+            EMail(self.config.smtp).send(notification_body)
 
-        EMail(self.config.smtp).send(notification_body)
         self.storage.save(current_items)
 
     def get_current_items(self):

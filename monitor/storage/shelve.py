@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import shelve
 from os.path import join
+from json import loads, dumps
 
 from monitor.models.item import Item
 from monitor import DATABASE_FOLDER
@@ -9,7 +10,7 @@ from monitor import DATABASE_FOLDER
 
 class ShelveStorage(object):
     def __init__(self, filename):
-        self.filename = join(DATABASE_FOLDER, 'v2_%s' % filename)
+        self.filename = join(DATABASE_FOLDER, '%s' % filename)
 
     def save(self, data):
         """
@@ -21,8 +22,8 @@ class ShelveStorage(object):
         db = shelve.open(self.filename, writeback=False)
         db.clear()
 
-        for key, model in data:
-            db[key] = model.to_primitive()
+        for key, model in data.items():
+            db[key] = dumps(model.to_primitive())
 
         db.close()
 
@@ -34,8 +35,8 @@ class ShelveStorage(object):
         result = {}
         db = shelve.open(self.filename, writeback=False)
 
-        for key, value in db:
-            result[key] = Item(value)
+        for key, value in db.items():
+            result[key] = Item(loads(value))
 
         db.close()
 

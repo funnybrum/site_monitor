@@ -1,11 +1,9 @@
 from __future__ import absolute_import
 
 import smtplib
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-from monitor.models.config import SMTPConfig
-
 
 class EMail(object):
 
@@ -16,8 +14,7 @@ class EMail(object):
         :param smtp_config: the SMTP configuration.
         :type smtp_config: SMTPConfig or dict representing SMTPConfig
         """
-        smtp_config.verify()
-        self.config = SMTPConfig(smtp_config)
+        self.config = smtp_config
 
     def send(self, message_body):
         """
@@ -27,7 +24,7 @@ class EMail(object):
         :return:
         """
         # Prepare actual message
-        subject = self.config.subject
+        subject = '%s %s' % (self.config.subject.get('subject'), datetime.datetime.now().strftime("%d/%m/%Y"))
         message = message_body
 
         if type(self.config.subject) == unicode:
@@ -48,6 +45,6 @@ class EMail(object):
         server = smtplib.SMTP(self.config.server, self.config.port)
         server.ehlo()
         server.starttls()
-        server.login(self.config.user, self.config.password)
-        server.sendmail(self.config.user, self.config.recipient, msg.as_string())
+        server.login(self.config.username, self.config.password)
+        server.sendmail(self.config.username, self.config.recipient, msg.as_string())
         server.close()
