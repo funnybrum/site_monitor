@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import shelve
 from os.path import join
 
@@ -7,7 +9,7 @@ from monitor import DATABASE_FOLDER
 
 class ShelveStorage(object):
     def __init__(self, filename):
-        self.filename = join(DATABASE_FOLDER, filename)
+        self.filename = join(DATABASE_FOLDER, 'v2_%s' % filename)
 
     def save(self, data):
         """
@@ -36,3 +38,5 @@ class ShelveStorage(object):
             result[key] = Item(value)
 
         db.close()
+
+        return result

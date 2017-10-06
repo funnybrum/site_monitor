@@ -66,25 +66,22 @@ class Parser(object):
                 elif len(value) > 1:
                     value = ', '.join(value)
                 else:
-                    import pdb
-                    pdb.set_trace()
-                    raise RuntimeError('Failed to parse %s, got %s' % (item_property.to_primitive(), value))
+                    # Nothing was matched, i.e. missing image for some item
+                    value = None
 
-            if value is None:
-                import pdb
-                pdb.set_trace()
-                raise RuntimeError('Failed to parse %s, got %s' % (item_property.to_primitive(), value))
+            if value is not None:
+                if item_property.prefix:
+                    value = item_property.prefix + value
 
-            if item_property.prefix:
-                value = item_property.prefix + value
+                if item_property.suffix:
+                    value = value + item_property.suffix
 
-            if item_property.suffix:
-                value = value + item_property.suffix
-
-            # Check for 'blank' images. If such are detected - remove the image link value.
-            if 'image' == item_property.name:
-                if any([r.match(value) for r in FAKE_IMAGE_MATCHERS]):
-                    value = ''
+                # Check for 'blank' images. If such are detected - remove the image link value.
+                if 'image' == item_property.name:
+                    if any([r.match(value) for r in FAKE_IMAGE_MATCHERS]):
+                        value = ''
+            else:
+                print u'Got %s for %s for %s at %s' % (value, item_property.name, item.key, self.config.name)
 
             if 'id' == item_property.name:
                 item.key = value

@@ -21,3 +21,5 @@ class ParserTest(TestCase):
 
         items = parser.process()
         self.assertEqual(72, len(items))
+
+    # TODO -> add tests for items with missing attributes.

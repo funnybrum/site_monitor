@@ -45,7 +45,8 @@ if __name__ == '__main__':
     }
 
     for config in configs:
-        try:
-            Processor(config, params).execute()
-        except Exception as e:
-            log('Failed for config %s: %s' % (config.name, e))
+        log("Running %s" % config.name)
+        # try:
+        Processor(config, params).execute()
+        # except Exception as e:
+        #     log('Failed for config %s: %s' % (config.name, e))
