@@ -25,6 +25,9 @@ class ItemProperty(Model):
     # indicate if the property is URL, used for data validation
     is_url = BooleanType(required=False, default=False)
 
+    # post processing method that can transform the extracted result
+    post_processor = StringType(required=False, default=None)
+
 
 class Site(Model):
     # name of the site

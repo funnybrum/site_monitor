@@ -71,6 +71,7 @@ class ConfigLoader(object):
         property.prefix = config.get('prefix', property.prefix)
         property.suffix = config.get('suffix', property.suffix)
         property.is_url = config.get('is_url', property.is_url)
+        property.post_processor = config.get('post_processor', property.post_processor)
         return property
 
     @classmethod

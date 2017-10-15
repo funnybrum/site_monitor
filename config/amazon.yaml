@@ -1,49 +1,35 @@
 extend: secrets.yaml
 
-enabled: False
-name: Mixed
-database: mixed.db
+name: Amazon.com
+database: amazon.db
 recipient: funnybrum@gmail.com
-subject: Amazon.com & Pazaruvaj.com
+subject: Amazon.com
 send_new: True
 send_updates: True
+send_deletes: False
 headers:
     User-Agent: Mozilla/5.0
 sites:
-    Graco Milestone:
+    Amazon.com:
         enabled: True
         search_urls:
-            - site: Graco Milestone
-              url: https://www.amazon.co.uk/Graco-Milestone-All-One-Seat/dp/B00XHWL7UK
-        max_pages_count: 1
-        list_items_match: id('dp-container')
+            - site: Dell XPS 13 9600 Refurbished
+              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
+        list_items_match: //div[@class="s-item-container"]
         item_attributes:
             - name: id
-              match: normalize-space(id('titleSection')/h1/span/text())
+              match: (.//div/a/@href)[1]
+              post_processor: amazon_id_extractor
+            - name: link
+              match: (.//div/a/@href)[1]
+              post_processor: amazon_link_extractor
+            - name: image
+              match: (div/div/div/div/div/a/img/@src)[1]
             - name: price
-              match: id('priceblock_ourprice')/text()
-    Samsung Galaxy A5 2017:
-        enabled: True
-        search_urls:
-            - site: pazaruvaj.com
-              url: https://www.pazaruvaj.com/mobilni-telefoni-gsm-c3277/samsung/galaxy-a5-2017-a520f-p356387087/
-        max_pages_count: 1
-        list_items_match: //div[@class="row product-page-top"]
-        item_attributes:
-            - name: id
-              match: div/h1/span[2]/text()[normalize-space()]
-            - name: price
-              match: div/div[@class="price"]/text()[normalize-space()]
-    Samsung Galaxy A3 2017:
-        enabled: True
-        search_urls:
-            - site: pazaruvaj.com
-              url: https://www.pazaruvaj.com/mobilni-telefoni-gsm-c3277/samsung/galaxy-a3-2017-single-a320f-p356592477/
-        max_pages_count: 1
-        list_items_match: //div[@class="row product-page-top"]
-        item_attributes:
-            - name: id
-              match: div/h1/span[2]/text()[normalize-space()]
-            - name: price
-              match: div/div[@class="price"]/text()[normalize-space()]
-template_name: amazon.html
+              match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
+            - name: description
+              match: .//div/a/@title
+template: config/templates/amazon.html
+template_config:
+  name: ""
+  description: Обяви от Amazon

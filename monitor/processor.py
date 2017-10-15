@@ -118,3 +118,9 @@ class Processor(object):
             'datetime': datetime.now(),
             'text': text
         })
+
+if __name__ == '__main__':
+    from monitor.config.loader import ConfigLoader
+    configs = ConfigLoader.load_all_configs()
+    config = [c for c in configs if c.name == 'Amazon.com'][0]
+    Processor(config, {'dry_run': True}).execute()

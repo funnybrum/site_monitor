@@ -6,6 +6,8 @@ from monitor.models.item import Item
 from monitor.common.constants import MAX_PAGES, FAKE_IMAGE_MATCHERS
 from monitor.common.log import log
 
+from monitor.parser import lib
+
 
 class Parser(object):
     def __init__(self, config, headers={}):
@@ -68,6 +70,14 @@ class Parser(object):
                 else:
                     # Nothing was matched, i.e. missing image for some item
                     value = None
+
+            if item_property.post_processor is not None:
+                # Temporary workaround for Amazon.com items that fail to parse.
+                if not value:
+                    return None
+
+                post_processor = getattr(lib, item_property.post_processor)
+                value = post_processor(value)
 
             if value is not None:
                 # Sanity check. In some cases the prefix is already applied. I.e. in case of URLs. Some sites have links
