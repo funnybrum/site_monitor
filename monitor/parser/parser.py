@@ -71,11 +71,12 @@ class Parser(object):
                     # Nothing was matched, i.e. missing image for some item
                     value = None
 
-            if item_property.post_processor is not None:
-                # Temporary workaround for Amazon.com items that fail to parse.
-                if not value:
+            # Temporary workaround for Amazon.com items that fail to parse.
+            if 'Amazon.com' == self.config.name:
+                if not value or len(value) < 4:
                     return None
 
+            if item_property.post_processor is not None:
                 post_processor = getattr(lib, item_property.post_processor)
                 value = post_processor(value)
 
