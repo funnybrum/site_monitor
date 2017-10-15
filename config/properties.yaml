@@ -38,7 +38,7 @@ sites:
         enabled: True
         search_urls:
             - site: Лозен, Симеоново, Бистрица, Камбаните, Киноцентър
-              url: http://www.imoti.net/bg/obiavi/rezultati/hGGTbE?page={0}
+              url: http://www.imoti.net/bg/obiavi/rezultati/gGQVTU?page={0}
         max_pages_match: normalize-space(/html/body/div/main/div/div/nav/a[position()=last()-1]/text())
         list_items_match: //ul[@class="list-view real-estates"]/li
         item_attributes:
