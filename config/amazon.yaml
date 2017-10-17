@@ -20,8 +20,8 @@ sites:
     Amazon.com:
         enabled: True
         search_urls:
-#            - site: Dell XPS 13 9600 Refurbished
-#              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
+            - site: Dell XPS 13 9600 Refurbished
+              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
             - site: Quite Comfort 35 II
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=bose+quietcomfort+35+II&lo=none&rh=i%3Aaps%2Ck%3Abose+quietcomfort+35+II&page={0}
         list_items_match: //div[@class="s-item-container"]
