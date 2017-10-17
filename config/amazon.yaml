@@ -37,7 +37,10 @@ sites:
               match: (.//div/a/@href)[1]
               post_processor: amazon_link_extractor
             - name: image
-              match: (div/div/div/div/div/a/img/@src)[1]
+              match: (.//a/img/@src)[1]
+            - name: image
+              match: (.//a/div/img/@src)[1]
+              validator: ^.{10,}$
             - name: price
               match: concat('< ', .//span[@aria-label]/text())
               validator: ^< \$?[\d,]+[.,]\d\d$
