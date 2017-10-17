@@ -60,6 +60,7 @@ class ConfigLoader(object):
         for property_config in config['item_attributes']:
             property = cls._parse_item_property(property_config)
             site.item_properties.append(property)
+        site.required_properties = config.get('required_properties', site.required_properties)
 
         return site
 
@@ -72,6 +73,7 @@ class ConfigLoader(object):
         property.suffix = config.get('suffix', property.suffix)
         property.is_url = config.get('is_url', property.is_url)
         property.post_processor = config.get('post_processor', property.post_processor)
+        property.validator = config.get('validator', property.validator)
         return property
 
     @classmethod

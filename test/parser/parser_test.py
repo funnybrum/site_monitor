@@ -60,3 +60,7 @@ class ParserTest(TestCase):
 
         item = items.values()[0]
         self.assertEquals('http://www.holmes.bg/pcgi/home.cgi?act=3&adv=1j150408486382722', item.link)
+
+    # TODO add tests for:
+    # 1) validators, it should also cover the case when the
+    # 2) required properties

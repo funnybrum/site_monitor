@@ -1,6 +1,9 @@
 import urllib2
 import chardet
+import gzip
 from lxml import etree
+from StringIO import StringIO
+from re import match
 
 from monitor.models.item import Item
 from monitor.common.constants import MAX_PAGES, FAKE_IMAGE_MATCHERS
@@ -35,7 +38,7 @@ class Parser(object):
                 list_items = tree.xpath(self.config.items_x_path)
 
                 for item in list_items:
-                    item = self._process_item(item)
+                    item = self._parse_item(item)
 
                     if item:
                         if item.key not in items:
@@ -51,13 +54,19 @@ class Parser(object):
 
     def _get_html_tree(self, url):
         req = urllib2.Request(url, headers=self.headers)
-        html = urllib2.urlopen(req).read()
-        html_encoding = chardet.detect(html)['encoding']
-        html = html.decode(html_encoding).encode('utf-8')
+        response = urllib2.urlopen(req)
+
+        body = response.read()
+        if response.info().get('Content-Encoding') == 'gzip':
+            buf = StringIO(body)
+            body = gzip.GzipFile(fileobj=buf).read()
+
+        html_encoding = chardet.detect(body)['encoding']
+        html = body.decode(html_encoding).encode('utf-8')
         parser = etree.HTMLParser(encoding='utf-8')
         return etree.HTML(html, parser=parser)
 
-    def _process_item(self, item_tree):
+    def _parse_item(self, item_tree):
         item = Item()
         item.attributes = {}
         for item_property in self.config.item_properties:
@@ -71,16 +80,11 @@ class Parser(object):
                     # Nothing was matched, i.e. missing image for some item
                     value = None
 
-            # Temporary workaround for Amazon.com items that fail to parse.
-            if 'Amazon.com' == self.config.name:
-                if not value or len(value) < 4:
-                    return None
-
-            if item_property.post_processor is not None:
-                post_processor = getattr(lib, item_property.post_processor)
-                value = post_processor(value)
-
             if value is not None:
+                if item_property.post_processor is not None:
+                    post_processor = getattr(lib, item_property.post_processor)
+                    value = post_processor(value)
+
                 # Sanity check. In some cases the prefix is already applied. I.e. in case of URLs. Some sites have links
                 # to external sites for subset of the items and in that case no prefix should be added.
                 if item_property.prefix and not value.startswith(item_property.prefix[:4]):
@@ -92,15 +96,38 @@ class Parser(object):
                 # Check for 'blank' images. If such are detected - remove the image link value.
                 if 'image' == item_property.name:
                     if any([r.match(value) for r in FAKE_IMAGE_MATCHERS]):
-                        value = ''
-            else:
-                print u'Got %s for %s for %s at %s' % (value, item_property.name, item.key, self.config.name)
+                        value = None
 
-            if 'id' == item_property.name:
-                item.key = value
-            elif 'link' == item_property.name:
-                item.link = value
-            else:
-                item.attributes[item_property.name] = value
+            # If a property has validator - check it against the validator. If the value is not valid - don't set it.
+            if item_property.validator:
+                if value is None or not self.validate(value, item_property.validator):
+                    continue
+
+            self.set_property(item, item_property.name, value)
+
+        if self.config.required_properties:
+            for key in self.config.required_properties:
+                if self.get_property(item, key) is None:
+                    log('Failed to extract property %s, item = %s' % (key, item.to_primitive()))
+                    return None
 
         return item
+
+    def validate(self, value, validator):
+        return value is not None and match(validator, value)
+
+    def get_property(self, item, key):
+        if 'id' == key:
+            return item.key
+        elif 'link' == key:
+            return item.link
+        else:
+            return item.attributes.get(key)
+
+    def set_property(self, item, key, value):
+        if 'id' == key:
+            item.key = value
+        elif 'link' == key:
+            item.link = value
+        else:
+            item.attributes[key] = value

@@ -30,10 +30,11 @@ class LoaderTest(TestCase):
         self.assertEquals(3, len(cfg.sites))
         self.assertEquals(3, len(set([site.name for site in cfg.sites])))
         site = None
-        for s in cfg.sites:
-            if s.name == 'site 1':
-                site = s
+        for site in cfg.sites:
+            if site.name == 'site 1':
+                break
 
+        self.assertEquals('site 1', site.name)
         self.assertEquals(True, site.enabled)
         self.assertEquals(1, len(site.urls))
         self.assertEquals('https://foo.bar/path', site.urls[0])
@@ -41,6 +42,15 @@ class LoaderTest(TestCase):
         self.assertEquals("id('dp-container')", site.items_x_path)
         self.assertEquals(2, len(site.item_properties))
         self.assertEquals(set(['id', 'price']), set([p.name for p in site.item_properties]))
+        self.assertEquals(['id'], site.required_properties)
+
+        for prop in site.item_properties:
+            if prop.name == 'price':
+                break
+        self.assertEqual('price', prop.name)
+        self.assertEqual('a_validator', prop.validator)
+        self.assertEqual('a_prefix', prop.prefix)
+        self.assertEqual('a_suffix', prop.suffix)
 
     def test_config(self):
         configs = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)

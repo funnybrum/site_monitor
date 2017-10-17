@@ -8,7 +8,14 @@ send_new: True
 send_updates: True
 send_deletes: False
 headers:
-    User-Agent: Mozilla/5.0
+    Host: www.amazon.com
+    Connection: keep-alive
+    Cache-Control: max-age=0
+    Upgrade-Insecure-Requests: 1
+    User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+    Accept-Encoding: gzip, deflate, br
+    Accept-Language: en-US,en;q=0.8,bg;q=0.6
 sites:
     Amazon.com:
         enabled: True
@@ -27,8 +34,16 @@ sites:
               match: (div/div/div/div/div/a/img/@src)[1]
             - name: price
               match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
+              validator: ^\$?[\d,]+[.,]\d\d$
+            - name: price
+              match: .//span[@class='a-size-base a-color-base']/text()
+              validator: ^\$?[\d,]+[.,]\d\d$
             - name: description
               match: .//div/a/@title
+        required_properties:
+            - id
+            - link
+            - price
 template: config/templates/amazon.html
 template_config:
   name: ""

@@ -28,6 +28,9 @@ class ItemProperty(Model):
     # post processing method that can transform the extracted result
     post_processor = StringType(required=False, default=None)
 
+    # regex that validates if the value is correct
+    validator = StringType(required=False, default=None)
+
 
 class Site(Model):
     # name of the site
@@ -42,11 +45,14 @@ class Site(Model):
     # items_x_path
     items_x_path = StringType(required=True)
 
+    # maximum number of pages to be processed
+    max_pages = IntType(required=False, default=0)
+
     # item properties, instances of ItemProperties
     item_properties = ListType(ModelType(ItemProperty))
 
-    # maximum number of pages to be processed
-    max_pages = IntType(required=False, default=0)
+    # list of properties that must have values
+    required_properties = ListType(StringType, default=None)
 
 
 class SMTPConfig(Model):
