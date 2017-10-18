@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-name: Properties monitor GM
+name: Properties_monitor_GM
 database: prop_gm.db
 recipient: funnybrum@gmail.com
 subject: Имоти в Горна Малина v2

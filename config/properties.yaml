@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-name: Properties monitor
+name: Properties_monitor
 database: properties.db
 recipient: funnybrum@gmail.com
 subject: Имоти около София v2
