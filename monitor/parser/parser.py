@@ -63,12 +63,13 @@ class Parser(object):
         html = body.decode(html_encoding).encode('utf-8')
 
         # # For debugging purposes
-        # if not hasattr(self, 'page_count'):
-        #     self.page_count = 0
-        # with open('/brum/page%s.html' % self.page_count, 'w') as out_f:
-        #     out_f.write(html)
-        # print 'Page %s' % self.page_count
-        # self.page_count += 1
+        # if 'amazon.com' in url:
+        #     if not hasattr(self, 'page_count'):
+        #         self.page_count = 0
+        #     with open('/var/log/amazon_page_%s.html' % self.page_count, 'w') as out_f:
+        #         out_f.write(html)
+        #     print 'Page %s' % self.page_count
+        #     self.page_count += 1
 
         parser = etree.HTMLParser(encoding='utf-8')
         return etree.HTML(html, parser=parser)
