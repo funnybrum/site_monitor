@@ -44,8 +44,6 @@ class Parser(object):
                         if item.key not in items:
                             new_items_found = True
                             items[item.key] = item
-                    else:
-                        log(u'Failed to parse item in %s' % self.config.name)
 
                 if not new_items_found and page_num > 1:
                     break
@@ -63,6 +61,15 @@ class Parser(object):
 
         html_encoding = chardet.detect(body)['encoding']
         html = body.decode(html_encoding).encode('utf-8')
+
+        # # For debugging purposes
+        # if not hasattr(self, 'page_count'):
+        #     self.page_count = 0
+        # with open('/brum/page%s.html' % self.page_count, 'w') as out_f:
+        #     out_f.write(html)
+        # print 'Page %s' % self.page_count
+        # self.page_count += 1
+
         parser = etree.HTMLParser(encoding='utf-8')
         return etree.HTML(html, parser=parser)
 
@@ -105,10 +112,14 @@ class Parser(object):
 
             self.set_property(item, item_property.name, value)
 
+        if item.is_empty():
+            return None
+
         if self.config.required_properties:
-            for key in self.config.required_properties:
+            for key, warning in self.config.required_properties.items():
                 if self.get_property(item, key) is None:
-                    log('Failed to extract property %s, item = %s' % (key, item.to_primitive()))
+                    if warning:
+                        log('Failed to extract property %s, item = %s' % (key, item.to_primitive()))
                     return None
 
         return item

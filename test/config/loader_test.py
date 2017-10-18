@@ -42,7 +42,7 @@ class LoaderTest(TestCase):
         self.assertEquals("id('dp-container')", site.items_x_path)
         self.assertEquals(2, len(site.item_properties))
         self.assertEquals(set(['id', 'price']), set([p.name for p in site.item_properties]))
-        self.assertEquals(['id'], site.required_properties)
+        self.assertEquals({'id': True}, site.required_properties)
 
         for prop in site.item_properties:
             if prop.name == 'price':

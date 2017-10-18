@@ -35,3 +35,14 @@ class Item(Model):
     attributes = DictType(StringType, required=False)
 
     events = ListType(ModelType(Event), required=True)
+
+    def is_empty(self):
+        """
+        Return True iff all properties are set to None.
+        """
+        return\
+            self.key is None\
+            and self.link is None\
+            and (
+                self.attributes is None
+                or not any(self.attributes.values()))

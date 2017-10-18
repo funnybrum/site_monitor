@@ -52,7 +52,7 @@ class Site(Model):
     item_properties = ListType(ModelType(ItemProperty))
 
     # list of properties that must have values
-    required_properties = ListType(StringType, default=None)
+    required_properties = DictType(BooleanType, default=None)
 
 
 class SMTPConfig(Model):

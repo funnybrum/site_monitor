@@ -28,7 +28,7 @@ sites:
               prefix: a_prefix
               suffix: a_suffix
         required_properties:
-            - id
+              id: True
     site 2:
         enabled: True
         search_urls:

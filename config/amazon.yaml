@@ -22,8 +22,6 @@ sites:
         search_urls:
             - site: Dell XPS 13 9600 Refurbished
               url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
-            - site: Quite Comfort 35 II
-              url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=bose+quietcomfort+35+II&lo=none&rh=i%3Aaps%2Ck%3Abose+quietcomfort+35+II&page={0}
             - site: Lenovo Thinkad OLED
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=lenovo+thinkpad+oled&rh=i%3Aaps%2Ck%3Alenovo+thinkpad+oled&page={0}
             - site: Samsung Gear Fit2 Refurbished
@@ -51,11 +49,13 @@ sites:
               match: .//span[@class='a-size-base a-color-base']/text()
               validator: ^\$?[\d,]+[.,]\d\d$
             - name: description
+              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2).*
               match: .//div/a/@title
         required_properties:
-            - id
-            - link
-            - price
+              id: True  # True - show warning if missing, False - don't show warning
+              link: True
+              price: True
+              description: False
 template: config/templates/amazon.html
 template_config:
   name: ""
