@@ -1,4 +1,5 @@
 from datetime import datetime
+from re import sub
 
 from models.item import Event
 from notifier.renderer import HTMLGenerator
@@ -99,7 +100,9 @@ class Processor(object):
                     if self.config.tracked_properties and attribute_key not in self.config.tracked_properties:
                         continue
 
-                    if item.attributes[attribute_key] != old_item.attributes[attribute_key]:
+                    if self._are_value_different(old_item.attributes[attribute_key],
+                                                 item.attributes[attribute_key],
+                                                 attribute_key):
                         item.is_updated = True
                         item.events.append(self._create_event(
                             '%s from %s to %s' % (
@@ -121,6 +124,31 @@ class Processor(object):
             'datetime': datetime.now(),
             'text': text
         })
+
+    def _are_value_different(self, old, new, key):
+        """
+        Compare old and new attribute values. For all attributes except for the price the comparison is direct. For
+        the price additional logic is considered.
+
+        :param old:
+        :param new:
+        :param key:
+        :return: True if they are considered different, False otherwise
+        """
+
+        if self.config.name != 'Amazon.com':
+            return old != new
+
+        if key != 'price':
+            return old != new
+
+        # Amazon, price comparison. If difference is less than 1% or less than 5 - consider values the same.
+        old = float(sub('[^\d.]+', '', old))
+        new = float(sub('[^\d.]+', '', new))
+        if 0.99 < old/new < 1.01 or abs(old-new) < 5:
+            return False
+
+        return True
 
 
 # if __name__ == '__main__':
