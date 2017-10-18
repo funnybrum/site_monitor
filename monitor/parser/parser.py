@@ -111,8 +111,7 @@ class Parser(object):
                 if value is None or not self.validate(value, item_property.validator):
                     continue
 
-            if self.get_property(item, item_property.name) is None:
-                self.set_property(item, item_property.name, value)
+            self.set_property(item, item_property.name, value)
 
         if item.is_empty():
             return None
