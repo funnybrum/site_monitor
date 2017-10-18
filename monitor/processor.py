@@ -96,6 +96,9 @@ class Processor(object):
 
                 # Check for update on attributes and update the history
                 for attribute_key in item.attributes.keys():
+                    if self.config.tracked_properties and attribute_key not in self.config.tracked_properties:
+                        continue
+
                     if item.attributes[attribute_key] != old_item.attributes[attribute_key]:
                         item.is_updated = True
                         item.events.append(self._create_event(
@@ -118,6 +121,7 @@ class Processor(object):
             'datetime': datetime.now(),
             'text': text
         })
+
 
 # if __name__ == '__main__':
 #     from monitor.config.loader import ConfigLoader

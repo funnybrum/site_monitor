@@ -90,6 +90,9 @@ class Config(Model):
     # Site list
     sites = ListType(ModelType(Site), required=True)
 
+    # list of properties to track updates on
+    tracked_properties = ListType(StringType, default=None)
+
     # SMTP config
     smtp = ModelType(SMTPConfig, required=True)
 

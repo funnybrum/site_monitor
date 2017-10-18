@@ -31,6 +31,8 @@ class ConfigLoader(object):
             site = cls._parse_site_config(site_name, site_config)
             config.sites.append(site)
 
+        config.tracked_properties = config_dict.get('tracked_properties', config.tracked_properties)
+
         smtp_config = SMTPConfig()
         smtp_config.recipient = config_dict['recipient']
         smtp_config.subject = config_dict['subject']

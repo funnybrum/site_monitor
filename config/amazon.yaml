@@ -56,6 +56,8 @@ sites:
               link: True
               price: True
               description: False
+tracked_properties:
+    - price
 template: config/templates/amazon.html
 template_config:
   name: ""
