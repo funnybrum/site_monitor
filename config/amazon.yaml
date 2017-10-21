@@ -51,7 +51,7 @@ sites:
               match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
               validator: ^\$?[\d,]+[.,]\d\d$
             - name: description
-              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|MTX-L Plus).*
+              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|3918|3924).*
               match: .//div/a/@title
         required_properties:
               id: True  # True - show warning if missing, False - don't show warning
