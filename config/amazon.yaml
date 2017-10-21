@@ -43,11 +43,11 @@ sites:
               match: .//span[@class='a-size-base a-color-base']/text()
               validator: ^\$?[\d,]+[.,]\d\d$
             - name: price
-              match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
-              validator: ^\$?[\d,]+[.,]\d\d$
-            - name: price
               match: concat('< ', .//span[@aria-label]/text())
               validator: ^< \$?[\d,]+[.,]\d\d$
+            - name: price
+              match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
+              validator: ^\$?[\d,]+[.,]\d\d$
             - name: description
               validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2).*
               match: .//div/a/@title

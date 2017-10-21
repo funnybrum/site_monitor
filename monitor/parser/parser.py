@@ -1,5 +1,5 @@
 import urllib2
-import chardet
+import cchardet
 import gzip
 from lxml import etree
 from StringIO import StringIO
@@ -59,7 +59,7 @@ class Parser(object):
             buf = StringIO(body)
             body = gzip.GzipFile(fileobj=buf).read()
 
-        html_encoding = chardet.detect(body)['encoding']
+        html_encoding = cchardet.detect(body)['encoding']
         html = body.decode(html_encoding).encode('utf-8')
 
         # # For debugging purposes
