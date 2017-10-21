@@ -4,7 +4,7 @@ name: Amazon.com
 database: amazon.db
 recipient: funnybrum@gmail.com
 subject: Amazon.com
-send_new: True
+send_new: False
 send_updates: True
 send_deletes: False
 headers:
@@ -26,6 +26,8 @@ sites:
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=lenovo+thinkpad+oled&rh=i%3Aaps%2Ck%3Alenovo+thinkpad+oled&page={0}
             - site: Samsung Gear Fit2 Refurbished
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=Samsung+Gear+Fit2+refurbished&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+refurbished&page={0}
+            - site: Innovate MTX-L Plus
+              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=innovate+mtx-l
         list_items_match: //div[@class="s-item-container"]
         item_attributes:
             - name: id
@@ -49,7 +51,7 @@ sites:
               match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
               validator: ^\$?[\d,]+[.,]\d\d$
             - name: description
-              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2).*
+              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|MTX-L Plus).*
               match: .//div/a/@title
         required_properties:
               id: True  # True - show warning if missing, False - don't show warning
