@@ -4,7 +4,7 @@ name: Amazon.com
 database: amazon.db
 recipient: funnybrum@gmail.com
 subject: Amazon.com
-send_new: False
+send_new: True
 send_updates: True
 send_deletes: False
 headers:
@@ -36,28 +36,41 @@ sites:
             - name: link
               match: (.//div/a/@href)[1]
               post_processor: amazon_link_extractor
+            - name: description
+              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|3918|3924).*
+              match: .//div/a/@title
             - name: image
               match: (.//a/img/@src)[1]
             - name: image
               match: (.//a/div/img/@src)[1]
               validator: ^.{10,}$
+              # Covers the "Click to see the price" case.
             - name: price
-              match: .//span[@class='a-size-base a-color-base']/text()
-              validator: ^\$?[\d,]+[.,]\d\d$
-            - name: price
-              match: concat('< ', .//span[@aria-label]/text())
+              match: concat("< ", .//a/text()[normalize-space(.)="Click for product details"]/parent::a/parent::div/span[@class="a-size-base-plus a-color-secondary a-text-strike"]/text())
               validator: ^< \$?[\d,]+[.,]\d\d$
+              # Base case, just single price in one span, preceded by "sold by" div. Works on items in main list
             - name: price
-              match: concat(.//sup[@class='sx-price-currency']/text(), .//span[@class='sx-price-whole']/text(), '.', .//sup[@class='sx-price-fractional']/text())
+              match: .//span/text()[normalize-space(.)="by"]/parent::span/../../following-sibling::div[1]/div[1]/div[1]/div[1]/a/span[@class="a-size-base a-color-base"]/text()
               validator: ^\$?[\d,]+[.,]\d\d$
-            - name: description
-              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|3918|3924).*
-              match: .//div/a/@title
+              # Base case, just single price in one span, preceded by "sold by" div. For items not in the main list
+            - name: price
+              match: .//span/text()[normalize-space(.)="by"]/parent::span/../../following-sibling::div[1]/div[1]/a/span[@class="a-size-base a-color-base"]/text()
+              validator: ^\$?[\d,]+[.,]\d\d$
+              # Regular case for item with additional info - price in a sup and two spans
+            - name: price
+              match: concat(.//sup[@class="sx-price-currency"]/text(), .//span[@class="sx-price-whole"]/text(), ".", .//sup[@class="sx-price-fractional"]/text())
+              validator: ^\$?[\d,]+[.,]\d\d$
+              # Price of "More Buying Choices", works both in the main list and in the sublists
+#            - name: price
+#              match: .//span/text()[normalize-space(.)="More Buying Choices"]/parent::span/following::span[@class="a-size-base a-color-base"][1]/text()
+#              validator: ^\$?[\d,]+[.,]\d\d$
         required_properties:
-              id: True  # True - show warning if missing, False - don't show warning
+              # List of properties that are required for valid item. If value is True - a warning is showed if the property
+              # is missing. Description is first as we want to filter out non-relevant items silently.
+              description: False
+              id: True
               link: True
               price: True
-              description: False
 tracked_properties:
     - price
 template: config/templates/amazon.html

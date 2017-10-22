@@ -142,10 +142,10 @@ class Processor(object):
         if key != 'price':
             return old != new
 
-        # Amazon, price comparison. If difference is less than 1% or less than 5 - consider values the same.
+        # Amazon, price comparison. If difference is less than 5% or less than 5 - consider values the same.
         old = float(sub('[^\d.]+', '', old))
         new = float(sub('[^\d.]+', '', new))
-        if 0.9 < old/new < 1.1 or abs(old-new) < 5:
+        if 0.95 < old/new < 1.05 or abs(old-new) < 5:
             return False
 
         return True

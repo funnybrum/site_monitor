@@ -3,7 +3,7 @@ import cchardet
 import gzip
 from lxml import etree
 from StringIO import StringIO
-from re import match
+from re import match, sub
 
 from monitor.models.item import Item
 from monitor.common.constants import MAX_PAGES, FAKE_IMAGE_MATCHERS
@@ -44,6 +44,12 @@ class Parser(object):
                         if item.key not in items:
                             new_items_found = True
                             items[item.key] = item
+                        else:
+                            # Duplicate item, keep it only if the price is lower
+                            existing_price = float(sub('[^\d.]+', '', items[item.key].attributes['price']))
+                            new_price = float(sub('[^\d.]+', '', item.attributes['price']))
+                            if new_price < existing_price:
+                                items[item.key] = item
 
                 if not new_items_found and page_num > 1:
                     break
