@@ -145,7 +145,7 @@ class Processor(object):
         # Amazon, price comparison. If difference is less than 5% or less than 5 - consider values the same.
         old = float(sub('[^\d.]+', '', old))
         new = float(sub('[^\d.]+', '', new))
-        if 0.95 < old/new < 1.05 or abs(old-new) < 5:
+        if 0.98 < old/new < 1.02 or abs(old-new) < 5:
             return False
 
         return True
