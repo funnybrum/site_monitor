@@ -61,9 +61,9 @@ sites:
               match: concat(.//sup[@class="sx-price-currency"]/text(), .//span[@class="sx-price-whole"]/text(), ".", .//sup[@class="sx-price-fractional"]/text())
               validator: ^\$?[\d,]+[.,]\d\d$
               # Price of "More Buying Choices", works both in the main list and in the sublists
-#            - name: price
-#              match: .//span/text()[normalize-space(.)="More Buying Choices"]/parent::span/following::span[@class="a-size-base a-color-base"][1]/text()
-#              validator: ^\$?[\d,]+[.,]\d\d$
+            - name: price
+              match: .//span/text()[normalize-space(.)="More Buying Choices"]/parent::span/following::span[@class="a-size-base a-color-base"][1]/text()
+              validator: ^\$?[\d,]+[.,]\d\d$
         required_properties:
               # List of properties that are required for valid item. If value is True - a warning is showed if the property
               # is missing. Description is first as we want to filter out non-relevant items silently.
