@@ -41,6 +41,11 @@ class Parser(object):
                     item = self._parse_item(item)
 
                     if item:
+                        if item.key == 'B0716737ZG' and item.attributes['price'] == '$1,249.77':
+                            # Handling for special case in Amazon.com. This item shows with different price every time.
+                            # Skip one of the cases to avoid multiple false update notifications.
+                            continue
+
                         if item.key not in items:
                             new_items_found = True
                             items[item.key] = item
