@@ -51,7 +51,7 @@ class Parser(object):
                                 new_price = float(sub('[^\d.]+', '', item.attributes['price']))
                                 if new_price < existing_price:
                                     items[item.key] = item
-                            except TypeError | ValueError | KeyError:
+                            except (TypeError, ValueError, KeyError):
                                 # In some cases there is no price or it is not a number.
                                 continue
 
