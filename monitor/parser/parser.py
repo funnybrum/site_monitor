@@ -46,10 +46,14 @@ class Parser(object):
                             items[item.key] = item
                         else:
                             # Duplicate item, keep it only if the price is lower
-                            existing_price = float(sub('[^\d.]+', '', items[item.key].attributes['price']))
-                            new_price = float(sub('[^\d.]+', '', item.attributes['price']))
-                            if new_price < existing_price:
-                                items[item.key] = item
+                            try:
+                                existing_price = float(sub('[^\d.]+', '', items[item.key].attributes['price']))
+                                new_price = float(sub('[^\d.]+', '', item.attributes['price']))
+                                if new_price < existing_price:
+                                    items[item.key] = item
+                            except TypeError | ValueError | KeyError:
+                                # In some cases there is no price or it is not a number.
+                                continue
 
                 if not new_items_found and page_num > 1:
                     break
