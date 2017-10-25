@@ -70,6 +70,8 @@ class Parser(object):
             body = gzip.GzipFile(fileobj=buf).read()
 
         html_encoding = cchardet.detect(body)['encoding']
+        if not html_encoding:
+            html_encoding = 'utf-8'
         html = body.decode(html_encoding).encode('utf-8')
 
         # # For debugging purposes
