@@ -72,7 +72,13 @@ class Parser(object):
         html_encoding = cchardet.detect(body)['encoding']
         if not html_encoding:
             html_encoding = 'utf-8'
-        html = body.decode(html_encoding).encode('utf-8')
+        try:
+            html = body.decode(html_encoding).encode('utf-8')
+        except Exception as e:
+            log('Failed on %s, logging to /var/failure.html' % url)
+            with open('/var/log/failure.html', 'w') as out_file:
+                out_file.write(body)
+            raise e
 
         # # For debugging purposes
         # if 'amazon.com' in url:
