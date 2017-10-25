@@ -4,6 +4,7 @@ import gzip
 from lxml import etree
 from StringIO import StringIO
 from re import match, sub
+from retrying import retry
 
 from monitor.models.item import Item
 from monitor.common.constants import MAX_PAGES, FAKE_IMAGE_MATCHERS
@@ -34,7 +35,14 @@ class Parser(object):
                 new_items_found = False
 
                 page_url = url.format(page_num)
-                tree = self._get_html_tree(page_url)
+                try:
+                    tree = self._get_html_tree(page_url)
+                except Exception as e:
+                    log(e.message)
+                    log('Failed to get page %s, skipping' % page_url)
+                    # This will stop iteration over the current URL pages
+                    tree = etree.HTML('<html></html>')
+
                 list_items = tree.xpath(self.config.items_x_path)
 
                 for item in list_items:
@@ -60,6 +68,7 @@ class Parser(object):
 
         return items
 
+    @retry(stop_max_attempt_number=3)
     def _get_html_tree(self, url):
         req = urllib2.Request(url, headers=self.headers)
         response = urllib2.urlopen(req)
@@ -70,15 +79,7 @@ class Parser(object):
             body = gzip.GzipFile(fileobj=buf).read()
 
         html_encoding = cchardet.detect(body)['encoding']
-        if not html_encoding:
-            html_encoding = 'utf-8'
-        try:
-            html = body.decode(html_encoding).encode('utf-8')
-        except Exception as e:
-            log('Failed on %s, logging to /var/failure.html' % url)
-            with open('/var/log/failure.html', 'w') as out_file:
-                out_file.write(body)
-            raise e
+        html = body.decode(html_encoding).encode('utf-8')
 
         # # For debugging purposes
         # if 'amazon.com' in url:
