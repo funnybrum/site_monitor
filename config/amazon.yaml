@@ -27,7 +27,7 @@ sites:
             - site: Samsung Gear Fit2 Refurbished
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=Samsung+Gear+Fit2+refurbished&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+refurbished&page={0}
             - site: Samsung Gear Fit2 Pro
-              url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=Samsung+Gear+Fit2+Pro&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+Pro&page={0}
+              url: https://www.amazon.com/s/s/ref=sr_nr_p_89_0?fst=as%3Aoff&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+Pro%2Cp_89%3ASamsung&keywords=Samsung+Gear+Fit2+Pro&ie=UTF8&qid=1508944334&rnid=2528832011&page={0}
             - site: Innovate MTX-L Plus
               url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=innovate+mtx-l
         list_items_match: //div[@class="s-item-container"]
