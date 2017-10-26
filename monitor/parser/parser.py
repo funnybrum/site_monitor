@@ -68,7 +68,7 @@ class Parser(object):
 
         return items
 
-    @retry(stop_max_attempt_number=3)
+    @retry(stop_max_attempt_number=5, wait_fixed=5000)
     def _get_html_tree(self, url):
         req = urllib2.Request(url, headers=self.headers)
         response = urllib2.urlopen(req)
