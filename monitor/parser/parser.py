@@ -30,7 +30,7 @@ class Parser(object):
         items = {}
 
         for url in self.config.urls:
-            for page_num in xrange(0, self.config.max_pages or MAX_PAGES):
+            for page_num in xrange(1, self.config.max_pages or MAX_PAGES):
 
                 new_items_found = False
 
