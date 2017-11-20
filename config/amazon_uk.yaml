@@ -1,0 +1,68 @@
+extend: secrets.yaml
+
+name: Amazon.co.uk
+database: amazon_uk.db
+recipient: funnybrum@gmail.com
+subject: Amazon.co.uk
+send_new: True
+send_updates: True
+send_deletes: False
+enabled: True
+headers:
+    Host: www.amazon.co.uk
+    Connection: keep-alive
+    Cache-Control: max-age=0
+    Upgrade-Insecure-Requests: 1
+    User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+    Accept-Encoding: gzip, deflate, br
+    Accept-Language: en-US,en;q=0.8,bg;q=0.6
+sites:
+    Amazon.co.uk:
+        enabled: True
+        search_urls:
+            - site: Injinji
+              url: https://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=injinji
+            - site: Five Fingers
+              url: https://www.amazon.co.uk/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=five+fingers&rh=i%3Aaps%2Ck%3Afive+fingers
+        list_items_match: //div[@class="s-item-container"]
+        item_attributes:
+            - name: id
+              match: (.//div/a/@href)[1]
+              post_processor: amazon_id_extractor
+            - name: link
+              match: (.//div/a/@href)[1]
+              post_processor: amazon_link_extractor
+            - name: description
+              validator: .*(Injinji|Vibram|Socks).*
+              match: .//div/a/@title
+            - name: image
+              match: (.//a/img/@src)[1]
+            - name: image
+              match: (.//a/div/img/@src)[1]
+              validator: ^.{10,}$
+              # Covers the case with price range, i.e. GBP30.22 - GBP120.22
+            - name: price
+              match: (.//span[@class="a-size-base a-color-price a-text-bold"])[1]/text()
+              validator: ^£?[\d,]+[.,]\d\d$
+              # Covers the case with off-screen price
+            - name: price
+              match: (.//span[@class="a-offscreen"])[1]/text()
+              validator: ^£?[\d,]+[.,]\d\d$
+              # Covers the remaining cases
+            - name: price
+              match: substring-before((.//span[@class="a-size-base a-color-price s-price a-text-bold"])[1]/text(), ' - ')
+              validator: ^£?[\d,]+[.,]\d\d$
+        required_properties:
+              # List of properties that are required for valid item. If value is True - a warning is showed if the property
+              # is missing. Description is first as we want to filter out non-relevant items silently.
+              description: False
+              id: True
+              link: True
+              price: True
+tracked_properties:
+    - price
+template: config/templates/amazon.html
+template_config:
+  name: ""
+  description: Обяви от Amazon
