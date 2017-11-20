@@ -136,7 +136,7 @@ class Processor(object):
         :return: True if they are considered different, False otherwise
         """
 
-        if self.config.name != 'Amazon.com':
+        if self.config.name not in ['Amazon.com', 'Amazon.co.uk']:
             return old != new
 
         if key != 'price':
