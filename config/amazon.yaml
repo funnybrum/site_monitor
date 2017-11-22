@@ -19,7 +19,7 @@ headers:
     Accept-Language: en-US,en;q=0.8,bg;q=0.6
 sites:
     Amazon.com:
-        enabled: True
+        enabled: False
         search_urls:
 #            - site: Dell XPS 13 9600 Refurbished
 #              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
@@ -29,8 +29,8 @@ sites:
 #              url: https://www.amazon.com/s/s/ref=sr_nr_p_89_0?fst=as%3Aoff&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+Pro%2Cp_89%3ASamsung&keywords=Samsung+Gear+Fit2+Pro&ie=UTF8&qid=1508944334&rnid=2528832011&page={0}
 #            - site: Innovate MTX-L Plus
 #              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=innovate+mtx-l
-            - site: Trek Ascent
-              url: https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=five+fingers+trek+man&rh=i%3Aaps%2Ck%3Afive+fingers+trek+man
+#            - site: Trek Ascent
+#              url: https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=five+fingers+trek+man&rh=i%3Aaps%2Ck%3Afive+fingers+trek+man
             - site: Injinji
               url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=injinji&rh=i%3Aaps%2Ck%3Ainjinji
         list_items_match: //div[@class="s-item-container"]
@@ -69,6 +69,42 @@ sites:
             - name: price
               match: .//span/text()[normalize-space(.)="More Buying Choices"]/parent::span/following::span[@class="a-size-base a-color-base"][1]/text()
               validator: ^\$?[\d,]+[.,]\d\d$
+        required_properties:
+              # List of properties that are required for valid item. If value is True - a warning is showed if the property
+              # is missing. Description is first as we want to filter out non-relevant items silently.
+              description: False
+              id: True
+              link: True
+              price: True
+    Amazon.com single items:
+        enabled: True
+        max_pages_count: 1
+        search_urls:
+            - site: Vibram Five Fingers Trek Ascent Insulated, Black, 45
+              url: https://www.amazon.com/Vibram-Ascent-Insulated-Mens-Black-10-5-11/dp/B0114LS2US/ref=sr_1_1?ie=UTF8&qid=1511380493&sr=8-1&keywords=vibram%2Bfive%2Bfingers%2Btrek%2Bascent%2Binsulated&th=1&psc=1
+            - site: Vibram Five Fingers Trek Ascent Insulated, Khaki, 45
+              url: https://www.amazon.com/Vibram-Ascent-Insulated-Mens-Black-10-5-11/dp/B0114LTLNA/ref=sr_1_1?ie=UTF8&qid=1511380493&sr=8-1&keywords=vibram%2Bfive%2Bfingers%2Btrek%2Bascent%2Binsulated&th=1&psc=1
+            - site: Injinji Men's Run Midweight Mini Crew Toesocks, Black, M
+              url: https://www.amazon.com/gp/product/B00AK8DB1C/ref=oh_aui_detailpage_o02_s00?ie=UTF8&th=1&psc=1
+            - site: Injinji Trail Midweight Crew Xtralife Socks, Granite, M
+              url: https://www.amazon.com/gp/product/B0125PDSTW/ref=s9_acsd_hps_bw_c_x_1_w?th=1&psc=1
+            - site: Injinji Men's Sport Crew Toesocks, Black, M
+              url: https://www.amazon.com/gp/product/B00AK8E48G/ref=s9_dcacsd_dcoop_bw_c_x_2_w?th=1&psc=1
+            - site: Lenovo ThinkPad X1 Yoga 2nd Gen OLED
+              url: https://www.amazon.com/Lenovo-X1-20JD000WUS-Touchscreen-Ultrabook/dp/B071VSTX4Y/ref=sr_1_1?ie=UTF8&qid=1511386551&sr=8-1&keywords=lenovo+yoga+oled+2nd+gen
+        list_items_match: //div[@id="dp-container"]
+        item_attributes:
+            - name: id
+              match: substring-after(.//a[@class="oneClickSignInLink"]/@href, "product%2F")
+            - name: link
+              match: "@site_url"
+            - name: description
+              match: .//span[@id="productTitle"]/text()
+              post_processor: trim
+            - name: image
+              match: (.//div[@id="main-image-container"]/.//img)[last()]/@data-old-hires
+            - name: price
+              match: .//span[@id="priceblock_ourprice"]/text()
         required_properties:
               # List of properties that are required for valid item. If value is True - a warning is showed if the property
               # is missing. Description is first as we want to filter out non-relevant items silently.

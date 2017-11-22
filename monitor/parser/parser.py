@@ -32,7 +32,7 @@ class Parser(object):
         for url in self.config.urls:
             max_pages = MAX_PAGES
             if self.config.max_pages != 0:
-                self.config.max_pages + 1
+                max_pages = self.config.max_pages + 1
             for page_num in xrange(1, max_pages):
 
                 new_items_found = False
@@ -49,7 +49,7 @@ class Parser(object):
                 list_items = tree.xpath(self.config.items_x_path)
 
                 for item in list_items:
-                    item = self._parse_item(item)
+                    item = self._parse_item(item, url)
 
                     if item:
                         if item.key not in items:
@@ -96,10 +96,15 @@ class Parser(object):
         parser = etree.HTMLParser(encoding='utf-8')
         return etree.HTML(html, parser=parser)
 
-    def _parse_item(self, item_tree):
+    def _parse_item(self, item_tree, url):
         item = Item()
         item.attributes = {}
         for item_property in self.config.item_properties:
+            # TODO - find better way for this
+            if "@site_url" == item_property.x_path:
+                self.set_property(item, item_property.name, url)
+                continue
+
             value = item_tree.xpath(item_property.x_path)
             if isinstance(value, list):
                 if len(value) == 1:

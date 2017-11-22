@@ -37,3 +37,6 @@ def amazon_link_extractor(value):
         url = value
     url = url[0:url.find('/ref=')]
     return url
+
+def trim(value):
+    return value.replace('\n', '').lstrip().rstrip()
