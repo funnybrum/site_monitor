@@ -6,7 +6,7 @@ recipient: funnybrum@gmail.com
 subject: Amazon.co.uk
 send_new: True
 send_updates: True
-send_deletes: False
+send_deletes: True
 enabled: True
 headers:
     Host: www.amazon.co.uk
@@ -21,10 +21,8 @@ sites:
     Amazon.co.uk:
         enabled: True
         search_urls:
-            - site: Injinji
-              url: https://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=injinji
-            - site: Five Fingers
-              url: https://www.amazon.co.uk/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=five+fingers&rh=i%3Aaps%2Ck%3Afive+fingers
+            - site: Samsung SSD 500GB, price <= 150.00
+              url: https://www.amazon.co.uk/s/s/ref=sr_nr_p_89_0?fst=as%3Aoff&rh=i%3Aaps%2Ck%3Asamsung+ssd+500gb%2Cp_89%3ASamsung&keywords=samsung+ssd+500gb&ie=UTF8&qid=1511754140&rnid=1632651031&p_74=-15000
         list_items_match: //div[@class="s-item-container"]
         item_attributes:
             - name: id

@@ -80,18 +80,6 @@ sites:
         enabled: True
         max_pages_count: 1
         search_urls:
-            - site: Vibram Five Fingers Trek Ascent Insulated, Black, 45
-              url: https://www.amazon.com/Vibram-Ascent-Insulated-Mens-Black-10-5-11/dp/B0114LS2US/ref=sr_1_1?ie=UTF8&qid=1511380493&sr=8-1&keywords=vibram%2Bfive%2Bfingers%2Btrek%2Bascent%2Binsulated&th=1&psc=1
-            - site: Vibram Five Fingers Trek Ascent Insulated, Khaki, 45
-              url: https://www.amazon.com/Vibram-Ascent-Insulated-Mens-Black-10-5-11/dp/B0114LTLNA/ref=sr_1_1?ie=UTF8&qid=1511380493&sr=8-1&keywords=vibram%2Bfive%2Bfingers%2Btrek%2Bascent%2Binsulated&th=1&psc=1
-            - site: Injinji Men's Run Midweight Mini Crew Toesocks, Black, M
-              url: https://www.amazon.com/gp/product/B00AK8DB1C/ref=oh_aui_detailpage_o02_s00?ie=UTF8&th=1&psc=1
-            - site: Injinji Trail Midweight Crew Xtralife Socks, Granite, M
-              url: https://www.amazon.com/gp/product/B0125PDSTW/ref=s9_acsd_hps_bw_c_x_1_w?th=1&psc=1
-            - site: Injinji Men's Sport Crew Toesocks, Black, M
-              url: https://www.amazon.com/gp/product/B00AK8E48G/ref=s9_dcacsd_dcoop_bw_c_x_2_w?th=1&psc=1
-            - site: Lenovo ThinkPad X1 Yoga 2nd Gen OLED
-              url: https://www.amazon.com/Lenovo-X1-20JD000WUS-Touchscreen-Ultrabook/dp/B071VSTX4Y/ref=sr_1_1?ie=UTF8&qid=1511386551&sr=8-1&keywords=lenovo+yoga+oled+2nd+gen
             - site: Samsung EVO 850 500GB
               url: https://www.amazon.com/Samsung-2-5-Inch-Internal-MZ-75E500B-AM/dp/B01M8MF4IF?th=1
             - site: Samsung EVO 850 500GB 2
