@@ -32,7 +32,7 @@ sites:
               match: (.//div/a/@href)[1]
               post_processor: amazon_link_extractor
             - name: description
-              validator: .*(Injinji|Vibram|Socks).*
+              validator: .*(500|512).*
               match: .//div/a/@title
             - name: image
               match: (.//a/img/@src)[1]
