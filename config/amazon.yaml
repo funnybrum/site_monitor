@@ -6,7 +6,7 @@ recipient: funnybrum@gmail.com
 subject: Amazon.com
 send_new: True
 send_updates: True
-send_deletes: True
+send_deletes: False
 enabled: True
 headers:
     Host: www.amazon.com
@@ -19,20 +19,10 @@ headers:
     Accept-Language: en-US,en;q=0.8,bg;q=0.6
 sites:
     Amazon.com:
-        enabled: False
+        enabled: True
         search_urls:
-#            - site: Dell XPS 13 9600 Refurbished
-#              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=dell+xps+13+9360+refurbished&rh=i%3Aaps%2Ck%3Adell+xps+13+9360+refurbished&page={0}
-#            - site: Lenovo Thinkpad OLED
-#              url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=lenovo+thinkpad+oled&rh=i%3Aaps%2Ck%3Alenovo+thinkpad+oled&page={0}
-#            - site: Samsung Gear Fit2 Pro
-#              url: https://www.amazon.com/s/s/ref=sr_nr_p_89_0?fst=as%3Aoff&rh=i%3Aaps%2Ck%3ASamsung+Gear+Fit2+Pro%2Cp_89%3ASamsung&keywords=Samsung+Gear+Fit2+Pro&ie=UTF8&qid=1508944334&rnid=2528832011&page={0}
-#            - site: Innovate MTX-L Plus
-#              url: https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=innovate+mtx-l
-#            - site: Trek Ascent
-#              url: https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=five+fingers+trek+man&rh=i%3Aaps%2Ck%3Afive+fingers+trek+man
-            - site: Injinji
-              url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=injinji&rh=i%3Aaps%2Ck%3Ainjinji
+            - site: Samsung SSD 500GB, price <= 150.00
+              url: https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=samsung+ssd+500gb&p_74=-15000
         list_items_match: //div[@class="s-item-container"]
         item_attributes:
             - name: id
@@ -42,7 +32,7 @@ sites:
               match: (.//div/a/@href)[1]
               post_processor: amazon_link_extractor
             - name: description
-              validator: .*(9350|9360|9365|OLED|oled|Fit2|Fit 2|3918|3924|Injinji|Trek).*
+              validator: .*(500|512).*
               match: .//div/a/@title
             - name: image
               match: (.//a/img/@src)[1]
@@ -76,36 +66,36 @@ sites:
               id: True
               link: True
               price: True
-    Amazon.com single items:
-        enabled: True
-        max_pages_count: 1
-        search_urls:
-            - site: Samsung EVO 850 500GB
-              url: https://www.amazon.com/Samsung-2-5-Inch-Internal-MZ-75E500B-AM/dp/B01M8MF4IF?th=1
-            - site: Samsung EVO 850 500GB 2
-              url: https://www.amazon.com/Samsung-2-5-Inch-Internal-MZ-75E500B-EU/dp/B00P73B1E4/ref=sr_1_7?s=pc&ie=UTF8&qid=1511479258&sr=1-7&keywords=samsung+ssd+500GB
-            - site: Samsung PRO 850 512GB
-              url: https://www.amazon.com/Samsung-850-PRO-2-5-Inch-MZ-7KE512BW/dp/B00LF10KTO/ref=sr_1_5?s=pc&ie=UTF8&qid=1511479258&sr=1-5&keywords=samsung+ssd+500GB
-        list_items_match: //div[@id="dp-container"]
-        item_attributes:
-            - name: id
-              match: substring-after(.//a[@class="oneClickSignInLink"]/@href, "product%2F")
-            - name: link
-              match: "@site_url"
-            - name: description
-              match: .//span[@id="productTitle"]/text()
-              post_processor: trim
-            - name: image
-              match: (.//div[@id="main-image-container"]/.//img)[last()]/@data-old-hires
-            - name: price
-              match: .//span[@id="priceblock_ourprice"]/text()
-        required_properties:
-              # List of properties that are required for valid item. If value is True - a warning is showed if the property
-              # is missing. Description is first as we want to filter out non-relevant items silently.
-              description: False
-              id: True
-              link: True
-              price: True
+#    Amazon.com single items:
+#        enabled: False
+#        max_pages_count: 1
+#        search_urls:
+#            - site: Samsung EVO 850 500GB
+#              url: https://www.amazon.com/Samsung-2-5-Inch-Internal-MZ-75E500B-AM/dp/B01M8MF4IF?th=1
+#            - site: Samsung EVO 850 500GB 2
+#              url: https://www.amazon.com/Samsung-2-5-Inch-Internal-MZ-75E500B-EU/dp/B00P73B1E4/ref=sr_1_7?s=pc&ie=UTF8&qid=1511479258&sr=1-7&keywords=samsung+ssd+500GB
+#            - site: Samsung PRO 850 512GB
+#              url: https://www.amazon.com/Samsung-850-PRO-2-5-Inch-MZ-7KE512BW/dp/B00LF10KTO/ref=sr_1_5?s=pc&ie=UTF8&qid=1511479258&sr=1-5&keywords=samsung+ssd+500GB
+#        list_items_match: //div[@id="dp-container"]
+#        item_attributes:
+#            - name: id
+#              match: substring-after(.//a[@class="oneClickSignInLink"]/@href, "product%2F")
+#            - name: link
+#              match: "@site_url"
+#            - name: description
+#              match: .//span[@id="productTitle"]/text()
+#              post_processor: trim
+#            - name: image
+#              match: (.//div[@id="main-image-container"]/.//img)[last()]/@data-old-hires
+#            - name: price
+#              match: .//span[@id="priceblock_ourprice"]/text()
+#        required_properties:
+#              # List of properties that are required for valid item. If value is True - a warning is showed if the property
+#              # is missing. Description is first as we want to filter out non-relevant items silently.
+#              description: False
+#              id: True
+#              link: True
+#              price: True
 tracked_properties:
     - price
 template: config/templates/amazon.html

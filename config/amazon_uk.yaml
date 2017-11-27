@@ -6,7 +6,7 @@ recipient: funnybrum@gmail.com
 subject: Amazon.co.uk
 send_new: True
 send_updates: True
-send_deletes: True
+send_deletes: False
 enabled: True
 headers:
     Host: www.amazon.co.uk
