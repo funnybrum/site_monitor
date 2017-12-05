@@ -11,7 +11,8 @@ sites:
         enabled: True
         search_urls:
             - site: Горна Малина
-              url: https://www.imot.bg/pcgi/imot.cgi?act=3&slink=38ql0v&f1={0}
+#              url: https://www.imot.bg/pcgi/imot.cgi?act=3&slink=38ql0v&f1={0}
+              url: https://imoti-gorna-malina.imot.bg/pcgi/imot.cgi?act=11&f1=0&f2=1&f3=0&f4=%EE%E1%EB%E0%F1%F2%20%D1%EE%F4%E8%FF&f5=%F1.%20%C3%EE%F0%ED%E0%20%CC%E0%EB%E8%ED%E0&f6={0}
         max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
         list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
         item_attributes:
