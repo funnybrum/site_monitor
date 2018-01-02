@@ -11,7 +11,7 @@ class DescriptionBasedDeduplicator(DeduplicatorBase):
         self.regex = re.compile('\d{2,15}')
 
     def _extract_dedup_key(self, item):
-        if not item.attributes['description']:
+        if 'description' not in item.attributes or not item.attributes['description']:
             return None
 
         description = item.attributes['price'] + ' ' + item.attributes['description']

@@ -14,7 +14,7 @@ class ImageBasedDeduplicator(DeduplicatorBase):
         pass
 
     def _extract_dedup_key(self, item, image_key='image'):
-        if not item.attributes[image_key]:
+        if image_key not in item.attributes or not item.attributes[image_key]:
             return None
 
         if any([r.match(item.attributes[image_key]) for r in FAKE_IMAGE_MATCHERS]):
