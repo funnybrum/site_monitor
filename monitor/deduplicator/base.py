@@ -41,5 +41,5 @@ class DeduplicatorBase(object):
 
         dedup_key = self._extract_dedup_key(item)
 
-        if dedup_key not in item.deduplicate_keys:
+        if dedup_key and dedup_key not in item.deduplicate_keys:
             item.deduplicate_keys.append(dedup_key)

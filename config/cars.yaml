@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-name: Car monitor
+name: Car_monitor
 database: car_monitor.db
 recipient: funnybrum@gmail.com
 subject: Обяви за автомобили

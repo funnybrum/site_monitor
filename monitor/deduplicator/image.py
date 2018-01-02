@@ -20,10 +20,14 @@ class ImageBasedDeduplicator(DeduplicatorBase):
         if any([r.match(item.attributes[image_key]) for r in FAKE_IMAGE_MATCHERS]):
             return None
 
-        image_data = StringIO(urllib2.urlopen(item.attributes[image_key]).read())
-        image = Image.open(image_data)
+        try:
+            image_data = StringIO(urllib2.urlopen(item.attributes[image_key]).read())
+            image = Image.open(image_data)
+            return self.dhash(image)
+        except:
+            print 'Failed to load image %s from %s' % (item.attributes[image_key], item.link)
 
-        return self.dhash(image)
+        return None
 
     def dhash(self, image, hash_size=8):
         """

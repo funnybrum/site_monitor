@@ -193,5 +193,5 @@ class Processor(object):
 # if __name__ == '__main__':
 #     from monitor.config.loader import ConfigLoader
 #     configs = ConfigLoader.load_all_configs()
-#     config = [c for c in configs if c.name == 'Properties_monitor_GM'][0]
+#     config = [c for c in configs if c.name == 'Car_monitor'][0]
 #     Processor(config, {'dry_run': False}).execute()
