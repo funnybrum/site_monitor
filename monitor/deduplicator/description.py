@@ -4,6 +4,9 @@ from monitor.deduplicator.base import DeduplicatorBase
 
 
 class DescriptionBasedDeduplicator(DeduplicatorBase):
+    """
+    Extract de-duplication data based on item description.
+    """
     def __init__(self):
         self.regex = re.compile('\d{2,15}')
 

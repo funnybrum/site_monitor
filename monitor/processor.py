@@ -7,7 +7,8 @@ from notifier.sender import EMail
 from parser.parser import Parser
 from storage.shelve import ShelveStorage
 from common.log import log
-
+from deduplicator.image import ImageBasedDeduplicator
+from deduplicator.description import DescriptionBasedDeduplicator
 
 class Processor(object):
     def __init__(self, config, params={}):
@@ -24,6 +25,8 @@ class Processor(object):
         saved_items = self.storage.load()
 
         self.update(current_items, saved_items)
+        self.fill_in_deduplication_data(current_items)
+        self.update_history_on_dedup_data(current_items)
 
         new_count = len([i for i in current_items.values() if i.is_new])
         updated_count = len([i for i in current_items.values() if i.is_updated])
@@ -46,6 +49,8 @@ class Processor(object):
         if should_send_notification and not self.params.get('dry_run', False):
             log('Sending email for %s to %s' % (self.config.name, self.config.smtp.recipient))
             EMail(self.config.smtp).send(notification_body)
+
+        self.remove_dedup_history(current_items)
 
         self.storage.save(current_items)
 
@@ -89,8 +94,10 @@ class Processor(object):
             else:
                 old_item = saved_items[key]
 
-                # Existing item, transfer the history
+                # Existing item, transfer the history and de-duplication properties
                 item.events = old_item.events
+                item.deduplicate_keys = old_item.deduplicate_keys
+                item.deduplicate_metadata = old_item.deduplicate_metadata
 
                 if item.events[-1].text == 'deleted':
                     item.events.append(self._create_event('re-created'))
@@ -150,9 +157,41 @@ class Processor(object):
 
         return True
 
+    def fill_in_deduplication_data(self, items):
+        deduplicators = [ImageBasedDeduplicator(), DescriptionBasedDeduplicator()]
+        for item in items.values():
+            for deduplicator in deduplicators:
+                deduplicator.fill_in_dedup_data(item)
+
+    def update_history_on_dedup_data(self, items):
+        """ Create custom events based on the de-duplication data. """
+        for item in items.values():
+            item.stock_events = item.events
+
+        # TODO - Not very efficient mechanism for finding duplicates. Find a way to make it faster.
+        def is_duplicate():
+            return not set(item.deduplicate_keys).isdisjoint(other_item.deduplicate_keys)
+
+        for item in items.values():
+            dedup_events = []
+            for other_item in items.values():
+                if is_duplicate():
+                    for event in other_item.stock_events:
+                        dedup_events.append(Event({
+                            'datetime': event.datetime,
+                            'text': '<a href="%s">%s</a>' % (other_item.link, event.text)
+                        }))
+            dedup_events.sort(key=lambda x: x.datetime)
+            item.events = dedup_events
+
+    def remove_dedup_history(self, items):
+        """ Revert the custom events based on the de-duplication data to the stock events version. """
+        for item in items.values():
+            item.events = item.stock_events
+            del item.stock_events
 
 # if __name__ == '__main__':
 #     from monitor.config.loader import ConfigLoader
 #     configs = ConfigLoader.load_all_configs()
-#     config = [c for c in configs if c.name == 'Amazon.com'][0]
-#     Processor(config, {'dry_run': True}).execute()
+#     config = [c for c in configs if c.name == 'Properties_monitor_GM'][0]
+#     Processor(config, {'dry_run': False}).execute()

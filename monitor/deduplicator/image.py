@@ -7,17 +7,20 @@ from monitor.deduplicator.base import DeduplicatorBase
 
 
 class ImageBasedDeduplicator(DeduplicatorBase):
+    """
+    Extract de-duplication keys based on item images.
+    """
     def __init__(self):
         pass
 
-    def _extract_dedup_key(self, item):
-        if not item.attributes['image']:
+    def _extract_dedup_key(self, item, image_key='image'):
+        if not item.attributes[image_key]:
             return None
 
-        if any([r.match(item.attributes['image']) for r in FAKE_IMAGE_MATCHERS]):
+        if any([r.match(item.attributes[image_key]) for r in FAKE_IMAGE_MATCHERS]):
             return None
 
-        image_data = StringIO(urllib2.urlopen(item.attributes['image']).read())
+        image_data = StringIO(urllib2.urlopen(item.attributes[image_key]).read())
         image = Image.open(image_data)
 
         return self.dhash(image)
@@ -52,6 +55,20 @@ class ImageBasedDeduplicator(DeduplicatorBase):
 
         return ''.join(hex_string)
 
+    def fill_in_dedup_data(self, item, image_key='image'):
+        if any([r.match(str(item.attributes[image_key])) for r in FAKE_IMAGE_MATCHERS]):
+            return
+
+        if item.deduplicate_metadata is None:
+            item.deduplicate_metadata = []
+
+        if item.attributes[image_key] in item.deduplicate_metadata:
+            # de-dup data is already extracted for that image
+            return
+
+        item.deduplicate_metadata.append(item.attributes[image_key])
+        super(ImageBasedDeduplicator, self).fill_in_dedup_data(item)
+
 
 if __name__ == '__main__':
     from monitor.storage.shelve import ShelveStorage
@@ -59,9 +76,9 @@ if __name__ == '__main__':
     dedup_dic = ImageBasedDeduplicator().procecss(items)
     for key, value in dedup_dic.items():
         if len(value) > 1:
-            print 'Duplicates detected on the followinng URLs'
+            print 'Duplicates detected on the following URLs'
             for item in value:
                 print item.link
 
-    print len([len(v) for v in dedup_dic.values() if len(v) > 1])
-    print sum(len(v) for v in dedup_dic.values() if len(v) > 1)
+    print 'Got %s unique items' % len([len(v) for v in dedup_dic.values() if len(v) > 1])
+    print 'Got %s items total' % sum(len(v) for v in dedup_dic.values() if len(v) > 1)
