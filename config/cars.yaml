@@ -41,7 +41,7 @@ sites:
               url: https://www.cars.bg/?go=cars&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=1&stateId=1&section=cars&categoryId=0&doorId=0&brandId=33&modelId=0&models%5B%5D=543&fuelId=0&gearId=0&yearFrom=2004&yearTo=2007&priceFrom=&priceTo=&currencyId=1&man_priceFrom=0&man_priceTo=0&man_currencyId=1&powerFrom=&powerTo=&steering_weel=0&colorId=0&is_carinbg=0&regionId=0&offersFor4=1&offersFor1=1&page={0}
             - site: Grand Cherokee for parts
               url: https://www.cars.bg/?go=cars&search=1&advanced=&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=1&stateId=1&section=cars&categoryId=0&doorId=0&brandId=37&modelId=0&models%5B%5D=581&fuelId=2&gearId=0&yearFrom=2001&yearTo=2005&priceFrom=&priceTo=&currencyId=1&man_priceFrom=0&man_priceTo=0&man_currencyId=1&powerFrom=160&powerTo=165&steering_weel=0&colorId=0&is_carinbg=0&regionId=0&offersFor3=1&page={0}
-        list_items_match: //table[@class="tableListResults"]/tr[@class="odd " or @class="even " or @class="even last" or @class="odd last"]
+        list_items_match: //table[@class="tableListResults"]/tr[@class="odd" or @class="even" or @class="even last" or @class="odd last"]
         item_attributes:
             - name: price
               match: td[@align="right"]/span[@class="ver20black"]/strong/text()[normalize-space()]
