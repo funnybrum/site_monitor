@@ -1,0 +1,60 @@
+extend: secrets.yaml
+
+name: Properties_monitor
+database: properties_bis.db
+recipient: funnybrum@gmail.com
+subject: Имоти около Бистрица
+send_deletes: False
+headers:
+    User-Agent: Mozilla/5.0
+sites:
+    Къщи@imot.bg:
+        enabled: True
+        search_urls:
+            - site: Къщи в Бистрица/Железница
+              url: act=3&rub=1&rub_pub_save=1&topmenu=2&actions=1&f0=77.70.77.231&f1={0}&f2=&f3=&f4=1&f7=&f28=&f29=200000&f43=&f44=&f30=EUR&f26=&f27=&f41=1&f31=&f32=&f38=%EE%E1%EB%E0%F1%F2+%D1%EE%F4%E8%FF&ri=%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0&f42=&f39=&f40=%F1.+%C1%E8%F1%F2%F0%E8%F6%E0%2B%F1.+%C6%E5%EB%E5%E7%ED%E8%F6%E0%2B&fe3=&fe4=&f45=&f46=&f51=&f52=&f33=&f34=&f35=&f36=&f37=&fe2=1
+            - site: Къщи в Малинова Долина/Бункера/Герена
+              url: act=3&rub=1&rub_pub_save=1&topmenu=2&actions=1&f0=77.70.77.231&f1={0}&f2=&f3=&f4=1&f7=10%7E11%7E&f28=&f29=200000&f43=&f44=&f30=EUR&f26=&f27=&f41=1&f31=&f32=&f38=%E3%F0%E0%E4+%D1%EE%F4%E8%FF&f42=&f39=&f40=%E2.%E7.%C1%F3%ED%EA%E5%F0%E0%2B%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0+-+%C3%E5%F0%E5%ED%E0%2B%E2.%E7.%CC%E0%EB%E8%ED%EE%E2%E0+%E4%EE%EB%E8%ED%E0%2B&fe3=&fe4=&f45=&f46=&f51=&f52=&f33=&f34=&f35=&f36=&f37=&fe2=1
+        max_pages_match: substring-after((//table/tr/td/table/tr/td/span[@class="pageNumbersInfo"])[1]//text(), "от ")
+        list_items_match: //table[@width="660"][tr/td/div[@class="price"]]
+        item_attributes:
+            - name: id
+              match: tr/td/div[@class="price"]/a/@id
+            - name: image
+              match: (tr/td/table/tr/td/a[@class="photoLink"]/img/@src)[1]
+              prefix: "http:"
+            - name: description
+              match: (tr/td[@width="520"])//text()
+            - name: price
+              match: tr/td/div[@class="price"]//text()[1]
+            - name: area
+              match: tr/td/a[@class="lnk2"]//text()
+            - name: link
+              match: tr/td/a[@class="lnk2"]/@href
+              prefix: "http:"
+    Къщи@imoti.net:
+        enabled: True
+        search_urls:
+            - site: Бистрица, Железница, Малинова Долина, Герена, Камбаните
+              url: http://www.imoti.net/bg/obiavi/rezultati/gaiKdN?page={0}
+        max_pages_match: normalize-space(/html/body/div/main/div/div/nav/a[position()=last()-1]/text())
+        list_items_match: //ul[@class="list-view real-estates"]/li
+        item_attributes:
+            - name: id
+              match: a/@href
+            - name: image
+              match: figure/div/div/a/img/@src
+              prefix: http://www.imoti.net
+            - name: description
+              match: div[@class="real-estate-text"]/p/text()
+            - name: price
+              match: div/header/strong/text()[normalize-space()]
+            - name: area
+              match: div/header/div/span[@class="location"]/text()
+            - name: link
+              match: a/@href
+              prefix: http://www.imoti.net
+template: config/templates/properties.html
+template_config:
+  name: ""
+  description: Обяви за къщи в Бистрица/Железница

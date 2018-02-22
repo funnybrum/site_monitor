@@ -176,6 +176,12 @@ class Processor(object):
             dedup_events = []
             for other_item in items.values():
                 if is_duplicate():
+                    # Special handling so we can have at most 1 item for the duplicate items.
+                    if item != other_item:
+                        for prop in ['is_new', 'is_updated', 'is_deleted']:
+                            if getattr(item, prop, False) and getattr(other_item, prop, False):
+                                setattr(other_item, prop, False)
+
                     for event in other_item.stock_events:
                         dedup_events.append(Event({
                             'datetime': event.datetime,
