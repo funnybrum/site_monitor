@@ -7,7 +7,7 @@ subject: Amazon.co.uk
 send_new: True
 send_updates: True
 send_deletes: False
-enabled: True
+enabled: False
 headers:
     Host: www.amazon.co.uk
     Connection: keep-alive
