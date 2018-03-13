@@ -50,7 +50,7 @@ sites:
             - name: description
               match: div[@class="real-estate-text"]/p/text()
             - name: price
-              match: div/header/strong/text()[normalize-space()]
+              match: div/header/div/strong/text()[normalize-space()]
             - name: area
               match: div/header/div/span[@class="location"]/text()
             - name: link
