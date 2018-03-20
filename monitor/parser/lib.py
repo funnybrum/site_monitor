@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from urlparse import (
     urlparse,
     parse_qs
 )
+import re
 
 from monitor.common.log import log
 
@@ -38,5 +41,17 @@ def amazon_link_extractor(value):
     url = url[0:url.find('/ref=')]
     return url
 
+
 def trim(value):
     return value.replace('\n', '').lstrip().rstrip()
+
+
+_price_filter_filter = re.compile(u"[^0123456789\.EUR (договаряне)]")
+_price_filter_space_reducer = re.compile(" +")
+
+
+def price_extractor(value):
+    value = value.strip()
+    value = _price_filter_space_reducer.sub(" ", value)
+    value = _price_filter_filter.sub("", value)
+    return value

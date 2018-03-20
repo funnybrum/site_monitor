@@ -1,6 +1,6 @@
 extend: secrets.yaml
 
-name: Properties_monitor
+name: Properties_monitor_bis_jel
 database: properties_bis.db
 recipient: funnybrum@gmail.com
 subject: Имоти около Бистрица
@@ -27,6 +27,7 @@ sites:
               match: (tr/td[@width="520"])//text()
             - name: price
               match: tr/td/div[@class="price"]//text()[1]
+              post_processor: price_extractor
             - name: area
               match: tr/td/a[@class="lnk2"]//text()
             - name: link
@@ -49,6 +50,7 @@ sites:
               match: div[@class="real-estate-text"]/p/text()
             - name: price
               match: (div/header/strong|div/header/div/strong)/text()[normalize-space()]
+              post_processor: price_extractor
             - name: area
               match: div/header/div/span[@class="location"]/text()
             - name: link

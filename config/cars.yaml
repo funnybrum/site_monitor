@@ -22,6 +22,7 @@ sites:
         item_attributes:
             - name: price
               match: tr/td/span[@class='price']//text()
+              post_processor: price_extractor
             - name: area
               match: tr[3]/td[1]/text()[3]
             - name: description
@@ -47,6 +48,7 @@ sites:
         item_attributes:
             - name: price
               match: td[@align="right"]/span[@class="ver20black"]/strong/text()[normalize-space()]
+              post_processor: price_extractor
             - name: area
               match: td[5]/text()[preceding-sibling::br]
             - name: link
@@ -69,6 +71,7 @@ sites:
         item_attributes:
             - name: price
               match: ul/li[@class="text"]/div[1]/div[2]/text()[normalize-space()]
+              post_processor: price_extractor
             - name: area
               match: substring-after(ul/li[@class="text"]/div[@class="info"]/span, " регион ")
             - name: description
