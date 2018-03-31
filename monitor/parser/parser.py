@@ -116,6 +116,8 @@ class Parser(object):
                     value = None
 
             if value is not None:
+                value = value.strip()
+
                 if item_property.post_processor is not None:
                     post_processor = getattr(lib, item_property.post_processor)
                     value = post_processor(value)

@@ -36,6 +36,10 @@ class Item(Model):
 
     events = ListType(ModelType(Event), required=True)
 
+    deduplicate_keys = ListType(StringType, required=False)
+
+    deduplicate_metadata = ListType(StringType, required=False)
+
     def is_empty(self):
         """
         Return True iff all properties are set to None.

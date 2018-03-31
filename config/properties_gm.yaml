@@ -25,6 +25,7 @@ sites:
               match: (tr/td[@width="520"])//text()
             - name: price
               match: tr/td/div[@class="price"]//text()[1]
+              post_processor: price_extractor
             - name: area
               match: tr/td/a[@class="lnk2"]//text()
             - name: link
@@ -46,7 +47,8 @@ sites:
             - name: description
               match: div[@class="real-estate-text"]/p/text()
             - name: price
-              match: div/header/div/strong/text()[normalize-space()]
+              match: (div/header/strong|div/header/div/strong)/text()[normalize-space()]
+              post_processor: price_extractor
             - name: area
               match: div/header/div/span[@class="location"]/text()
             - name: link
@@ -64,6 +66,7 @@ sites:
               match: tr/td/table/tr/td/a[@class="photoLink"]/@href
             - name: price
               match: tr/td/div[@class="price"]/text()
+              post_processor: price_extractor
             - name: link
               match: tr/td/table/tr/td/a[@class="photoLink"]/@href
               prefix: http://www.imoti.info
@@ -89,6 +92,7 @@ sites:
               match: tr[2]/td[1]/table/tr[1]/td[1]//text()
             - name: price
               match: tr[1]/td[3]//text()
+              post_processor: price_extractor
             - name: area
               match: tr[1]/td[2]//text()
             - name: link
