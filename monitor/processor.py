@@ -239,7 +239,9 @@ class Processor(object):
             item.all_links = all_urls
 
             # Remove all updates except the description and the price one.
-            item.events = [ev for ev in item.events if 'price from' in ev.text or 'description from' in ev.text]
+            item.events = [ev for ev in item.events if 'price from' in ev.text or
+                                                       'description from' in ev.text or
+                                                       ev.text == item.events[0].text]
 
     def remove_dedup_updates(self, items):
         """ Revert all updates based on deduplication data. """
