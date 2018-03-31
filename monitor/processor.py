@@ -207,10 +207,11 @@ class Processor(object):
             max_price = None
 
             def accumulate_price(price_text, min_price, max_price):
+                price_text = sub(r'\D', '', price_text)
                 if not price_text:
-                    return
+                    return min_price, max_price
 
-                price = int(sub(r'\D', '', price_text))
+                price = int(price_text)
 
                 if not min_price or min_price > price:
                     min_price = price
