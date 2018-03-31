@@ -9,6 +9,7 @@ from storage.shelve import ShelveStorage
 from common.log import log
 from deduplicator.image import ImageBasedDeduplicator
 from deduplicator.description import DescriptionBasedDeduplicator
+from simplediff import html_diff
 
 class Processor(object):
     def __init__(self, config, params={}):
@@ -26,7 +27,7 @@ class Processor(object):
 
         self.update(current_items, saved_items)
         self.fill_in_deduplication_data(current_items)
-        self.update_history_on_dedup_data(current_items)
+        self.create_dedup_updates(current_items)
 
         new_count = len([i for i in current_items.values() if i.is_new])
         updated_count = len([i for i in current_items.values() if i.is_updated])
@@ -50,7 +51,7 @@ class Processor(object):
             log('Sending email for %s to %s' % (self.config.name, self.config.smtp.recipient))
             EMail(self.config.smtp).send(notification_body)
 
-        self.remove_dedup_history(current_items)
+        self.remove_dedup_updates(current_items)
 
         self.storage.save(current_items)
 
@@ -163,20 +164,30 @@ class Processor(object):
             for deduplicator in deduplicators:
                 deduplicator.fill_in_dedup_data(item)
 
-    def update_history_on_dedup_data(self, items):
+    def create_dedup_updates(self, items):
         """ Create custom events based on the de-duplication data. """
         for item in items.values():
             item.stock_events = item.events
 
         # TODO - Not very efficient mechanism for finding duplicates. Find a way to make it faster.
         def is_duplicate():
+            # Check if the item and the other_item are duplicate. Accomplished by verifying if they have common
+            # deduplication key.
             return not set(item.deduplicate_keys).isdisjoint(other_item.deduplicate_keys)
 
+        # Iterate over all items
         for item in items.values():
             dedup_events = []
+
+            all_urls = set()
+
+            # Iterate over all items once again looking for duplicates
             for other_item in items.values():
                 if is_duplicate():
-                    # Special handling so we can have at most 1 item for the duplicate items.
+                    all_urls.add(item.link)
+
+                    # Logic for showing just one item for all duplicate items. At the end there will be at most one item
+                    # having the is_new, is_updated or is_deleted set to true.
                     if item != other_item:
                         for prop in ['is_new', 'is_updated', 'is_deleted']:
                             if getattr(item, prop, False) and getattr(other_item, prop, False):
@@ -190,8 +201,47 @@ class Processor(object):
             dedup_events.sort(key=lambda x: x.datetime)
             item.events = dedup_events
 
-    def remove_dedup_history(self, items):
-        """ Revert the custom events based on the de-duplication data to the stock events version. """
+            # Go over all updates and try to extract:
+            #  * min and max price
+            min_price = None
+            max_price = None
+
+            def accumulate_price(price_text, min_price, max_price):
+                if not price_text:
+                    return
+
+                price = int(sub(r'\D', '', price_text))
+
+                if not min_price or min_price > price:
+                    min_price = price
+
+                if not max_price or max_price < price:
+                    max_price = price
+
+                return (min_price, max_price)
+
+            for event in item.events:
+                start_index = event.text.index('">') + 2
+                end_index = event.text.index('</a>')
+                text = event.text[start_index:end_index]
+                if 'price from ' in text:
+                    old_price_text, new_price_text = text.replace('price from ', '').split(' to ')
+                    min_price, max_price = accumulate_price(old_price_text, min_price, max_price)
+                    min_price, max_price = accumulate_price(new_price_text, min_price, max_price)
+                elif 'description from ' in text:
+                    old_description, new_description = text.replace('description from ', '').split(' to ')
+                    new_text = html_diff(old_description, new_description)
+                    event.text.replace(text, new_text)
+
+            item.min_price = min_price
+            item.max_price = max_price
+            item.all_links = all_urls
+
+            # Remove all updates except the description and the price one.
+            item.events = [ev for ev in item.events if 'price from' in ev.text or 'description from' in ev.text]
+
+    def remove_dedup_updates(self, items):
+        """ Revert all updates based on deduplication data. """
         for item in items.values():
             item.events = item.stock_events
             del item.stock_events
@@ -199,5 +249,5 @@ class Processor(object):
 # if __name__ == '__main__':
 #     from monitor.config.loader import ConfigLoader
 #     configs = ConfigLoader.load_all_configs()
-#     config = [c for c in configs if c.name == 'Properties_monitor'][0]
+#     config = [c for c in configs if c.name == 'Properties_monitor_GM'][0]
 #     Processor(config, {'dry_run': True}).execute()

@@ -105,6 +105,14 @@
                                                 <p class="" style="font-size:14px; font-weight:400; line-height:1.6; margin:0 0 10px 0; padding: 0px;">
                                                     {{ item.attributes['description'] }}
                                                 </p>
+                                                <h5 style="padding: 20px; margin: 0px">Връзки:
+                                                    {% for link in item.all_links %}
+                                                        <a href="{{ link }}">{{loop.index}}</a>,
+                                                    {% endfor %}
+                                                </h5>
+                                                {% if item.max_price %}
+                                                    <h5 style="padding: 20px; margin: 0px">Цена от {{item.min_price}} до {{item.max_price}}.</h5>
+                                                {% endif %}
                                                 <h5 style="padding: 20px; margin: 0px">История:
                                                     <ul>
                                                         {% for event in item.events %}

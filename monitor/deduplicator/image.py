@@ -25,7 +25,8 @@ class ImageBasedDeduplicator(DeduplicatorBase):
             image = Image.open(image_data)
             return self.dhash(image)
         except:
-            print 'Failed to load image %s from %s' % (item.attributes[image_key], item.link)
+            pass
+            # print 'Failed to load image %s from %s' % (item.attributes[image_key], item.link)
 
         return None
 
