@@ -1,15 +1,10 @@
-from datetime import datetime
-from re import sub
-
-from models.item import Event
 from notifier.renderer import HTMLGenerator
 from notifier.sender import EMail
 from parser.parser import Parser
 from storage.shelve import ShelveStorage
 from common.log import log
-from deduplicator.image import ImageBasedDeduplicator
-from deduplicator.description import DescriptionBasedDeduplicator
-from simplediff import html_diff
+from monitor.processors.history_creator import HistoryCreator
+from monitor.processors.duplication_finder import DuplicationFinder
 
 
 class Processor(object):
@@ -26,13 +21,13 @@ class Processor(object):
         current_items = self.get_current_items()
         saved_items = self.storage.load()
 
-        self.update(current_items, saved_items)
-        self.fill_in_deduplication_data(current_items)
-        self.create_dedup_updates(current_items)
+        current_items = HistoryCreator(self.config).process(current_items, saved_items)
 
         new_count = len([i for i in current_items.values() if i.is_new])
         updated_count = len([i for i in current_items.values() if i.is_updated])
         deleted_count = len([i for i in current_items.values() if i.is_deleted])
+
+        deduplicated_items = DuplicationFinder(self.config).process(current_items)
 
         should_send_notification =\
             (self.config.send_new and new_count > 0) \
@@ -42,17 +37,15 @@ class Processor(object):
         log('Finished with %s, got %s new, %s updated, %s removed.' %
             (self.config.name, new_count, updated_count, deleted_count))
 
-        notification_body = HTMLGenerator(self.config).generate(current_items.values(), self.messages)
+        notification_body = HTMLGenerator(self.config).generate(deduplicated_items, self.messages)
 
         # a few lines of debug code ...
-        # with open('/tmp/monitor.html', 'w') as out_file:
+        # with open('/brum/monitor.html', 'w') as out_file:
         #     out_file.write(notification_body.encode('UTF-8'))
 
         if should_send_notification and not self.params.get('dry_run', False):
             log('Sending email for %s to %s' % (self.config.name, self.config.smtp.recipient))
             EMail(self.config.smtp).send(notification_body)
-
-        self.remove_dedup_updates(current_items)
 
         self.storage.save(current_items)
 
@@ -75,180 +68,6 @@ class Processor(object):
 
         return current_items
 
-    def update(self, current_items, saved_items):
-        """
-        Update the current items with details from the old items. This includes creating and setting the event history,
-        annotating the current items as new/updated/deleted and keeping the deleted items.
-        :return: nothing is returned. The updates are applied over the current items dict.
-        """
-
-        for item in current_items.values() + saved_items.values():
-            item.is_deleted = False
-            item.is_new = False
-            item.is_updated = False
-
-        for key, item in current_items.items():
-
-            if key not in saved_items:
-                # New item detected, fill in the 'created' event.
-                item.events = [self._create_event('created')]
-                item.is_new = True
-            else:
-                old_item = saved_items[key]
-
-                # Existing item, transfer the history and de-duplication properties
-                item.events = old_item.events
-                item.deduplicate_keys = old_item.deduplicate_keys
-                item.deduplicate_metadata = old_item.deduplicate_metadata
-
-                if item.events[-1].text == 'deleted':
-                    item.events.append(self._create_event('re-created'))
-
-                # Check for update on attributes and update the history
-                for attribute_key in item.attributes.keys():
-                    if self.config.tracked_properties and attribute_key not in self.config.tracked_properties:
-                        continue
-
-                    values_different, event_text = self._are_value_different(old_item.attributes[attribute_key],
-                                                                             item.attributes[attribute_key],
-                                                                             attribute_key)
-                    if values_different:
-                        item.is_updated = True
-                        if event_text:
-                            event_text = '%s: %s' % (attribute_key, event_text)
-                        else:
-                            event_text = '%s from %s to %s' % (
-                                attribute_key,
-                                old_item.attributes[attribute_key],
-                                item.attributes[attribute_key])
-
-                        item.events.append(self._create_event(event_text))
-
-        for key in set(saved_items.keys()) - set(current_items.keys()):
-            current_items[key] = saved_items[key]
-
-            if current_items[key].events[-1].text != 'deleted':
-                current_items[key].events.append(self._create_event('deleted'))
-                current_items[key].is_deleted = True
-
-    def _create_event(self, text):
-        return Event({
-            'datetime': datetime.now(),
-            'text': text
-        })
-
-    def _are_value_different(self, old, new, key):
-        """
-        Compare old and new attribute values. For all attributes except for the price the comparison is direct. For
-        the price additional logic is considered.
-
-        :param old:
-        :param new:
-        :param key:
-        :return: (True/False indicating if the values are different, optional text to be used for the event update)
-        """
-
-        if self.config.name in ['Amazon.com', 'Amazon.co.uk'] and key == 'price':
-            old_price = float(sub('[^\d.]+', '', old))
-            new_price = float(sub('[^\d.]+', '', new))
-            different = not (0.98 < old_price / new_price < 1.02 or abs(old_price - new_price) < 5)
-            return different, None
-
-        if key == 'description':
-            diff = html_diff(old, new)
-            if '<del>' in diff or '<del>' in diff:
-                return True, diff
-            else:
-                return False, None
-
-        return old != new, None
-
-    def fill_in_deduplication_data(self, items):
-        deduplicators = [ImageBasedDeduplicator(), DescriptionBasedDeduplicator()]
-        for item in items.values():
-            for deduplicator in deduplicators:
-                deduplicator.fill_in_dedup_data(item)
-
-    def create_dedup_updates(self, items):
-        """ Create custom events based on the de-duplication data. """
-        for item in items.values():
-            item.stock_events = item.events
-
-        # TODO - Not very efficient mechanism for finding duplicates. Find a way to make it faster.
-        def is_duplicate():
-            # Check if the item and the other_item are duplicate. Accomplished by verifying if they have common
-            # deduplication key.
-            return not set(item.deduplicate_keys).isdisjoint(other_item.deduplicate_keys)
-
-        # Iterate over all items
-        for item in items.values():
-            dedup_events = []
-
-            all_urls = set()
-
-            # Iterate over all items once again looking for duplicates
-            for other_item in items.values():
-                if is_duplicate():
-                    all_urls.add(item.link)
-
-                    # Logic for showing just one item for all duplicate items. At the end there will be at most one item
-                    # having the is_new, is_updated or is_deleted set to true.
-                    if item != other_item:
-                        for prop in ['is_new', 'is_updated', 'is_deleted']:
-                            if getattr(item, prop, False) and getattr(other_item, prop, False):
-                                setattr(other_item, prop, False)
-
-                    for event in other_item.stock_events:
-                        dedup_events.append(Event({
-                            'datetime': event.datetime,
-                            'text': '<a href="%s">%s</a>' % (other_item.link, event.text)
-                        }))
-            dedup_events.sort(key=lambda x: x.datetime)
-            item.events = dedup_events
-
-            # Go over all updates and try to extract:
-            #  * min and max price
-            min_price = None
-            max_price = None
-
-            def accumulate_price(price_text, min_price, max_price):
-                price_text = sub(r'\D', '', price_text)
-                if not price_text:
-                    return min_price, max_price
-
-                price = int(price_text)
-
-                if not min_price or min_price > price:
-                    min_price = price
-
-                if not max_price or max_price < price:
-                    max_price = price
-
-                return (min_price, max_price)
-
-            for event in item.events:
-                start_index = event.text.index('">') + 2
-                end_index = event.text.index('</a>')
-                text = event.text[start_index:end_index]
-                if 'price from ' in text:
-                    old_price_text, new_price_text = text.replace('price from ', '').split(' to ')
-                    min_price, max_price = accumulate_price(old_price_text, min_price, max_price)
-                    min_price, max_price = accumulate_price(new_price_text, min_price, max_price)
-
-            item.min_price = min_price
-            item.max_price = max_price
-            item.all_links = all_urls
-
-            # Remove all updates except the description and the price one.
-            item.events = [ev for ev in item.events if 'price from' in ev.text or
-                                                       'description: ' in ev.text or
-                                                       ev.text == item.events[0].text]
-
-    def remove_dedup_updates(self, items):
-        """ Revert all updates based on deduplication data. """
-        for item in items.values():
-            item.events = item.stock_events
-            del item.stock_events
 
 if __name__ == '__main__':
     from monitor.config.loader import ConfigLoader
