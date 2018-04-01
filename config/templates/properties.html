@@ -106,7 +106,7 @@
                                                     {{ item.attributes['description'] }}
                                                 </p>
                                                 <h5 style="padding: 10px; margin: 0px">
-                                                    {% if len(item.all_links) > 1 %}
+                                                    {% if item.all_links|length > 1 %}
                                                         <br>Връзки:
                                                             {% for link in item.all_links %}
                                                                 <a href="{{ link }}">{{loop.index}}</a>,

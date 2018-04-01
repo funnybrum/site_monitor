@@ -11,6 +11,7 @@ from deduplicator.image import ImageBasedDeduplicator
 from deduplicator.description import DescriptionBasedDeduplicator
 from simplediff import html_diff
 
+
 class Processor(object):
     def __init__(self, config, params={}):
         self.config = config
@@ -108,17 +109,20 @@ class Processor(object):
                     if self.config.tracked_properties and attribute_key not in self.config.tracked_properties:
                         continue
 
-                    if self._are_value_different(old_item.attributes[attribute_key],
-                                                 item.attributes[attribute_key],
-                                                 attribute_key):
+                    values_different, event_text = self._are_value_different(old_item.attributes[attribute_key],
+                                                                             item.attributes[attribute_key],
+                                                                             attribute_key)
+                    if values_different:
                         item.is_updated = True
-                        item.events.append(self._create_event(
-                            '%s from %s to %s' % (
+                        if event_text:
+                            event_text = '%s: %s' % (attribute_key, event_text)
+                        else:
+                            event_text = '%s from %s to %s' % (
                                 attribute_key,
                                 old_item.attributes[attribute_key],
                                 item.attributes[attribute_key])
 
-                        ))
+                        item.events.append(self._create_event(event_text))
 
         for key in set(saved_items.keys()) - set(current_items.keys()):
             current_items[key] = saved_items[key]
@@ -141,22 +145,23 @@ class Processor(object):
         :param old:
         :param new:
         :param key:
-        :return: True if they are considered different, False otherwise
+        :return: (True/False indicating if the values are different, optional text to be used for the event update)
         """
 
-        if self.config.name not in ['Amazon.com', 'Amazon.co.uk']:
-            return old != new
+        if self.config.name in ['Amazon.com', 'Amazon.co.uk'] and key == 'price':
+            old_price = float(sub('[^\d.]+', '', old))
+            new_price = float(sub('[^\d.]+', '', new))
+            different = not (0.98 < old_price / new_price < 1.02 or abs(old_price - new_price) < 5)
+            return different, None
 
-        if key != 'price':
-            return old != new
+        if key == 'description':
+            diff = html_diff(old, new)
+            if '<del>' in diff or '<del>' in diff:
+                return True, diff
+            else:
+                return False, None
 
-        # Amazon, price comparison. If difference is less than 2% or less than 5 - consider values the same.
-        old = float(sub('[^\d.]+', '', old))
-        new = float(sub('[^\d.]+', '', new))
-        if 0.98 < old/new < 1.02 or abs(old-new) < 5:
-            return False
-
-        return True
+        return old != new, None
 
     def fill_in_deduplication_data(self, items):
         deduplicators = [ImageBasedDeduplicator(), DescriptionBasedDeduplicator()]
@@ -229,10 +234,6 @@ class Processor(object):
                     old_price_text, new_price_text = text.replace('price from ', '').split(' to ')
                     min_price, max_price = accumulate_price(old_price_text, min_price, max_price)
                     min_price, max_price = accumulate_price(new_price_text, min_price, max_price)
-                elif 'description from ' in text:
-                    old_description, new_description = text.replace('description from ', '').split(' to ')
-                    new_text = html_diff(old_description, new_description)
-                    event.text.replace(text, new_text)
 
             item.min_price = min_price
             item.max_price = max_price
@@ -240,7 +241,7 @@ class Processor(object):
 
             # Remove all updates except the description and the price one.
             item.events = [ev for ev in item.events if 'price from' in ev.text or
-                                                       'description from' in ev.text or
+                                                       'description: ' in ev.text or
                                                        ev.text == item.events[0].text]
 
     def remove_dedup_updates(self, items):
@@ -249,8 +250,8 @@ class Processor(object):
             item.events = item.stock_events
             del item.stock_events
 
-# if __name__ == '__main__':
-#     from monitor.config.loader import ConfigLoader
-#     configs = ConfigLoader.load_all_configs()
-#     config = [c for c in configs if c.name == 'Properties_monitor_GM'][0]
-#     Processor(config, {'dry_run': True}).execute()
+if __name__ == '__main__':
+    from monitor.config.loader import ConfigLoader
+    configs = ConfigLoader.load_all_configs()
+    config = [c for c in configs if c.name == 'Properties_monitor'][0]
+    Processor(config, {'dry_run': True}).execute()
