@@ -24,7 +24,9 @@ class DescriptionBasedDeduplicator(DeduplicatorBase):
 
         numbers = self.regex.findall(description)
 
-        if len(numbers) < 2:
+        if len(numbers) <= 2:
+            # The price usually is at least 2 set of digits, i.e. two numbers. So having only two numbers should not be
+            # sufficient for identifying two items as duplicated.
             return None
 
         numbers.sort()
