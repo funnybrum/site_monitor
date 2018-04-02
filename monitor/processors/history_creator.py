@@ -59,8 +59,7 @@ class HistoryCreator(object):
             # 2) Remove the deleted event.
             # 1 proved to be not so useful for quite some time. Let's go with option 2.
             new_item.events = new_item.events[:-1]
-            new_item.is_new = True
-
+            
         # Check for update on attributes and update the history
         for attribute_key in new_item.attributes.keys():
             if self.config.tracked_properties and attribute_key not in self.config.tracked_properties:
