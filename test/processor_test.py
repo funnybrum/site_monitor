@@ -3,13 +3,16 @@ from unittest import TestCase
 from test import TEST_CONFIG_FOLDER
 
 from monitor.models.item import Item
-from monitor.processor import Processor
+from monitor.processors.history_creator import HistoryCreator
 from monitor.config.loader import ConfigLoader
 
 
 class ProcessorTest(TestCase):
+    def setUp(self):
+        config = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)[0]
+        self.history_creator = HistoryCreator(config)
+
     def test_update_prcess_new_item(self):
-        monitor = self._create_monitor()
         item = Item({
             'key': '1',
             'link': 'http://fake.url',
@@ -17,11 +20,11 @@ class ProcessorTest(TestCase):
             'events': []
         })
 
-        monitor.update(
+        item = self.history_creator.process(
             {
                 '1': item
             },
-            {})
+            {}).values()[0]
 
         self.assertEqual(1, len(item.events))
         self.assertEqual('created', item.events[0].text)
@@ -30,16 +33,15 @@ class ProcessorTest(TestCase):
         self.assertFalse(item.is_updated)
 
     def test_update_prcess_deleted_item(self):
-        monitor = self._create_monitor()
         item = Item({
             'key': '1',
             'link': 'http://fake.url',
             'attributes': {},
-            'events': [monitor._create_event('created')]
+            'events': [self.history_creator._create_event('created')]
         })
 
         items = {}
-        monitor.update(
+        items = self.history_creator.process(
             items,
             {
                 '1': item
@@ -56,7 +58,6 @@ class ProcessorTest(TestCase):
         self.assertFalse(item.is_updated)
 
     def test_update_prcess_updated_item(self):
-        monitor = self._create_monitor()
         old_item = Item({
             'key': '1',
             'link': 'http://fake.url',
@@ -65,7 +66,7 @@ class ProcessorTest(TestCase):
                 'at2': 'val2',
                 'at3': 'val3'
             },
-            'events': [monitor._create_event('created')]
+            'events': [self.history_creator._create_event('created')]
         })
 
         new_item = Item({
@@ -76,13 +77,13 @@ class ProcessorTest(TestCase):
                 'at2': 'val2_v2',
                 'at3': 'val3_v2'
             },
-            'events': [monitor._create_event('created')]
+            'events': [self.history_creator._create_event('created')]
         })
 
         new_items = {'1': new_item}
         old_items = {'1': old_item}
 
-        monitor.update(new_items, old_items)
+        new_items = self.history_creator.process(new_items, old_items)
 
         self.assertEqual(1, len(new_items))
         self.assertTrue('1' in new_items)
@@ -96,7 +97,6 @@ class ProcessorTest(TestCase):
         self.assertFalse(item.is_deleted)
 
     def test_update_prcess_updated_deleted_item(self):
-        monitor = self._create_monitor()
         old_item = Item({
             'key': '1',
             'link': 'http://fake.url',
@@ -105,7 +105,7 @@ class ProcessorTest(TestCase):
                 'at2': 'val2',
                 'at3': 'val3'
             },
-            'events': [monitor._create_event('created'), monitor._create_event('deleted')]
+            'events': [self.history_creator._create_event('created'), self.history_creator._create_event('deleted')]
         })
 
         new_item = Item({
@@ -114,24 +114,24 @@ class ProcessorTest(TestCase):
             'attributes': {
                 'at1': 'val1',
                 'at2': 'val2_v2',
-                'at3': 'val3_v2'
+                'at3': 'val3'
             },
-            'events': [monitor._create_event('created')]
+            'events': [self.history_creator._create_event('created')]
         })
 
         new_items = {'1': new_item}
         old_items = {'1': old_item}
 
-        monitor.update(new_items, old_items)
+        new_items = self.history_creator.process(new_items, old_items)
 
         self.assertEqual(1, len(new_items))
         self.assertTrue('1' in new_items)
         item = new_items['1']
-        self.assertEqual(5, len(item.events))
-        self.assertEqual('re-created', item.events[2].text)
+        self.assertEqual(2, len(item.events))
+        self.assertEqual('created', item.events[0].text)
+        self.assertEqual('at2 from val2 to val2_v2', item.events[1].text)
 
     def test_update_prcess_no_updates(self):
-        monitor = self._create_monitor()
         old_item = Item({
             'key': '1',
             'link': 'http://fake.url',
@@ -140,7 +140,7 @@ class ProcessorTest(TestCase):
                 'at2': 'val2',
                 'at3': 'val3'
             },
-            'events': [monitor._create_event('created')]
+            'events': [self.history_creator._create_event('created')]
         })
 
         new_item = Item({
@@ -156,7 +156,7 @@ class ProcessorTest(TestCase):
         new_items = {'1': new_item}
         old_items = {'1': old_item}
 
-        monitor.update(new_items, old_items)
+        new_items = self.history_creator.process(new_items, old_items)
 
         self.assertEqual(1, len(new_items))
         self.assertTrue('1' in new_items)
@@ -168,19 +168,18 @@ class ProcessorTest(TestCase):
         self.assertFalse(item.is_updated)
 
     def test_update_prcess_deleted_item_no_redeletion(self):
-        monitor = self._create_monitor()
         item = Item({
             'key': '1',
             'link': 'http://fake.url',
             'attributes': {},
             'events': [
-                monitor._create_event('created'),
-                monitor._create_event('deleted')
+                self.history_creator._create_event('created'),
+                self.history_creator._create_event('deleted')
             ]
         })
 
         items = {}
-        monitor.update(
+        items = self.history_creator.process(
             items,
             {
                 '1': item
@@ -195,7 +194,3 @@ class ProcessorTest(TestCase):
         self.assertFalse(item.is_deleted)
         self.assertFalse(item.is_new)
         self.assertFalse(item.is_updated)
-
-    def _create_monitor(self):
-        config = ConfigLoader.load_all_configs(TEST_CONFIG_FOLDER)[0]
-        return Processor(config)
