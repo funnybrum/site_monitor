@@ -71,17 +71,17 @@ class DuplicationFinder(object):
                     it.is_deleted = False
 
                 result_item.events = []
-                for it in duplicate_items:
+                for it, index in zip(duplicate_items, range(1, len(duplicate_items)+1)):
                     for ev in it.events:
                         result_item.events.append(Event({
                             'datetime': ev.datetime,
-                            'text': '<a href="%s">*</a> %s' % (it.link, ev.text)
+                            'text': '<a href="%s">%s</a> %s' % (it.link, index, ev.text)
                         }))
 
                 result_item.events.sort(key=lambda x: x.datetime)
 
                 self._extract_min_max_price(result_item)
-                result_item.all_links = set([it.link for it in duplicate_items])
+                result_item.all_links = [it.link for it in duplicate_items]
 
                 # Keep only useful updates and remove all non-interesting. There are currently a lot of deleted and
                 # re-created events currently that are of no interest.
