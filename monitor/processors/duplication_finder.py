@@ -89,7 +89,12 @@ class DuplicationFinder(object):
                                                                          'description' in ev.text or
                                                                          'created' in ev.text]
 
+        deduplicated_items_with_updates.sort(key=lambda i: self._extract_price(i))
+
         return deduplicated_items_with_updates
+
+    def _extract_price(self, item):
+        return float(sub('[^\d.]+', '', '0' + item.attributes['price']))
 
     def _extract_min_max_price(self, item):
         # Go over all updates and try to extract min and max price.
