@@ -2,7 +2,6 @@ extend: secrets.yaml
 
 name: Amazon.co.uk
 database: amazon_uk.db
-recipient: funnybrum@gmail.com
 subject: Amazon.co.uk
 send_new: True
 send_updates: True

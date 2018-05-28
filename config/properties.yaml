@@ -2,7 +2,6 @@ extend: secrets.yaml
 
 name: Properties_monitor
 database: properties.db
-recipient: funnybrum@gmail.com
 subject: Имоти около София v2
 send_deletes: False
 headers:

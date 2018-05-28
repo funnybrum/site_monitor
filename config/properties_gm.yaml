@@ -2,7 +2,6 @@ extend: secrets.yaml
 
 name: Properties_monitor_GM
 database: prop_gm.db
-recipient: funnybrum@gmail.com
 subject: Имоти в Горна Малина v2
 headers:
     User-Agent: Mozilla/5.0

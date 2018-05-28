@@ -2,7 +2,6 @@ extend: secrets.yaml
 
 name: Properties_monitor_bis_jel
 database: properties_bis.db
-recipient: funnybrum@gmail.com
 subject: Имоти около Бистрица
 send_deletes: False
 headers:

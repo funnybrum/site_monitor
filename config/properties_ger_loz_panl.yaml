@@ -2,7 +2,6 @@ extend: secrets.yaml
 
 name: Properties_monitor_glp
 database: properties_glp.db
-recipient: funnybrum@gmail.com
 subject: Имоти около Лозен/Герман/Панчарево
 send_deletes: False
 headers:

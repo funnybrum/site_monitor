@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
 import shelve
-from os.path import join
+from os.path import join, isdir
+from os import makedirs
 from json import loads, dumps
 
 from monitor.models.item import Item
@@ -10,7 +11,10 @@ from monitor import DATABASE_FOLDER
 
 class ShelveStorage(object):
     def __init__(self, filename):
+        if (not isdir(DATABASE_FOLDER)):
+            makedirs(DATABASE_FOLDER)
         self.filename = join(DATABASE_FOLDER, '%s' % filename)
+        
 
     def save(self, data):
         """
