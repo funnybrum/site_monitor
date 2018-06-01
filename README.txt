@@ -6,8 +6,7 @@ To run site_monitor you need to:
 	source venv/bin/activate
 	pip install --requirement requirements.txt 
 
-	Depends on:
-		A) a Python 2.7 with virtualenvironment module installed.
+	Depends on a Python 2.7 with virtualenvironment module installed.
 			Usually provisioning Python 2.7 with virtualenv happens in three steps:
 			1. Download Python 2.7 (e.g. from https://www.python.org/downloads/release/python-2714/) then run the following commands (make sure "python" actually executes the Python you just downloaded) from a terminal:
 			2. python -m ensurepip
