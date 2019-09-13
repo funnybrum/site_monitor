@@ -4,6 +4,7 @@ name: Properties_monitor_gm
 database: properties_gm.db
 subject: Имоти в Горна Малина
 send_deletes: False
+enabled: False
 headers:
     User-Agent: Mozilla/5.0
 sites:

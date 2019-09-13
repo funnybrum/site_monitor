@@ -4,6 +4,7 @@ name: Properties_monitor
 database: properties.db
 subject: Имоти около София v2
 send_deletes: False
+enabled: False
 headers:
     User-Agent: Mozilla/5.0
 sites:
