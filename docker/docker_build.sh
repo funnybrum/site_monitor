@@ -8,5 +8,6 @@ else
 fi
 
 cd ..
+mkdir database
 docker build -f ./docker/Dockerfile . -t site_monitor
 cd docker
