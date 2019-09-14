@@ -1,0 +1,5 @@
+# m h  dom mon dow   command
+45 9 * * * /site_monitor/monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2
+30 13 * * * /site_monitor/monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2
+5 18 * * * /site_monitor/monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2
+15 22 * * * /site_monitor/monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2

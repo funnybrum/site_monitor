@@ -2,6 +2,8 @@
 BASEDIR=$(dirname "$0")
  
 cd "$BASEDIR"
-. ./venv/bin/activate
+if test -f "$FILE"; then
+  . ./venv/bin/activate
+fi
 export PYTHONIOENCODING=utf-8
 python launcher.py $@
