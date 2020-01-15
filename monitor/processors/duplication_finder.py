@@ -1,5 +1,6 @@
 from re import sub
 
+from monitor.common.log import log
 from monitor.deduplicator.description import DescriptionBasedDeduplicator
 from monitor.deduplicator.image import ImageBasedDeduplicator
 from monitor.models.item import Item, Event
@@ -94,7 +95,11 @@ class DuplicationFinder(object):
         return deduplicated_items_with_updates
 
     def _extract_price(self, item):
-        return float(sub('[^\d.]+', '', '0' + item.attributes['price']))
+        try:
+            return float(sub('[^\d.]+', '', '0' + item.attributes['price']))
+        except:
+            log("Failed to extract price for %s" % item.link)
+            return 0.0
 
     def _extract_min_max_price(self, item):
         # Go over all updates and try to extract min and max price.

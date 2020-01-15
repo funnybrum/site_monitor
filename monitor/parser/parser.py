@@ -140,6 +140,9 @@ class Parser(object):
                 if value is None or not self.validate(value, item_property.validator):
                     continue
 
+            if not value:
+                log("Failed for %s, %s, %s" % (item.link, item_property.name, item_property.x_path))
+
             self.set_property(item, item_property.name, value)
 
         if item.is_empty():
