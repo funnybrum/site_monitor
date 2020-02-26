@@ -3,9 +3,9 @@ extend: secrets.yaml
 name: Car_monitor_t5
 database: car_monitor_t5.db
 subject: Обяви за Т5
-send_updates: True
-send_deletes: True
-enabled: True
+send_updates: False
+send_deletes: False
+enabled: False
 headers:
     User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"
 sites:

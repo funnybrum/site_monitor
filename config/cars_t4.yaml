@@ -5,7 +5,7 @@ database: car_monitor_t4.db
 subject: Обяви за Т4
 send_updates: True
 send_deletes: True
-enabled: True
+enabled: False
 headers:
     User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"
 sites:
