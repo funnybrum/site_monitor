@@ -3,9 +3,10 @@ extend: secrets.yaml
 name: Car_monitor_t5
 database: car_monitor_t5.db
 subject: Обяви за Т5
+send_new: True
 send_updates: False
 send_deletes: False
-enabled: False
+enabled: True
 headers:
     User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"
 sites:
@@ -38,26 +39,24 @@ sites:
     cars@cars.bg:
         enabled: True
         search_urls:
-            - site: VW T5, 7 seats, 102hp
-              url: https://www.cars.bg/?go=busove&search=1&advanced=0&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=2&stateId=1&bus_typeId=1&section=busove&bus_typeId=1&brandId=86&modelId=0&fuelId=0&gearId=0&yearFrom=2003&yearTo=2010&priceFrom=&priceTo=&currencyId=1&man_priceFrom=0&man_priceTo=0&man_currencyId=1&powerFrom=101&powerTo=103&steering_weel=0&bus_seats_numFrom=7&bus_seats_numTo=7&doorId=0&colorId=0&is_carinbg=0&location=&locationId=0&radius=1&offersForD=1&offersForA=1&page={0}
-            - site: VW T5, 7 seats, 131hp
-              url: https://www.cars.bg/?go=busove&search=1&advanced=0&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=2&stateId=1&bus_typeId=1&section=busove&bus_typeId=1&brandId=86&modelId=0&fuelId=0&gearId=0&yearFrom=2003&yearTo=2010&priceFrom=&priceTo=&currencyId=1&man_priceFrom=0&man_priceTo=0&man_currencyId=1&powerFrom=130&powerTo=132&steering_weel=0&bus_seats_numFrom=7&bus_seats_numTo=7&doorId=0&colorId=0&is_carinbg=0&location=&locationId=0&radius=1&offersForD=1&offersForA=1&page={0}
-            - site: VW T5, 7 seats, 174hp
-              url: https://www.cars.bg/?go=busove&search=1&advanced=0&fromhomeu=2&publishedTime=0&filterOrderBy=1&showPrice=0&autotype=2&stateId=1&bus_typeId=1&section=busove&bus_typeId=1&brandId=86&modelId=0&fuelId=0&gearId=0&yearFrom=2003&yearTo=2010&priceFrom=&priceTo=&currencyId=1&man_priceFrom=0&man_priceTo=0&man_currencyId=1&powerFrom=173&powerTo=175&steering_weel=0&bus_seats_numFrom=7&bus_seats_numTo=7&doorId=0&colorId=0&is_carinbg=0&location=&locationId=0&radius=1&offersForD=1&offersForA=1&page={0}
-        list_items_match: //table[@class="tableListResults"]/tr[@class="odd " or @class="even " or @class="odd" or @class="even" or @class="even last" or @class="odd last"]
+            - site: VW T5, passanger
+              url: https://www.cars.bg/buseslist.php?subm=1&add_search=1&typeoffer=2&bus_typeId=1&brandId=86&conditions%5B%5D=4&conditions%5B%5D=1&yearFrom=2003&yearTo=2010
+        list_items_match: //div[@class="mdc-card__primary-action"]
         item_attributes:
             - name: price
-              match: td[@align="right"]/span[@class="ver20black"]/strong/text()[normalize-space()]
+              match: a/div/div/h6/text()[normalize-space()]
               post_processor: price_extractor
             - name: area
-              match: td[5]/span[@class="cityName"]/text()
+              match: div[2]/text()
+            - name: description
+              match: a/div[5]/text()
             - name: link
-              prefix: http://www.cars.bg/
-              match: td[1]/a/@href
+              match: a/@href
             - name: image
-              match: td[1]//img/@src
+              match: a/div/@style
+              post_processor: background_image_url_extractor
             - name: id
-              match: td[1]/a/@href
+              match: substring-after(a/@href, 'offer/')
     cars@auto.bg:
         enabled: True
         search_urls:
@@ -87,4 +86,4 @@ sites:
 template: config/templates/properties.html
 template_config:
   name: ""
-  description: Обяви за автомобили
+  description: Обяви за T5

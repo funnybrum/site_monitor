@@ -55,3 +55,8 @@ def price_extractor(value):
     value = _price_filter_space_reducer.sub(" ", value)
     value = _price_filter_filter.sub("", value)
     return value
+
+# background-image: url("https://g1-bg.cars.bg/2021-04-05_2/606ae3899b53ae1dec673623b.jpg");
+def background_image_url_extractor(value):
+    value = str(value)
+    return value[value.index("(\"")+2:value.index("\")")]
