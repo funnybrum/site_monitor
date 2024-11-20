@@ -72,8 +72,7 @@ class Processor(object):
 if __name__ == '__main__':
     from monitor.config.loader import ConfigLoader
     configs = ConfigLoader.load_all_configs()
-    print "foo"
-    print [c.name for c in configs]
-    configs = [c for c in configs if 'Car_monitor_t5' in c.name]
+    print([c.name for c in configs])
+    configs = [c for c in configs if 'Vitara' in c.name]
     for config in configs:
-        Processor(config, {'dry_run': True}).execute()
+        Processor(config, {'dry_run': False}).execute()

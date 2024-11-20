@@ -1,0 +1,81 @@
+extend: secrets.yaml
+
+name: Vitara
+database: vitara.db
+subject: Обяви за Suzuki Grand Vitara
+send_new: True
+send_updates: False
+send_deletes: False
+enabled: True
+headers:
+    User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"
+sites:
+    cars@mobile.bg:
+        enabled: False
+        search_urls:
+            - site: Grand Vitara
+              url: https://www.mobile.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara/ot-2006/do-2015/p-{0}?engine_power=129&engine_power1=142&extrin=32
+        list_items_match: //div[@class="item  " or @class="item VIP "]
+        item_attributes:
+            - name: price
+              match: div/div/div[@class="price " or @class="price UP" or @class="price DOWN"]/div/text()
+              post_processor: price_extractor
+            - name: area
+              match: div/div/div[@class = "sInfo"]/div[@class="location"]/text()
+            - name: description
+              match: div/div[@class="info"]/text()
+            - name: link
+              match: div/div[@class="zaglavie"]/a/@href
+              prefix: "http:"
+            - name: image
+              match: div/div/div[@class="big"]/a/img[@class="pic"]/@src
+              prefix: "http:"
+            - name: id
+              match: div/div[@class="zaglavie"]/a/@href
+              prefix: "id:"
+    cars@cars.bg:
+        enabled: False
+        search_urls:
+            - site: Grand Vitara
+              url: https://www.cars.bg/carslist.php?subm=1&add_search=1&typeoffer=1&brandId=77&models%5B%5D=1340&last=3&conditions%5B%5D=4&conditions%5B%5D=1&yearFrom=2006&yearTo=2015&powerFrom=129&powerTo=142&steering_wheel=1
+        list_items_match: //div[@class="mdc-card__primary-action"]
+        item_attributes:
+            - name: price
+              match: a/div/div/h6/text()[normalize-space()]
+              post_processor: price_extractor
+            - name: area
+              match: div[2]/text()
+            - name: description
+              match: a/div[5]/text()
+            - name: link
+              match: a/@href
+            - name: image
+              match: a/div/@style
+              post_processor: background_image_url_extractor
+            - name: id
+              match: substring-after(a/@href, 'offer/')
+    cars@auto.bg:
+        enabled: True
+        search_urls:
+            - site: Grand Vitara
+              url: https://www.auto.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara?engine_power=129&engine_power1=142&year=2006&year1=2015&page={0}
+        list_items_match: //div[@class="resultItem" or @class="resultItem resultItemTOP"]
+        item_attributes:
+            - name: price
+              match: ul/li[@class="text"]/div[@class="head"]/div[@class="price"]/text()
+              post_processor: price_extractor
+            - name: area
+              match: substring-after(ul/li[@class="text"]/div[@class="info"]/span, " регион ")
+            - name: description
+              match: ul/li[@class="text"]/div[@class="info"]/span/text()[normalize-space()]
+            - name: link
+              match: ul/li[@class="text"]/div[@class="head"]/div[@class="link"]/a/@href
+            - name: image
+              match: ul/li[@class="photo"]/span/img/@src
+              prefix: "http:"
+            - name: id
+              match: ul/li[@class="links"]/span/@id
+template: config/templates/properties.html
+template_config:
+  name: ""
+  description: Обяви за T5 (ALL)
