@@ -102,7 +102,10 @@ class HistoryCreator(object):
         if key == 'description':
             old = old if old else ""
             new = new if new else ""
-            diff = html_diff(old, new)
+            try:
+                diff = html_diff(old, new)
+            except:
+                import pdb; pdb.set_trace()
             if '<del>' in diff or '<del>' in diff:
                 return True, diff
             else:
