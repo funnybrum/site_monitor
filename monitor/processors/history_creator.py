@@ -100,6 +100,8 @@ class HistoryCreator(object):
             return different, '%s from %s to %s' % (key, old, new)
 
         if key == 'description':
+            old = old if old else ""
+            new = new if new else ""
             diff = html_diff(old, new)
             if '<del>' in diff or '<del>' in diff:
                 return True, diff
