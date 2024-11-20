@@ -11,7 +11,7 @@ headers:
     User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"
 sites:
     cars@mobile.bg:
-        enabled: False
+        enabled: True
         search_urls:
             - site: Grand Vitara
               url: https://www.mobile.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara/ot-2006/do-2015/p-{0}?engine_power=129&engine_power1=142&extrin=32
@@ -34,7 +34,7 @@ sites:
               match: div/div[@class="zaglavie"]/a/@href
               prefix: "id:"
     cars@cars.bg:
-        enabled: False
+        enabled: True
         search_urls:
             - site: Grand Vitara
               url: https://www.cars.bg/carslist.php?subm=1&add_search=1&typeoffer=1&brandId=77&models%5B%5D=1340&last=3&conditions%5B%5D=4&conditions%5B%5D=1&yearFrom=2006&yearTo=2015&powerFrom=129&powerTo=142&steering_wheel=1
