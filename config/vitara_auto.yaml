@@ -1,8 +1,8 @@
 extend: secrets.yaml
 
-name: Vitara
-database: vitara.db
-subject: Обяви за Suzuki Grand Vitara (all)
+name: Vitara_auto
+database: vitara_auto.db
+subject: Обяви за Suzuki Grand Vitara Automatic
 send_new: True
 send_updates: False
 send_deletes: False
@@ -14,7 +14,7 @@ sites:
         enabled: True
         search_urls:
             - site: Grand Vitara
-              url: https://www.mobile.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara/ot-2006/do-2015/p-{0}?engine_power=129&engine_power1=142&extrin=32
+              url: https://www.mobile.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara/avtomatichna/ot-2006/do-2015/p-{0}?engine_power=129&engine_power1=142&extrin=32
         list_items_match: //div[@class="item  " or @class="item VIP "]
         item_attributes:
             - name: price
@@ -37,7 +37,7 @@ sites:
         enabled: True
         search_urls:
             - site: Grand Vitara
-              url: https://www.cars.bg/carslist.php?subm=1&add_search=1&typeoffer=1&brandId=77&models%5B%5D=1340&last=3&conditions%5B%5D=4&conditions%5B%5D=1&yearFrom=2006&yearTo=2015&powerFrom=129&powerTo=142&steering_wheel=1
+              url: https://www.cars.bg/carslist.php?subm=1&add_search=1&typeoffer=1&brandId=77&models%5B%5D=1340&gearId=2&last=3&conditions%5B%5D=4&conditions%5B%5D=1&yearFrom=2006&yearTo=2015&powerFrom=129&powerTo=142&steering_wheel=1
         list_items_match: //div[@class="mdc-card__primary-action"]
         item_attributes:
             - name: price
@@ -58,7 +58,7 @@ sites:
         enabled: True
         search_urls:
             - site: Grand Vitara
-              url: https://www.auto.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara?engine_power=129&engine_power1=142&year=2006&year1=2015&page={0}
+              url: https://www.auto.bg/obiavi/avtomobili-dzhipove/suzuki/grand-vitara?engine_power=129&engine_power1=142&transmission=Автоматична&year=2006&year1=2015&page={0}
         list_items_match: //div[@class="resultItem" or @class="resultItem resultItemTOP"]
         item_attributes:
             - name: price
@@ -78,4 +78,4 @@ sites:
 template: config/templates/properties.html
 template_config:
   name: ""
-  description: Обяви за Grand Vitara (ALL)
+  description: Обяви за Grand Vitara (Automatic gearbox)
